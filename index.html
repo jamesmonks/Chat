@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
 
+    <link href="index.css" rel="stylesheet" />
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" 
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
@@ -17,52 +19,130 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" 
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link href="index.css" rel="stylesheet" />
     
-    <script type="text/javascript" src="index.js"></script>
+    <!-- <script type="text/javascript" src="index.js"></script> -->
 
 </head>
 <body>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="bulletNav">
+      <a class="navbar-brand offset-1" href="#">NoodleChat</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" 
+        data-target="#navbarsExample04" aria-controls="navbarsExample04" 
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="bulletNav">
-    <a class="navbar-brand offset-1" href="#">BuJo Braindump</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" 
-      data-target="#navbarsExample04" aria-controls="navbarsExample04" 
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarsExample04">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link"
-            href="https://getbootstrap.com/docs/4.0/getting-started/introduction/"
-            target="_blank">Bootstrap docs</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="programminglinks" data-toggle="dropdown" 
-            aria-haspopup="true" aria-expanded="false">Reference</a>
-          <div class="dropdown-menu" aria-labelledby="programminglinks">
-            <a class="dropdown-item" 
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link"
               href="https://getbootstrap.com/docs/4.0/getting-started/introduction/"
               target="_blank">Bootstrap docs</a>
-            <a class="dropdown-item" 
-              href="https://www.freecodecamp.org/news/css-selectors-cheat-sheet/"
-              target="_blank">CSS Cheat Sheet</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="programminglinks" data-toggle="dropdown" 
+              aria-haspopup="true" aria-expanded="false">Reference</a>
+            <div class="dropdown-menu" aria-labelledby="programminglinks">
               <a class="dropdown-item" 
-              href="https://api.jquery.com/"
-              target="_blank">jquery API</a>
-            <a class="dropdown-item" 
-              href="https://www.rexegg.com/regex-quickstart.html"
-              target="_blank">regEx cheatsheet</a>
+                href="https://getbootstrap.com/docs/4.0/getting-started/introduction/"
+                target="_blank">Bootstrap docs</a>
+              <a class="dropdown-item" 
+                href="https://www.freecodecamp.org/news/css-selectors-cheat-sheet/"
+                target="_blank">CSS Cheat Sheet</a>
+                <a class="dropdown-item" 
+                href="https://api.jquery.com/"
+                target="_blank">jquery API</a>
+              <a class="dropdown-item" 
+                href="https://www.rexegg.com/regex-quickstart.html"
+                target="_blank">regEx cheatsheet</a>
+            </div>
+          </li>
+        <!-- TODO TOGGLE login-chooser AND logout VISIBILITY, SHOULD NOT BE SEEN TOGETHER
+                    AND SHOULD NOT BOTH BE INVISIBLE -->
+          <div id="login-chooser">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="programminglinks" data-toggle="dropdown" 
+                aria-haspopup="true" aria-expanded="false">Reference</a>
+              <div class="dropdown-menu" aria-labelledby="programminglinks">
+                <a class="dropdown-item" 
+                  href="https://getbootstrap.com/docs/4.0/getting-started/introduction/"
+                  target="_blank">Email/Password</a>
+                <a class="dropdown-item" 
+                  href="https://www.freecodecamp.org/news/css-selectors-cheat-sheet/"
+                  target="_blank">Facebook</a>
+                  <a class="dropdown-item" 
+                  href="https://api.jquery.com/"
+                  target="_blank">GitHub</a>
+                <a class="dropdown-item" 
+                  href="https://www.rexegg.com/regex-quickstart.html"
+                  target="_blank">regEx cheatsheet</a>
+              </div>
+            </li>
           </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" data-toggle="modal" data-target="#bujoInfo">What is this?</a>
-        </li>        
-      </ul>
+          <div id="logout">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="user-links" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">User area</a>
+              <div class="dropdown-menu" aria-labelledby="user-links">
+                <a class="dropdown-item" href="userInfo(); return false;" target="_blank">View Profile</a>
+                <button class="btn btn-primary" type="button"></button>
+              </div>
+            </li>
+          </div>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#bujoInfo">What is this?</a>
+          </li>        
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+<!-- TODO This nav element will allow a user to click on a chatroom that they are allowed to be in, on clicking
+          of a list element, the ul is repopulated to show users in that chatroom -->
+  <main id="chat-app" class="container">
+    <div id="chat-app-row" class="row">
+      <nav id="chatroom-nav" class="col-2">
+        <ul class="nav flex-column" id="chatroom-nav-list">
+          <li class="nav-item" id="room-1">room 1</li>
+          <li class="nav-item" id="room-2">room 2</li>
+          <li class="nav-item" id="room-3">room 3</li>
+        </ul>
+      </nav>
+
+      <div id="chatroom" class="col-10">
+        <div id="chatlog" class="container">
+
+          <div class="row">
+            <div id="uid_timestamp" 
+            class="user-uid all-messages other-user-msg col-8 offset-2">chat from 
+            user 1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam 
+            sint, quisquam porro debitis qui similique velit, reiciendis ipsum 
+            voluptas nobis tempora ut veniam saepe dolorem praesentium minus eos? 
+            Fugit, aliquid?
+            </div>
+
+            <div class="col-2 speech-bg">
+              <div class="other-user-speech h-100 w-100"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div id="uid_timestamp" 
+            class="user-uid all-messages other-user-msg col-8 offset-4">chat from user 2</div>
+          </div>
+
+          <div class="row">
+            <div id="uid_timestamp" 
+            class="user-this all-messages this-user-message col-8">
+            chat from me
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
-  </nav>
+  </main>
 
   <div class="modal fade" id="bujoInfo" tabindex="-1" role="dialog" 
        aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -90,7 +170,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="bujoTitle" tabindex="-1" role="dialog" 
+  <div class="modal fade" id="email-pass-login" tabindex="-1" role="dialog" 
   aria-labelledby="projectTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -101,16 +181,30 @@
           </button>
         </div>
         <div class="modal-body">
-          <em>What is this?</em>
+          <em>Enter login info</em>
           <br />
           <br />
-          <p>Bullet Journaling is a methodology that requires urgency and persistent reflection. This
-          self-destructing online list is used as an aid but not a replacement. When inspiration
-          strikes and you don't have a bullet journal handy, this memo list is used as an inspiration
-          bucket to jot down things on the go, but to prevent it from being a list that doesn't get
-          used anywhere, the self-destruct nature requires the user to evaluate whether or not they
-          want to add this item to their bullet journal within 48 hours, otherwise it will be lost
-          forever ... or until it is added again.</p>
+          <p>Please enter the e-mail address and password you used to sign up.</p>
+          <br />
+          <br />
+          <form>
+            <div class="form-group">
+              <label for="login-email">E-Mail</label>
+              <input type="email" class="form-control" id="login-email" aria-describedby="login-email-help" placeholder="Enter e-mail" />
+              <small id="login-email-help" class="form-text text-muted">Please enter the e-mail you used to sign up.</small>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" class="form-control" id="login-password" aria-describedby="login-password-help" placeholder="Enter password" />
+              <small id="login-password-help" class="form-text text-muted">(Not the password for your email)</small>
+            </div>
+            <div class="form-group">
+              <label for="permanent-email-login">Remember me</label>
+              <input type="checkbox" class="form-check-input" id="permanent-email-login" aria-describedby="permanent-email-login-help" />
+              <small id="permanent-email-login-help" class="form-text text-muted">Automatic login, this should not be checked on unsecured or shared computers</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -167,13 +261,12 @@
   <script>
     // Your web app's Firebase configuration
     var firebaseConfig = {
-      apiKey: "AIzaSyDXQTWpTcqrwy127WmW7cTUiPrCfl9lmMs",
-      authDomain: "bujo-todo.firebaseapp.com",
-      databaseURL: "https://bujo-todo.firebaseio.com",
-      projectId: "bujo-todo",
-      storageBucket: "bujo-todo.appspot.com",
-      messagingSenderId: "946796899496",
-      appId: "1:946796899496:web:60b6a60c6586282873a69d"
+      apiKey: "AIzaSyD5z0Ul3RHeFlfkkHJxUJSXxjyCssuyvQg",
+      authDomain: "noodlemessager.firebaseapp.com",
+      projectId: "noodlemessager",
+      storageBucket: "noodlemessager.appspot.com",
+      messagingSenderId: "797233813077",
+      appId: "1:797233813077:web:094f137d99b9971462a6dc"
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
@@ -198,7 +291,58 @@
     // });
     
   </script>
+<!--  
 
+  chat room
+    - has title
+    - has icon
+    - has description
+    - has messages
+    - has users
+
+    chatroom {
+      c_id : 
+      name : 
+      icon : 
+      desc : 
+      messages : [m_id, m_id ... m_id]
+      users : [u_id, u_id ... u_id]
+    }
+
+  user
+    - has login info
+    - sends messages to chat rooms
+    - invites users to chat rooms
+    - has name, nickname, profile image, blerb
+    - is a member of chat rooms
+    - can remove self from a chat room
+    - can not delete a message
+
+    user {
+      u_id : uid
+      name :
+      nick :
+      pic  :
+      desc :
+    }
+
+  message
+    - sent to a chat room
+    - sent by a user
+    - can be text
+    - can be image
+    - can be a link
+    - has a timestamp
+
+    message {
+      m_id : 
+      user : uid
+      room : 
+      time :
+      type : image/text/link
+      body :
+    }
+-->
 
 
 

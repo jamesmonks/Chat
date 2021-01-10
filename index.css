@@ -1,0 +1,68 @@
+main {
+    background: grey;
+}
+
+nav#chatroom-nav {
+    background: black;
+    padding-left: 2px;
+    padding-top: 10px;
+    padding-right: 2px;
+}
+
+ul#chatroom-nav-list > li {
+    padding-left: 4px;
+    margin-bottom: 2px;
+    background-color: #080808;
+    color: gray;
+    border-radius: 4px;
+    text
+}
+
+ul#chatroom-nav-list > li:hover {
+    background-color: #484848;
+    color: white;
+    transition-duration: 500ms;
+}
+
+div#chatroom {
+    padding-right: 0px;
+    padding-bottom: 5px;
+    background: dimgray;
+}
+
+div.all-messages {
+    margin-top: 5px;
+}
+
+div.speech-bg {
+    background-color: white;
+    margin-left: 0;
+    padding-right: 0px;
+    margin-top: 5px;
+    padding-left: 0;
+}
+
+div.all-messages.this-user-message {
+    border-radius: 10px 10px 10px 0px;
+    background: white;
+}
+
+div.all-messages.other-user-msg {
+    border-radius: 10px 10px 0px 10px;
+    background: lightgray;
+}
+
+div.other-user-speech {
+    border-bottom-left-radius: 15px;
+    margin-left: 0px;
+    margin-right: 0px;
+    background: dimgray;
+}
+
+div.user-uid {
+    background: lightskyblue;
+}
+
+div.user-this {
+    background: lightgreen;
+}
