@@ -1,0 +1,281 @@
+body {
+}
+
+.background-div {
+    position: absolute;
+    left:0px;
+    top:0px;
+    height: 100vh;
+    width: 100vw;
+    
+    background-image: url("../images/background2.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    filter: blur(1px);
+    -webkit-filter: blur(1px);
+}
+
+main {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    backdrop-filter: blur(3px);
+}
+
+.modal-content {
+    background-color: #8ec6c6db !important;
+}
+
+.modal-footer {
+    background-color: rgb(159, 202, 202);
+}
+
+.text-muted-amended {
+    color: #000;
+}
+
+nav#bulletNav {
+    background: #345060;
+}
+
+nav#nav-menu-items {
+    letter-spacing: 3px;
+}
+
+.navbar-nav .dropdown-menu {
+    position: absolute !important;
+    transform: translateX(-50%);
+}
+
+.dropdown-menu {
+    background: #CFF9 !important;
+}
+
+a.dropdown-item {
+    transition-duration: 400ms;
+}
+
+a.dropdown-item:hover {
+    background: #dffc !important;
+    transition-duration: 400ms;
+}
+
+a.dropdown-item.logging-option {
+    background: #FFF7 !important;
+    border-top: #33a;
+    border-width: 4px;
+}
+
+a.dropdown-item.logging-option:hover {
+    background: #dffc !important;
+    transition-duration: 400ms;
+}
+
+ul#chatroom-nav-list > li {
+    padding-left: 4px;
+    margin-top: 2px;
+    background-color: #08080880;
+    color: rgba(128, 128, 128, 0.5);
+    border-radius: 4px;
+    user-select: none;
+}
+
+ul#chatroom-nav-list > li.chats-alert {
+    color: rgb(252, 216, 17);
+}
+
+ul#chatroom-nav-list > li.current-room {
+    background-color: #333333;
+    color: white;
+}
+
+ul#chatroom-nav-list > li:hover {
+    background-color: #484848;
+    color: white;
+    transition-duration: 500ms;
+}
+
+ul#chatroom-nav-list > li.chats-alert:hover {
+    background-color: #484848;
+    color: rgb(255, 180, 118);
+    transition-duration: 500ms;
+}
+
+div#chatroom {
+    padding-right: 0px;
+    padding-bottom: 5px;
+    background: linear-gradient(to right bottom, rgba(185, 225, 225, 0.5), rgba(157, 225, 225, 0.25));
+    height: 75vh;
+    overflow-y: scroll;
+}
+
+div.message-name {
+    color: lightgray;
+    font-size: 0.75em;
+}
+
+div.all-messages {
+    margin-top: 7px;
+    background: white;
+    box-shadow:-5px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+div.all-messages.this-user-message {
+    border-radius: 10px 10px 10px 0px;
+    margin-bottom: 5px;
+}
+
+div.all-messages.other-user-msg {
+    border-radius: 10px;
+}
+
+div.speech-bg {
+    background-color: white;
+    margin-left: 0;
+    padding-right: 0px;
+    margin-top: 5px;
+    padding-left: 0;
+}
+
+div.other-user-speech {
+    border-bottom-left-radius: 15px;
+    margin-left: 0px;
+    margin-right: 0px;
+    background: dimgray;
+}
+
+input#user-message-text {
+    border-radius: 0px;
+    border-bottom-left-radius: 10px;
+}
+
+button#send-user-message {
+    border-radius: 0px;
+    border-bottom-right-radius: 10px;
+}
+
+@keyframes profile-glow {
+    0% {
+        opacity: .35;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: .35;
+    }
+}
+
+.small-profile-glow {
+    animation: profile-glow 2s infinite;
+}
+
+#user-profile-bio {
+    padding-left: 4px;
+    min-height: 100px;
+}
+
+#user-profile-nick, #user-profile-homepage, #user-profile-bio, #search-users-results {
+    background-color: #fff5;
+    border-radius: 3px;
+}
+
+.user-small-profile {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+/* 
+.user-small-profile > div {
+    background-color: #fff5;
+    border-radius: 5px;
+} */
+
+.user-small-profile:hover {
+    background-color: #fff9;
+    transition-duration: 500ms;
+}
+
+.modal-header {
+    background-color: rgb(196, 232, 232);
+}
+
+#user-profile-chatrooms {
+    background-color: #fff5;
+    border-radius: 5px;
+}
+
+.user-profile-chatrooms {
+    cursor: pointer;
+}
+
+/* .
+TODO sibling selector with js listener for when keyboard entry happens on textfields, adding the class
+.tf-empty when there is no content AND the textfield has lost focus
+With no previous sibling selector the best option would be to div it.
+modal-dialog label.label-top {
+    position: relative;
+    left: 10px;
+    top: 40px;
+} */
+
+.user-chatrooms {
+    margin-left: -7px !important;
+    margin-right: -7px !important;
+}
+
+div#email-signup-modal .modal-body, div#email-login-modal .modal-body  {
+    padding-bottom: 4em;
+}
+
+#email-signup-button, #email-login-button {
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    box-shadow: 0 0 5px #fff5, 0 0 10px #fff5;
+}
+
+
+#email-signup-button:hover, #email-login-button:hover {
+    transition: all ease-out 500ms;
+    box-shadow: 0 0 5px #fff, 0 0 20px #fff9;
+}
+
+#email-signup-login-button,
+#email-login-signup-button {
+    position: relative;
+}
+
+#email-signup-login-button::before,
+#email-login-signup-button::before {
+    position: absolute;
+    width: 0%;
+    max-height: 5.5em;
+    top:115%;
+    left:50%;
+    transform: translate(-50%);
+    background-color: #c4e8e8;
+    border-radius: 7px;
+    color: black;
+    overflow: hidden;
+}
+
+
+#email-signup-login-button::before {
+    content: 'Login with existing email account';
+}
+
+#email-login-signup-button::before {
+    content: 'Create a new account...';
+}
+
+#email-signup-login-button:hover::before,
+#email-login-signup-button:hover::before {
+    transition: width ease-out 200ms;
+    width: 150px;
+}
+
+.form-check-input {
+    position:  relative !important;
+    margin: 0 !important;
+}

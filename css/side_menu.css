@@ -1,0 +1,162 @@
+nav#chatroom-nav {
+    background-color: #000000a0;
+    padding-left: 2px;
+    padding-top: 10px;
+    padding-right: 2px;
+    height: 75vh;
+    transition-duration: 250ms;
+    overflow-y: scroll;
+}
+
+nav#chatroom-nav:hover {
+    background-color: #0906289c;
+    transition-duration: 500ms;
+}
+
+nav#nav-menu-items {
+    letter-spacing: 3px;
+}
+
+.nav-link.dropdown-toggle {
+    letter-spacing: 2px;
+}
+
+button#show-create-room-modal-button {
+    font-size: .75em;
+    margin-bottom: 5px;
+}
+
+.room-button {
+    left:10%;
+    position: relative;
+    background-color: #080808a0;
+    color: gray;
+    width: 80%;
+    height: 30px;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid #888888;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    transition-duration: 250ms;
+}
+
+.room-button.has-unread-messages {
+    animation: glow 2s infinite;
+}
+
+@keyframes glow {
+    0% {
+        border: 3px solid #080808;
+    }
+    50% {
+        border: 3px solid rgb(255, 166, 0);
+    }
+    100% {
+        border: 3px solid #080808;
+    }
+}
+
+.room-button.full-room-minim {
+    font-size: x-small;
+}
+
+.room-initial {
+    text-transform: capitalize;
+    position: relative;
+    left: 0px;
+    top: -24px;
+}
+
+.room-initial.only-letter {
+    left: 0px;
+}
+
+.room-initial.second-letter {
+    text-transform: lowercase;
+    position: relative;
+    left: 12px;
+    top: -44px;
+}
+
+.room-icon {
+    position: relative;
+    top: -26px;
+    left: 0px;
+    width: 100%;
+}
+
+.room-button.full-room-minim .room-initial {
+    font-size: medium;
+    top: -15px;
+    left: 0px;
+}
+
+.room-button.full-room-minim .room-initial.second-letter {
+    font-size: small;
+    top: -33px;
+    left: 8px;
+}
+
+.room-button.full-room-minim .full-chatroom-name {
+    top: 5px;
+}
+
+.room-button.full-room-minim .room-icon {
+    top: -17px;
+}
+
+.full-chatroom-name {
+    width: 0px;
+    left: 0px;
+    color: #080808;
+    position: relative;
+    visibility: hidden;
+    text-overflow: ellipsis;
+    top: 0px;
+}
+
+.full-room-minim {
+    font-size: x-small;
+    top: 2px;
+}
+
+.room-button:hover {
+    background-color: #484848;
+    left: 0px;
+    width: 100%;
+    color: white;
+    border: 2px solid white;
+    transition-duration: 500ms;
+}
+
+.room-button:hover .room-initial, .room-button:hover .room-initial.second-letter, .room-button:hover .room-icon {
+    visibility: hidden;
+}
+
+.room-button:hover .full-chatroom-name {
+    width: 100%;
+    left: 0px;
+    color: white;
+    visibility: visible;
+    transition-duration: 1000ms;
+}
+
+.sidemenu-room-summary-label {
+    margin-bottom: 0px;
+    color: dimgray;
+}
+
+.sidemenu-room-summary-text {
+    margin-top: -3px;
+    line-height: 1rem;
+    font-size: small;
+    font-weight: lighter;
+    color: gainsboro;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

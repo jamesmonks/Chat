@@ -1,0 +1,331 @@
+{
+    "rooms" :
+    {
+        "room_hashes" :
+        {
+            "roomid_1" : "ROOM1VALUE",
+            "roomid_3" : "ROOM3VALUE",
+            "roomid_8" : "ROOM8VALUE"
+        },
+
+        "chatrooms" :
+        {
+            "roomid_1" : 
+            {
+                "info" :
+                {
+                    "name" : "ROOM1VALUE",
+                    "logo" : "ROOM1LINK",
+                    "invite_token" : "HashOfRoom1Key",
+                    "creator" : "yH9v0F2ASyemwaCgfOO7w1JhNgD3"
+                },
+        
+                "users": 
+                {
+                    "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : "uid1_NICK",
+                    "mA9IpVa1vFZd9UKKg5eiRioiCqF2" : "uid2_NICK",
+                    "KbPD9UuTFIc41NXl9w46cf1XJo22" : "uid3_NICK"
+                },
+        
+                "messages" :
+                {
+                    "msgid_1" : {
+                        "user"  : "yH9v0F2ASyemwaCgfOO7w1JhNgD3",
+                        "timestamp" : "1614674774500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 4 from user 1 in room 1"  },
+                    "msgid_2" : {
+                        "user"  : "mA9IpVa1vFZd9UKKg5eiRioiCqF2",
+                        "timestamp" : "1614674775500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 5 from user 2 in room 1"  },
+                    "msgid_3" : {
+                        "user"  : "KbPD9UuTFIc41NXl9w46cf1XJo22",
+                        "timestamp" : "1614674776500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 6 from user 3 in room 1"  },
+                    "msgid_4" : {
+                        "user"  : "KbPD9UuTFIc41NXl9w46cf1XJo22",
+                        "timestamp" : "1614674773500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 3 from user 3 in room 1"  },
+                    "msgid_5" : {
+                        "user"  : "yH9v0F2ASyemwaCgfOO7w1JhNgD3",
+                        "timestamp" : "1614674777500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 7 from user 1 in room 1"  },
+                    "msgid_6" : {
+                        "user"  : "mA9IpVa1vFZd9UKKg5eiRioiCqF2",
+                        "timestamp" : "1614674779500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 9 from user 2 in room 1"  },
+                    "msgid_7" : {
+                        "user"  : "mA9IpVa1vFZd9UKKg5eiRioiCqF2",
+                        "timestamp" : "1614674778500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 8 from user 2 in room 1"  },
+                    "msgid_8" : {
+                        "user"  : "yH9v0F2ASyemwaCgfOO7w1JhNgD3",
+                        "timestamp" : "1614674771500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 1 from user 1 in room 1"  },
+                    "msgid_9" : {
+                        "user"  : "KbPD9UuTFIc41NXl9w46cf1XJo22",
+                        "timestamp" : "1614674772500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 2 from user 3 in room 1"  }
+            
+                }
+            },
+
+            "roomid_3" : 
+            {
+                "info" :
+                {
+                    "name" : "ROOM3VALUE",
+                    "logo" : "ROOM3LINK",
+                    "invite_token" : "HashOfRoom3Key",
+                    "creator" : "mA9IpVa1vFZd9UKKg5eiRioiCqF2"
+                },
+        
+                "users": 
+                {
+                    "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : "uid1_NICK",
+                    "mA9IpVa1vFZd9UKKg5eiRioiCqF2" : "uid2_NICK",
+                    "KbPD9UuTFIc41NXl9w46cf1XJo22" : "uid3_NICK"
+                },
+        
+                "messages" :
+                {
+                    "msgid_1" : {
+                        "user"  : "yH9v0F2ASyemwaCgfOO7w1JhNgD3",
+                        "timestamp" : "1614674774500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 4 from user 1 in room 3"  },
+                    "msgid_2" : {
+                        "user"  : "mA9IpVa1vFZd9UKKg5eiRioiCqF2",
+                        "timestamp" : "1614674775500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 5 from user 2 in room 3"  },
+                    "msgid_3" : {
+                        "user"  : "KbPD9UuTFIc41NXl9w46cf1XJo22",
+                        "timestamp" : "1614674776500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 6 from user 3 in room 3"  },
+                    "msgid_4" : {
+                        "user"  : "KbPD9UuTFIc41NXl9w46cf1XJo22",
+                        "timestamp" : "1614674773500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 3 from user 3 in room 3"  },
+                    "msgid_5" : {
+                        "user"  : "yH9v0F2ASyemwaCgfOO7w1JhNgD3",
+                        "timestamp" : "1614674777500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 7 from user 1 in room 3"  },
+                    "msgid_6" : {
+                        "user"  : "mA9IpVa1vFZd9UKKg5eiRioiCqF2",
+                        "timestamp" : "1614674779500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 9 from user 2 in room 3"  },
+                    "msgid_7" : {
+                        "user"  : "mA9IpVa1vFZd9UKKg5eiRioiCqF2",
+                        "timestamp" : "1614674778500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 8 from user 2 in room 3"  },
+                    "msgid_8" : {
+                        "user"  : "yH9v0F2ASyemwaCgfOO7w1JhNgD3",
+                        "timestamp" : "1614674771500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 1 from user 1 in room 3"  },
+                    "msgid_9" : {
+                        "user"  : "KbPD9UuTFIc41NXl9w46cf1XJo22",
+                        "timestamp" : "1614674772500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 2 from user 3 in room 3"  }
+
+            
+                }
+            },
+
+            "roomid_8" : 
+            {
+                "info" :
+                {
+                    "name" : "ROOM8VALUE",
+                    "logo" : "ROOM8LINK",
+                    "invite_token" : "HashOfRoom8Key",
+                    "creator" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+                },
+        
+                "users": 
+                {
+                    "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : "uid1_NICK",
+                    "mA9IpVa1vFZd9UKKg5eiRioiCqF2" : "uid2_NICK",
+                    "KbPD9UuTFIc41NXl9w46cf1XJo22" : "uid3_NICK"
+                },
+        
+                "messages" :
+                {
+                    "msgid_1" : {
+                        "user"  : "yH9v0F2ASyemwaCgfOO7w1JhNgD3",
+                        "timestamp" : "1614674774500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 4 from user 1 in room 8"  },
+                    "msgid_2" : {
+                        "user"  : "mA9IpVa1vFZd9UKKg5eiRioiCqF2",
+                        "timestamp" : "1614674775500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 5 from user 2 in room 8"  },
+                    "msgid_3" : {
+                        "user"  : "KbPD9UuTFIc41NXl9w46cf1XJo22",
+                        "timestamp" : "1614674776500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 6 from user 3 in room 8"  },
+                    "msgid_4" : {
+                        "user"  : "KbPD9UuTFIc41NXl9w46cf1XJo22",
+                        "timestamp" : "1614674773500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 3 from user 3 in room 8"  },
+                    "msgid_5" : {
+                        "user"  : "yH9v0F2ASyemwaCgfOO7w1JhNgD3",
+                        "timestamp" : "1614674777500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 7 from user 1 in room 8"  },
+                    "msgid_6" : {
+                        "user"  : "mA9IpVa1vFZd9UKKg5eiRioiCqF2",
+                        "timestamp" : "1614674779500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 9 from user 2 in room 8"  },
+                    "msgid_7" : {
+                        "user"  : "mA9IpVa1vFZd9UKKg5eiRioiCqF2",
+                        "timestamp" : "1614674778500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 8 from user 2 in room 8"  },
+                    "msgid_8" : {
+                        "user"  : "yH9v0F2ASyemwaCgfOO7w1JhNgD3",
+                        "timestamp" : "1614674771500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 1 from user 1 in room 8"  },
+                    "msgid_9" : {
+                        "user"  : "KbPD9UuTFIc41NXl9w46cf1XJo22",
+                        "timestamp" : "1614674772500",
+                        "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+                        "media_msg" : "message 2 from user 3 in room 8"  }
+
+            
+                }
+            }
+        }
+
+    },
+
+    "users" :{
+    
+        "nicks" : {
+            "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : "uid1_NICK",
+            "mA9IpVa1vFZd9UKKg5eiRioiCqF2" : "uid2_NICK",
+            "KbPD9UuTFIc41NXl9w46cf1XJo22" : "uid3_NICK"
+        },
+
+        "user_ids" : {
+            "uid1_NICK" : {"yH9v0F2ASyemwaCgfOO7w1JhNgD3" : true },
+            "uid2_NICK" : {"mA9IpVa1vFZd9UKKg5eiRioiCqF2" : true },
+            "uid3_NICK" : {"KbPD9UuTFIc41NXl9w46cf1XJo22" : true }
+        },
+
+        "yH9v0F2ASyemwaCgfOO7w1JhNgD3" :
+        {
+            "info" :
+            {
+                "name" : "uid1_NAME",
+                "nick" : "uid1_NICK",
+                "pic"  : "./images/unknown_profile.jpg",
+                "bio"  : "uid1_Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                "homepage" : "uid1_LINK"
+            },
+
+            "rooms" :
+            {
+                "roomid_1" : true,
+                "roomid_3" : true,
+                "roomid_8" : true
+            },
+
+            "contacts" :
+            {
+                "mA9IpVa1vFZd9UKKg5eiRioiCqF2" : true,
+                "KbPD9UuTFIc41NXl9w46cf1XJo22" : true
+            },
+
+            "invite_tokens" : 
+            {
+                "HashOfRoomIDWithSalt" : true,
+                "CanAlsoBeUsedToHoldRoomInvitationWhenSigningUp" : true,
+                "inviteid3" : true
+            }
+        },
+
+        "mA9IpVa1vFZd9UKKg5eiRioiCqF2" :
+        {
+            "info" :
+            {
+                "name" : "uid2_NAME",
+                "nick" : "uid2_NICK",
+                "pic"  : "./images/unknown_profile.jpg",
+                "bio"  : "uid2_Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                "homepage" : "uid2_LINK"
+            },
+
+            "rooms" :
+            {
+                "roomid_1" : true,
+                "roomid_3" : true,
+                "roomid_8" : true
+            },
+
+            "contacts" :
+            {
+                "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : true,
+                "KbPD9UuTFIc41NXl9w46cf1XJo22" : true
+            },
+
+            "invite_tokens" : 
+            {
+                "HashOfRoom3" : true,
+                "HashOfRoom8" : true
+            }
+        },
+
+        "KbPD9UuTFIc41NXl9w46cf1XJo22" :
+        {
+            "info" :
+            {
+                "name" : "uid3_NAME",
+                "nick" : "uid3_NICK",
+                "pic"  : "./images/unknown_profile.jpg",
+                "bio"  : "uid3_Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                "homepage" : "uid3_LINK"
+            },
+
+            "rooms" :
+            {
+                "roomid_1" : true,
+                "roomid_3" : true,
+                "roomid_8" : true
+            },
+
+            "contacts" :
+            {
+                "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : true,
+                "mA9IpVa1vFZd9UKKg5eiRioiCqF2" : true
+            },
+
+            "invite_tokens" : 
+            {
+                "HashOfRoomIDWithSalt" : true,
+                "CanAlsoBeUsedToHoldRoomInvitationWhenSigningUp" : true,
+                "inviteid3" : true
+            }
+        }
+    }
+}

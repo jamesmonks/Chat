@@ -1,0 +1,69 @@
+input.btn-tf {
+    border-radius: 7px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+button.tf-btn {
+    border-radius: 7px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.browse-profile-name {
+    overflow:hidden;
+}
+
+ul#user-profile-chatrooms-ul {
+    list-style: none;
+}
+
+.user-small-profile {
+    filter: grayscale();
+}
+
+.user-small-profile:hover {
+    filter: none;
+}
+
+/* styles for '...' */ 
+blockquote {
+    font-size: 1.0em;
+    /* hide text if it more than N lines  */
+    overflow: hidden;
+    /* for set '...' in absolute position */
+    position: relative; 
+    /* use this value to count block height */
+    line-height: 1.3em;
+    /* max-height = line-height (1.2) * lines max number (5) */
+    max-height: 6em; 
+    /* fix problem when last visible word doesn't adjoin right side  */
+    text-align: justify;  
+    /* place for '...' */
+    margin-right: -1em;
+    padding-right: 1em;
+}
+/* create the ... */
+blockquote:before {
+  /* points in the end */
+  content: '...';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of block */
+  right: 0;
+  bottom: 0;
+}
+/* hide ... if we have text, which is less than or equal to max lines */
+blockquote:after {
+  /* points in the end */
+  content: '';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of text */
+  right: 0;
+  /* set width and height */
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  /* bg color = bg color under block */
+}

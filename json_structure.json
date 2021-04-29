@@ -1,0 +1,404 @@
+{
+  "rooms" : {
+    "chatrooms" : {
+      "-MXx0cxO1N6j8iabN7Qj" : {
+        "info" : {
+          "creator" : "KbPD9UuTFIc41NXl9w46cf1XJo22",
+          "logo" : "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg",
+          "name" : "sylvania bunnies"
+        },
+        "messages" : {
+          "-MXx0cxO1N6j8iabN7Qk" : {
+            "media_msg" : "Mr Mercury has opened this channel",
+            "media_typ" : "text",
+            "timestamp" : 1618079027145,
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          }
+        },
+        "users" : {
+          "KbPD9UuTFIc41NXl9w46cf1XJo22" : true,
+          "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : true
+        }
+      },
+      "-MXx0hbVIN1R6oBrZVkK" : {
+        "info" : {
+          "creator" : "KbPD9UuTFIc41NXl9w46cf1XJo22",
+          "logo" : "",
+          "name" : "sylvia's bunnies"
+        },
+        "messages" : {
+          "-MXx0hbWDdouVGh21qs-" : {
+            "media_msg" : "Mr Mercury has opened this channel",
+            "media_typ" : "text",
+            "timestamp" : 1618079046226,
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          }
+        },
+        "users" : {
+          "KbPD9UuTFIc41NXl9w46cf1XJo22" : true,
+          "erDPeEZyAROIJmHV6wqMO68QRcA3" : true
+        }
+      },
+      "roomid_1" : {
+        "info" : {
+          "creator" : "KbPD9UuTFIc41NXl9w46cf1XJo22",
+          "logo" : "https://thumbs.dreamstime.com/z/yoga-meditating-sunrise-woman-mindfulness-meditation-beach-girl-back-view-nature-scene-74149792.jpg",
+          "name" : "ROOM1VALUE"
+        },
+        "messages" : {
+          "-MXNUZ0ZfUAF4Qb4KjtG" : {
+            "media_msg" : "I sent a message and I liked it",
+            "media_typ" : "TEXT",
+            "timestamp" : 1617466114258,
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          },
+          "-MXNcpsLOnHULgYshbQq" : {
+            "media_msg" : "Sending another message",
+            "media_typ" : "TEXT",
+            "timestamp" : 1617468546697,
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          },
+          "-MXOdmms5PQWLXqUfncM" : {
+            "media_msg" : "how do you like them apples?",
+            "media_typ" : "TEXT",
+            "timestamp" : 1617485573439,
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          },
+          "msgid_1" : {
+            "media_msg" : "message 4 from user 1 in room 1",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674774500",
+            "user" : "yH9v0F2ASyemwaCgfOO7w1JhNgD3"
+          },
+          "msgid_2" : {
+            "media_msg" : "message 5 from user 2 in room 1",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674775500",
+            "user" : "mA9IpVa1vFZd9UKKg5eiRioiCqF2"
+          },
+          "msgid_3" : {
+            "media_msg" : "message 6 from user 3 in room 1",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674776500",
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          },
+          "msgid_4" : {
+            "media_msg" : "message 3 from user 3 in room 1",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674773500",
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          },
+          "msgid_5" : {
+            "media_msg" : "message 7 from user 1 in room 1",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674777500",
+            "user" : "yH9v0F2ASyemwaCgfOO7w1JhNgD3"
+          },
+          "msgid_6" : {
+            "media_msg" : "message 9 from user 2 in room 1",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674779500",
+            "user" : "mA9IpVa1vFZd9UKKg5eiRioiCqF2"
+          },
+          "msgid_7" : {
+            "media_msg" : "message 8 from user 2 in room 1",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674778500",
+            "user" : "mA9IpVa1vFZd9UKKg5eiRioiCqF2"
+          },
+          "msgid_8" : {
+            "media_msg" : "message 1 from user 1 in room 1",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674771500",
+            "user" : "yH9v0F2ASyemwaCgfOO7w1JhNgD3"
+          },
+          "msgid_9" : {
+            "media_msg" : "message 2 from user 3 in room 1",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674772500",
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          }
+        },
+        "users" : {
+          "KbPD9UuTFIc41NXl9w46cf1XJo22" : true,
+          "mA9IpVa1vFZd9UKKg5eiRioiCqF2" : true,
+          "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : true
+        }
+      },
+      "roomid_3" : {
+        "info" : {
+          "creator" : "KbPD9UuTFIc41NXl9w46cf1XJo22",
+          "logo" : "https://thumbs.dreamstime.com/z/yoga-meditating-sunrise-woman-mindfulness-meditation-beach-girl-back-view-nature-scene-74149792.jpg",
+          "name" : "ROOM3VALUE"
+        },
+        "messages" : {
+          "-MXNUfB6CZzayJaWCUif" : {
+            "media_msg" : "",
+            "media_typ" : "TEXT",
+            "timestamp" : 1617466143602,
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          },
+          "-MXOe9o5lxcWB4U029ZV" : {
+            "media_msg" : "sending a message to my friend",
+            "media_typ" : "TEXT",
+            "timestamp" : 1617485671803,
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          },
+          "msgid_1" : {
+            "media_msg" : "message 4 from user 1 in room 3",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674774500",
+            "user" : "yH9v0F2ASyemwaCgfOO7w1JhNgD3"
+          },
+          "msgid_2" : {
+            "media_msg" : "message 5 from user 2 in room 3",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674775500",
+            "user" : "mA9IpVa1vFZd9UKKg5eiRioiCqF2"
+          },
+          "msgid_3" : {
+            "media_msg" : "message 6 from user 3 in room 3",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674776500",
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          },
+          "msgid_4" : {
+            "media_msg" : "message 3 from user 3 in room 3",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674773500",
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          },
+          "msgid_5" : {
+            "media_msg" : "message 7 from user 1 in room 3",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674777500",
+            "user" : "yH9v0F2ASyemwaCgfOO7w1JhNgD3"
+          },
+          "msgid_6" : {
+            "media_msg" : "message 9 from user 2 in room 3",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674779500",
+            "user" : "mA9IpVa1vFZd9UKKg5eiRioiCqF2"
+          },
+          "msgid_7" : {
+            "media_msg" : "message 8 from user 2 in room 3",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674778500",
+            "user" : "mA9IpVa1vFZd9UKKg5eiRioiCqF2"
+          },
+          "msgid_8" : {
+            "media_msg" : "message 1 from user 1 in room 3",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674771500",
+            "user" : "yH9v0F2ASyemwaCgfOO7w1JhNgD3"
+          },
+          "msgid_9" : {
+            "media_msg" : "message 2 from user 3 in room 3",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674772500",
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          }
+        },
+        "users" : {
+          "KbPD9UuTFIc41NXl9w46cf1XJo22" : true,
+          "erDPeEZyAROIJmHV6wqMO68QRcA3" : true,
+          "mA9IpVa1vFZd9UKKg5eiRioiCqF2" : true,
+          "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : true
+        }
+      },
+      "roomid_8" : {
+        "info" : {
+          "creator" : "KbPD9UuTFIc41NXl9w46cf1XJo22",
+          "logo" : "https://thumbs.dreamstime.com/z/yoga-meditating-sunrise-woman-mindfulness-meditation-beach-girl-back-view-nature-scene-74149792.jpg",
+          "name" : "ROOM8VALUE"
+        },
+        "messages" : {
+          "-MXNUdHcM6KNOHVho7jS" : {
+            "media_msg" : "Room 3 has messages from me",
+            "media_typ" : "TEXT",
+            "timestamp" : 1617466135851,
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          },
+          "-MXNeElOXJHobmKc9NhL" : {
+            "media_msg" : "attempting to add a new message",
+            "media_typ" : "TEXT",
+            "timestamp" : 1617468914894,
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          },
+          "msgid_1" : {
+            "media_msg" : "message 4 from user 1 in room 8",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674774500",
+            "user" : "yH9v0F2ASyemwaCgfOO7w1JhNgD3"
+          },
+          "msgid_2" : {
+            "media_msg" : "message 5 from user 2 in room 8",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674775500",
+            "user" : "mA9IpVa1vFZd9UKKg5eiRioiCqF2"
+          },
+          "msgid_3" : {
+            "media_msg" : "message 6 from user 3 in room 8",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674776500",
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          },
+          "msgid_4" : {
+            "media_msg" : "message 3 from user 3 in room 8",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674773500",
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          },
+          "msgid_5" : {
+            "media_msg" : "message 7 from user 1 in room 8",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674777500",
+            "user" : "yH9v0F2ASyemwaCgfOO7w1JhNgD3"
+          },
+          "msgid_6" : {
+            "media_msg" : "message 9 from user 2 in room 8",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674779500",
+            "user" : "mA9IpVa1vFZd9UKKg5eiRioiCqF2"
+          },
+          "msgid_7" : {
+            "media_msg" : "message 8 from user 2 in room 8",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674778500",
+            "user" : "mA9IpVa1vFZd9UKKg5eiRioiCqF2"
+          },
+          "msgid_8" : {
+            "media_msg" : "message 1 from user 1 in room 8",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674771500",
+            "user" : "yH9v0F2ASyemwaCgfOO7w1JhNgD3"
+          },
+          "msgid_9" : {
+            "media_msg" : "message 2 from user 3 in room 8",
+            "media_typ" : "ENUM(IMAGE | TEXT | LINK | EMOJI)",
+            "timestamp" : "1614674772500",
+            "user" : "KbPD9UuTFIc41NXl9w46cf1XJo22"
+          }
+        },
+        "users" : {
+          "KbPD9UuTFIc41NXl9w46cf1XJo22" : true,
+          "mA9IpVa1vFZd9UKKg5eiRioiCqF2" : true,
+          "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : true
+        }
+      }
+    },
+    "room_hashes" : {
+      "-MXx0cxO1N6j8iabN7Qj" : "sylvania bunnies",
+      "-MXx0hbVIN1R6oBrZVkK" : "sylvia's bunnies",
+      "roomid_1" : "ROOM1VALUE",
+      "roomid_3" : "ROOM3VALUE",
+      "roomid_8" : "ROOM8VALUE"
+    }
+  },
+  "users" : {
+    "KbPD9UuTFIc41NXl9w46cf1XJo22" : {
+      "contacts" : {
+        "erDPeEZyAROIJmHV6wqMO68QRcA3" : true,
+        "mA9IpVa1vFZd9UKKg5eiRioiCqF2" : true,
+        "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : true
+      },
+      "info" : {
+        "bio" : "uid3_Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "homepage" : "uid3_LINK",
+        "nick" : "Mr Mercury",
+        "pic" : "https://prabook.com/web/show-photo.jpg?id=4557&cache=false"
+      },
+      "invite_tokens" : {
+        "CanAlsoBeUsedToHoldRoomInvitationWhenSigningUp" : true,
+        "HashOfRoomIDWithSalt" : true,
+        "inviteid3" : true
+      },
+      "rooms" : {
+        "-MXx0cxO1N6j8iabN7Qj" : true,
+        "-MXx0hbVIN1R6oBrZVkK" : true,
+        "roomid_1" : true,
+        "roomid_3" : true,
+        "roomid_8" : true
+      }
+    },
+    "erDPeEZyAROIJmHV6wqMO68QRcA3" : {
+      "contacts" : {
+        "KbPD9UuTFIc41NXl9w46cf1XJo22" : true
+      },
+      "info" : {
+        "bio" : "This person appears to have no history. M Night Shyamalan.",
+        "homepage" : "www.google.com",
+        "nick" : "Nick is unnecessary",
+        "pic" : "./images/unknown_profile.jpg"
+      },
+      "rooms" : {
+        "-MXx0hbVIN1R6oBrZVkK" : true,
+        "roomid_3" : true
+      }
+    },
+    "mA9IpVa1vFZd9UKKg5eiRioiCqF2" : {
+      "contacts" : {
+        "KbPD9UuTFIc41NXl9w46cf1XJo22" : true,
+        "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : true
+      },
+      "info" : {
+        "bio" : "uid2_Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "homepage" : "uid2_LINK",
+        "name" : "uid2_NAME",
+        "nick" : "Nick uid",
+        "pic" : "./images/unknown_profile.jpg"
+      },
+      "invite_tokens" : {
+        "HashOfRoom3" : true,
+        "HashOfRoom8" : true
+      },
+      "rooms" : {
+        "roomid_1" : true,
+        "roomid_3" : true,
+        "roomid_8" : true
+      }
+    },
+    "nicks" : {
+      "KbPD9UuTFIc41NXl9w46cf1XJo22" : "Mr Mercury",
+      "erDPeEZyAROIJmHV6wqMO68QRcA3" : "Nick is unnecessary",
+      "mA9IpVa1vFZd9UKKg5eiRioiCqF2" : "Nick uid",
+      "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : "Nick uid"
+    },
+    "user_ids" : {
+      "Mr Mercury" : {
+        "KbPD9UuTFIc41NXl9w46cf1XJo22" : true
+      },
+      "Nick is unnecessary" : {
+        "erDPeEZyAROIJmHV6wqMO68QRcA3" : true
+      },
+      "Nick uid" : {
+        "mA9IpVa1vFZd9UKKg5eiRioiCqF2" : true,
+        "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : true
+      }
+    },
+    "yH9v0F2ASyemwaCgfOO7w1JhNgD3" : {
+      "contacts" : {
+        "KbPD9UuTFIc41NXl9w46cf1XJo22" : true,
+        "mA9IpVa1vFZd9UKKg5eiRioiCqF2" : true
+      },
+      "info" : {
+        "bio" : "uid1_Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "homepage" : "uid1_LINK",
+        "name" : "uid1_NAME",
+        "nick" : "Nick uid",
+        "pic" : "./images/unknown_profile.jpg"
+      },
+      "invite_tokens" : {
+        "CanAlsoBeUsedToHoldRoomInvitationWhenSigningUp" : true,
+        "HashOfRoomIDWithSalt" : true,
+        "inviteid3" : true
+      },
+      "rooms" : {
+        "-MXx0cxO1N6j8iabN7Qj" : true,
+        "roomid_1" : true,
+        "roomid_3" : true,
+        "roomid_8" : true
+      }
+    }
+  }
+}

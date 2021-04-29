@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Custom CSS here -->
+    <link href="./css/index.css" rel="stylesheet" />
+    <link href="./css/experiment.css" rel="stylesheet" />
+    <link href="./css/side_menu.css" rel="stylesheet" />
+    <!-- End custom CSS  -->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" 
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" 
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" 
+    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <!--Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    
+
+    <div class="modal fade show" id="view-user-profile-modal" tabindex="-1" role="dialog" aria-labelledby="view-profile-title" style="display: block;">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="view-profile-title">Nick uid</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+    
+              <div id="user-profile" class="container-fluid">
+    
+                <div id="user-profile-info" class="row allow-empty">
+                  <div id="user-profile-pic-section" class="col-12 pb-3 p-sm-3 col-sm-6 text-center">
+                    <div id="user-profile-pic-container">
+                      <img id="user-profile-pic" src="./images/unknown_profile.jpg" class="user-profile-pic-img rounded-circle w-75">
+                    </div>
+                    <div>
+                      <button id="user-rmv-mA9IpVa1vFZd9UKKg5eiRioiCqF2" class="btn mt-3 w-75 btn-danger">Remove</button></div></div><div class="col-12 col-sm-6 p-0 mt-0"><label for="user-profile-nick" class="mb-0 mt-0">Nick</label><div id="user-profile-nick" class="text-left text-sm-center"><h4 class="text-uppercase">Nick uid</h4></div><label for="user-profile-homepage" class="mb-0 mt-2">Homepage</label><div id="user-profile-homepage" class="text-left text-sm-center"><h4><a href="uid2_LINK">Homepage</a></h4></div><label for="user-profile-bio" class="mt-2 mb-0">Bio</label><div id="user-profile-bio" class="text-left text-sm-center"><blockquote class="text-justify blockquote">uid2_Lorem ipsum dolor sit amet consectetur adipisicing elit.</blockquote></div></div></div>
+                <hr>
+                <div class="row mb-4">
+                  <div id="user-profile-chatrooms" class="col-12 allow-empty"><h4>CHATROOMS</h4><div id="user-profile-chatrooms-ul" class="pl-3"><div id="room-key-roomid_1" class="user-profile-chatrooms text-truncate" data-roomid="roomid_1">ROOM1VALUE</div><div id="room-key-roomid_3" class="user-profile-chatrooms text-truncate" data-roomid="roomid_3">ROOM3VALUE</div><div id="room-key-roomid_8" class="user-profile-chatrooms text-truncate" data-roomid="roomid_8">ROOM8VALUE</div></div></div>
+                </div>
+                
+                <div class="row">
+                  <div class="container-fluid">
+                    <div class="row">
+                        <h4 class="col-12">CONTACTS</h4>
+                    </div>
+                    <div id="user-profile-contacts" class="row allow-empty">
+                        <div id="user-profile-KbPD9UuTFIc41NXl9w46cf1XJo22" class="d-flex flex-column col-6 col-sm-4 col-lg-3 text-center user-small-profile">
+                            <div data-user="KbPD9UuTFIc41NXl9w46cf1XJo22" class="my-auto">
+                                <img id="user-pic-KbPD9UuTFIc41NXl9w46cf1XJo22" src="https://prabook.com/web/show-photo.jpg?id=4557&amp;cache=false" class="browse-profile-pic rounded-circle w-75 img-rounded">
+                            </div>
+                            <div>
+                                <div id="user-nick-KbPD9UuTFIc41NXl9w46cf1XJo22" class="browse-profile-nick text-truncate">Mr Mercury</div>
+                                <button id="user-add-KbPD9UuTFIc41NXl9w46cf1XJo22" class="btn mt-2 btn-primary" style="visibility: hidden;">Add</button>
+                            </div>
+                            <div class="btn-group mt-2 dropup" style="visibility: hidden;">
+                                <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Invite</a>
+                                <div class="dropdown-menu">
+                                    <a class="btn dropdown-item" data-user="KbPD9UuTFIc41NXl9w46cf1XJo22" data-room="-MXx0cxO1N6j8iabN7Qj">sylvania bunnies</a>
+                                    <a class="btn dropdown-item" data-user="KbPD9UuTFIc41NXl9w46cf1XJo22" data-room="-MXx0hbVIN1R6oBrZVkK">sylvia's bunnies</a>
+                                    <a class="btn dropdown-item" data-user="KbPD9UuTFIc41NXl9w46cf1XJo22" data-room="roomid_1">ROOM1VALUE</a>
+                                    <a class="btn dropdown-item" data-user="KbPD9UuTFIc41NXl9w46cf1XJo22" data-room="roomid_3">ROOM3VALUE</a>
+                                    <a class="btn dropdown-item" data-user="KbPD9UuTFIc41NXl9w46cf1XJo22" data-room="roomid_8">ROOM8VALUE</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="user-profile-yH9v0F2ASyemwaCgfOO7w1JhNgD3" class="d-flex flex-column col-6 col-sm-4 col-lg-3 text-center user-small-profile">
+                            <div data-user="yH9v0F2ASyemwaCgfOO7w1JhNgD3" class="mb-1">
+                              <img id="user-pic-yH9v0F2ASyemwaCgfOO7w1JhNgD3" src="./images/unknown_profile.jpg" class="browse-profile-pic rounded-circle w-75 img-rounded">
+                            </div>
+                            <div>
+                              <div id="user-nick-yH9v0F2ASyemwaCgfOO7w1JhNgD3" class="browse-profile-nick text-truncate">Nick uid</div>
+                              <button id="user-rmv-yH9v0F2ASyemwaCgfOO7w1JhNgD3" class="mt-2 btn btn-danger">Remove</button>
+                            </div>
+                            <div class="btn-group mt-2 dropup">
+                              <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Invite</a>
+                              <div class="dropdown-menu">
+                                <a class="btn dropdown-item" data-user="yH9v0F2ASyemwaCgfOO7w1JhNgD3" data-room="-MXx0cxO1N6j8iabN7Qj">sylvania bunnies</a>
+                                <a class="btn dropdown-item" data-user="yH9v0F2ASyemwaCgfOO7w1JhNgD3" data-room="-MXx0hbVIN1R6oBrZVkK">sylvia's bunnies</a>
+                                <a class="btn dropdown-item" data-user="yH9v0F2ASyemwaCgfOO7w1JhNgD3" data-room="roomid_1">ROOM1VALUE</a>
+                                <a class="btn dropdown-item" data-user="yH9v0F2ASyemwaCgfOO7w1JhNgD3" data-room="roomid_3">ROOM3VALUE</a>
+                                <a class="btn dropdown-item" data-user="yH9v0F2ASyemwaCgfOO7w1JhNgD3" data-room="roomid_8">ROOM8VALUE</a>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+    
+              </div>
+    
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<script>
+    $("#view-user-profile-modal").modal("show");
+</script>
+
+</body>
+</html>
