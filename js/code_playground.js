@@ -46,6 +46,8 @@ function prep(event)
     $("#show-create-room-modal-button").hide().on("click", create_room);
     login_init();
 
+    $(`#welcomeModal`).modal(`show`);
+
     window.onresize = do_breakpoint_change_detection;
     document.addEventListener(BOOTSTRAP_BREAKPOINT_CHANGE_EVENT, chatlog_scroll_on_breakpoint);
 }

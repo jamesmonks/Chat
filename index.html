@@ -61,7 +61,7 @@
             <div class="dropdown-menu" aria-labelledby="nav-anonymous-links">
               <a id="nav-email-login" class="dropdown-item" href="#">E-mail login</a>
               <a id="nav-facebook-login" class="dropdown-item" href="#">Facebook login</a>
-              <a id="nav-github-login" class="dropdown-item" href="#">GitHub login</a>
+              <!-- <a id="nav-github-login" class="dropdown-item" href="#">GitHub login</a> -->
             </div>
           </li>
         </div>
@@ -126,6 +126,32 @@
       </div>
     </div>
   </main>
+
+
+  <!--
+    GREETING MODAL
+  -->
+  <div class="modal show in" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="welcomeModalLabel">Welcome</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Hi, and welcome to the NoodleChat app. This app was made as my first project in Firebase and Bootstrap. A fun little project
+          looking at programming in the coding playground of Firebase's rules, a foray into flat data storage and of course CSS and Bootstrap.</p>
+
+          Have fun!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!----------------------------------->
   <!-- SIGNUP VIA EMAIL AND PASSWORD -->

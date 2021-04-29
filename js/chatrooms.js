@@ -269,7 +269,7 @@ function continue_to_add_chatroom_message(user_id, time_stamp, message_string)
     let new_message_id = time_stamp.toString() + "-" + user_id.toString();
 
     //aids in debugging visually
-    message_string += " " + debug_mangle_timestamp(time_stamp);
+    // message_string += " " + debug_mangle_timestamp(time_stamp);
 
     let message_row = $(document.createElement("div")).addClass("row");
 
