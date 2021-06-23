@@ -1,4 +1,10 @@
 body {
+    margin: 0 50px !important;
+}
+
+header,
+#chat-app {
+    max-width: 900px;
 }
 
 .background-div {
@@ -12,6 +18,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-color: #3aa;
+    background-blend-mode: multiply;
 
     filter: blur(1px);
     -webkit-filter: blur(1px);
@@ -72,34 +80,8 @@ a.dropdown-item.logging-option:hover {
     transition-duration: 400ms;
 }
 
-ul#chatroom-nav-list > li {
-    padding-left: 4px;
-    margin-top: 2px;
-    background-color: #08080880;
-    color: rgba(128, 128, 128, 0.5);
-    border-radius: 4px;
-    user-select: none;
-}
-
-ul#chatroom-nav-list > li.chats-alert {
-    color: rgb(252, 216, 17);
-}
-
-ul#chatroom-nav-list > li.current-room {
-    background-color: #333333;
-    color: white;
-}
-
-ul#chatroom-nav-list > li:hover {
-    background-color: #484848;
-    color: white;
-    transition-duration: 500ms;
-}
-
-ul#chatroom-nav-list > li.chats-alert:hover {
-    background-color: #484848;
-    color: rgb(255, 180, 118);
-    transition-duration: 500ms;
+#chatlog {
+    height: 100%;
 }
 
 div#chatroom {
@@ -108,6 +90,7 @@ div#chatroom {
     background: linear-gradient(to right bottom, rgba(185, 225, 225, 0.5), rgba(157, 225, 225, 0.25));
     height: 75vh;
     overflow-y: scroll;
+    display: flex;
 }
 
 div.message-name {
@@ -153,6 +136,7 @@ input#user-message-text {
 button#send-user-message {
     border-radius: 0px;
     border-bottom-right-radius: 10px;
+    width: 150px;
 }
 
 @keyframes profile-glow {
@@ -226,6 +210,11 @@ modal-dialog label.label-top {
 
 div#email-signup-modal .modal-body, div#email-login-modal .modal-body  {
     padding-bottom: 4em;
+}
+
+#welcomeModal .modal-dialog {
+    position: relative;
+    top: 25%;
 }
 
 #email-signup-button, #email-login-button {

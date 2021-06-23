@@ -5,7 +5,8 @@ nav#chatroom-nav {
     padding-right: 2px;
     height: 75vh;
     transition-duration: 250ms;
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 nav#chatroom-nav:hover {
@@ -159,4 +160,34 @@ button#show-create-room-modal-button {
     color: gainsboro;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+ul#chatroom-nav-list > li {
+    padding-left: 4px;
+    margin-top: 2px;
+    background-color: #08080880;
+    color: rgba(128, 128, 128, 0.5);
+    border-radius: 4px;
+    user-select: none;
+}
+
+ul#chatroom-nav-list > li.chats-alert {
+    color: rgb(252, 216, 17);
+}
+
+ul#chatroom-nav-list > li.current-room {
+    background-color: #333333;
+    color: white;
+}
+
+ul#chatroom-nav-list > li:hover {
+    background-color: #484848;
+    color: white;
+    transition-duration: 500ms;
+}
+
+ul#chatroom-nav-list > li.chats-alert:hover {
+    background-color: #484848;
+    color: rgb(255, 180, 118);
+    transition-duration: 500ms;
 }

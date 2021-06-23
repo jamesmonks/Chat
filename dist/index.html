@@ -43,7 +43,7 @@
 </head>
 <body class="override">
   <div class="background-div"></div>
-  <header class="container px-0">
+  <header class="container-fluid px-0">
     <nav class="navbar navbar-expand-md navbar-dark px-3" id="bulletNav">
       <a class="navbar-brand" href="#">NoodleChat</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" 
@@ -91,7 +91,7 @@
 
 <!-- TODO This nav element will allow a user to click on a chatroom that they are allowed to be in, on clicking
           of a list element, the ul is repopulated to show users in that chatroom -->
-  <main id="chat-app" class="container">
+  <main id="chat-app" class="container-fluid">
     <div class="">
       <div id="chat-app-row" class="row">
 
@@ -101,7 +101,6 @@
         <nav id="chatroom-nav" class="col-3 col-md-2 text-center">
           <button id="show-create-room-modal-button" class="create-button btn btn-primary">New Room</button>
           <div id="chatrooms-div" class="allow-empty">
-
           </div>
         </nav>
 
@@ -110,9 +109,9 @@
         <!---------------------------------->
         <div id="chatroom" class="col-9 col-md-10">
           <div id="chatlog" class="container allow-empty">
-
-
-            
+            <div style="height: 100%;color: #334;width: 100%;text-align: center;display: flex;justify-content: center;align-items: center;font-size: 3rem;transform: rotate(355deg);">
+              Wow! What big empty ...
+            </div>            
           </div>
         </div>
       </div>
@@ -131,7 +130,7 @@
   <!--
     GREETING MODAL
   -->
-  <div class="modal show in" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+  <div class="modal show in" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

@@ -339,10 +339,10 @@ async function populate_room_profile_modal(snapshot)
     remove_modal_body_content("view-room-profile-modal");
 
     let is_admin = Boolean(room_creator_nick_key == user_uid);
-    $(`#room-profile-view`).show();
-    $(`#room-profile-set`).show();
-    (is_admin)  ? $(`#room-profile-view`).hide()
-                : $(`#room-profile-set`).hide();    
+    // $(`#room-profile-view`).show();
+    // $(`#room-profile-set`).show();
+    // (is_admin)  ? $(`#room-profile-view`).hide()
+    //             : $(`#room-profile-set`).hide();    
     
     create_room_profile_info();
     create_room_profile_contacts();
@@ -353,31 +353,30 @@ async function populate_room_profile_modal(snapshot)
 
         if (is_admin)
         {
-            let content = $(`<div id="room-profile-set" class="row allow-empty align-items-center">
-                    <div class="col-12 col-sm-6 text-center">
-                        <div id="room-profile-logo">
-                            <img id="room-profile-logo-img" src="${room_logo}" class="room-profile-logo-img w-75">
-                        </div>
+            let content = $(
+                `<div class="col-12 col-sm-6 text-center my-auto">
+                    <div id="room-profile-logo">
+                        <img id="room-profile-logo-img" src="${room_logo}" class="room-profile-logo-img w-75" alt="NO IMAGE">
                     </div>
-                    <div class="col-12 col-sm-6 p-0 my-auto">
-                        <div id="room-profile-set-name" class="text-left mx-2">
-                            <label class="mb-1" for="room-profile-set-name-tf">Room Name:</label>
-                            <input id="room-profile-set-name-tf" type="text" class="form-control" placeholder="Enter Room Name" value="${room_name}"/>
-                        </div>
-                        <div id="room-profile-set-logo" class="text-left mt-2 mx-2">
-                            <label class="mb-1" for="room-profile-set-logo-tf">Image source:</label>
-                            <div class="input-group">
-                                <input id="room-profile-set-logo-tf" type="text" class="form-control text-primary list-group-item-primary" value="${room_logo}" placeholder="Enter URL"/>
-                                <div class="input-group-append">
-                                    <button id="room-logo-preview-btn" class="btn btn-primary" 
-                                        data-source="#room-profile-set-logo-tf" 
-                                        data-target="#room-profile-logo-img">Preview</button>
-                                </div>
+                </div>
+                <div class="col-12 col-sm-6 p-0 my-auto">
+                    <div id="room-profile-set-name" class="text-left mx-2">
+                        <label class="mb-1" for="room-profile-set-name-tf">Room Name:</label>
+                        <input id="room-profile-set-name-tf" type="text" class="form-control" placeholder="Enter Room Name" value="${room_name}"/>
+                    </div>
+                    <div id="room-profile-set-logo" class="text-left mt-2 mx-2">
+                        <label class="mb-1" for="room-profile-set-logo-tf">Image source:</label>
+                        <div class="input-group">
+                            <input id="room-profile-set-logo-tf" type="text" class="form-control text-primary list-group-item-primary" value="${room_logo}" placeholder="Enter URL"/>
+                            <div class="input-group-append">
+                                <button id="room-logo-preview-btn" class="btn btn-primary" 
+                                    data-source="#room-profile-set-logo-tf" 
+                                    data-target="#room-profile-logo-img">Preview</button>
                             </div>
                         </div>
-                        <div id="room-profile-update" class="text-center mt-3 mt-sm-2 mt-lg-4">
-                            <button id="room-profile-update-btn" class="btn-primary btn form-group text">Submit</button>
-                        </div>
+                    </div>
+                    <div id="room-profile-update" class="text-center mt-3 mt-sm-2 mt-lg-4">
+                        <button id="room-profile-update-btn" class="btn-primary btn form-group text">Submit</button>
                     </div>
                 </div>`);
                 $(`#room-profile-info`).append(content);
