@@ -190,7 +190,13 @@ button#send-user-message {
 }
 
 .user-profile-chatrooms {
+    padding-left: 5px;
+    border-radius: 5px;
     cursor: pointer;
+}
+
+.user-profile-chatrooms:hover {
+    background-color: #fffc;
 }
 
 /* .

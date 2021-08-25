@@ -134,6 +134,7 @@ function add_room_initials(div, initials_arr)
 
 function create_description_div(room_id, room_name, room_creator)
 {
+    room_creator = (room_creator in user_profiles) ? user_profiles[room_creator][__USER_INFO_NICK__] : "Not in friends list";
     let desc_div = $(
         `<div id="sidemenu-room-summary-${room_id}" class="border-top border-bottom border-primary collapse my-2">
             <label for="${room_id}-sidemenu-summary-name" class="small sidemenu-room-summary-label">Roomname:</label>
@@ -189,12 +190,17 @@ function room_selected(event)
     // current_roomid = event.currentTarget.id;
     $(`#${current_roomid}`).removeClass(`has-unread-messages`);
     console.log(current_roomid, $(event.currentTarget).data("roomid"));
-    let room_buttons = $(".room-button");
-    for (let i=0; i<room_buttons.length; i++)
-    {
-        $(room_buttons[i]).removeClass("current-room");
-    }
+    // let room_buttons = $(".room-button");
+
+    $(".current-room").removeClass("current-room");
+    // for (let i=0; i<room_buttons.length; i++)
+    // {
+    //     $(room_buttons[i]).removeClass("current-room");
+    // }
     $("#" + current_roomid).addClass("current-room");
+    let data_target = $(`#${current_roomid}`).data("target");
+    $(".room-button").not(`#${current_roomid}`).not('.collapsed').addClass("collapsed").attr("aria-expanded", "false");
+    $("#chatrooms-div .collapse.show").not(data_target).removeClass("show");
     load_room_chat(current_roomid);
 }
 

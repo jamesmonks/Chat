@@ -248,7 +248,7 @@ function populate_user_profile_modal(snapshot = null)
     {
         console.log("modal_user_chatrooms");
         let chatrooms_div = $("#user-profile-chatrooms");
-        let chatrooms_ul = $(`<div id="user-profile-chatrooms-ul" class="pl-3">`);
+        let chatrooms_ul = $(`<div id="user-profile-chatrooms-ul">`);
         chatrooms_div.append($("<h4>CHATROOMS</h4>"));
         if (lcl_rooms)
         {
