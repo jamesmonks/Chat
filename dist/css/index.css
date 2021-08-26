@@ -57,7 +57,7 @@ nav#nav-menu-items {
 }
 
 .dropdown-menu {
-    background: #CFF9 !important;
+    background: #CFF !important;
 }
 
 a.dropdown-item {
@@ -65,8 +65,12 @@ a.dropdown-item {
 }
 
 a.dropdown-item:hover {
-    background: #dffc !important;
+    background: #fff !important;
     transition-duration: 400ms;
+    border-radius: 5px;
+    border: 1px solid gray;
+    box-shadow: 0 0 5px gray;
+    z-index: 5;
 }
 
 a.dropdown-item.logging-option {
