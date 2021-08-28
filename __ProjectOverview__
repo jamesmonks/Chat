@@ -62,8 +62,6 @@ Firebase rule for rooms/chatrooms/messages [timestamp is reasonable ]
   ".validate" : "newData.val() + 2000 > now && newData.val() < now"
 }
 
-
-
 Function on firebase for automated hash (upgraded plans only)
 
 View User Profile - when displaying a user's chatrooms, list only the common chatrooms with user_uid, this will be all chatrooms if the profile is that of user_uid

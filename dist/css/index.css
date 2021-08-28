@@ -278,3 +278,16 @@ div#email-signup-modal .modal-body, div#email-login-modal .modal-body  {
     position:  relative !important;
     margin: 0 !important;
 }
+
+/* fail-safe image */
+#room-profile-logo {
+    /* width: 75%!important; */
+    max-height: 40vh;
+    overflow-y: hidden;
+    /* margin-left:auto;
+    margin-right: auto; */
+}
+
+object.room-profile-logo-img > img {
+    width: 100%;
+}

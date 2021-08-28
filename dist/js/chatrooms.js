@@ -159,7 +159,7 @@ function TODO_show_room_info(event)
     show_modal_room_info(event, view_room_info_modal_prep);
 
     for (let i=0; i < 10; i++)
-        console.log(`*************TODO*TODO_show_room_info***************`)
+        console.log(`*************TODO*TODO_show_room_info for room where user is not admin ***************${i}`);
 }
 
 /**

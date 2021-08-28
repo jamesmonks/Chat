@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <!-- Custom CSS here -->
+    <link href="./dist/css/index.css" rel="stylesheet" />
+    <link href="./dist/css/experiment.css" rel="stylesheet" />
+    <link href="./dist/css/side_menu.css" rel="stylesheet" />
+    <!-- End custom CSS  -->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" 
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" 
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" 
+    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="modal fade show" id="view-room-profile-modal" tabindex="-1" role="dialog" aria-labelledby="view-room-title" style="display: block; padding-right: 17px;">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="view-room-title">Temporary sanctuary</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+    
+              <div id="room-profile" class="container-fluid">
+    
+                <div id="room-profile-info" class="row allow-empty"><div class="col-12 col-sm-6 text-center my-auto">
+                        <div id="room-profile-logo">
+                            <!-- <img id="room-profile-logo-img" src="https://picsum.photos/500/200" class="room-profile-logo-img w-75" alt="NO IMAGE"> -->
+                            <object id="room-profile-logo-img" data="" type="image/jpg" class="room-profile-logo-img w-75">
+                                <img src="empty-round-room.jpg" />
+                            </object>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 p-0 my-auto">
+                        <div id="room-profile-set-name" class="text-left mx-2">
+                            <label class="mb-1" for="room-profile-set-name-tf">Room Name:</label>
+                            <input id="room-profile-set-name-tf" type="text" class="form-control" placeholder="Enter Room Name" value="Temporary sanctuary">
+                        </div>
+                        <div id="room-profile-set-logo" class="text-left mt-2 mx-2">
+                            <label class="mb-1" for="room-profile-set-logo-tf">Image source:</label>
+                            <div class="input-group">
+                                <input id="room-profile-set-logo-tf" type="text" class="form-control text-primary list-group-item-primary" value="https://picsum.photos/500/200" placeholder="Enter URL">
+                                <div class="input-group-append">
+                                    <button id="room-logo-preview-btn" class="btn btn-primary" data-source="#room-profile-set-logo-tf" data-target="#room-profile-logo-img">Preview</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="room-profile-update" class="text-center mt-3 mt-sm-2 mt-lg-4">
+                            <button id="room-profile-update-btn" class="btn-primary btn form-group text">Submit</button>
+                        </div>
+                    </div></div>
+    
+                <hr>
+                    
+                <div class="row">
+                  <div class="container-fluid">
+                    <div id="room-profile-contacts" class="row allow-empty"><h4 class="col-12 text-center">MEMBERS</h4><div id="user-profile-3RmJFQbrGHaJjghorvCMf38yXl82" class="d-flex flex-column col-6 col-sm-4 col-lg-3 py-2 text-center user-small-profile"><div data-user="3RmJFQbrGHaJjghorvCMf38yXl82" class="my-auto"><img id="user-pic-3RmJFQbrGHaJjghorvCMf38yXl82" src="./images/unknown_profile.jpg" class="browse-profile-pic rounded-circle w-75 img-rounded"></div><div class="mx-2"><div id="user-nick-3RmJFQbrGHaJjghorvCMf38yXl82" class="browse-profile-nick text-truncate">Noodle</div><button data-uid="3RmJFQbrGHaJjghorvCMf38yXl82" class="btn mt-2 w-100 user-add-btn btn-info" style="visibility: hidden;">Add</button></div><div class="btn-group dropup mt-2 mx-2" style="visibility: hidden;"><a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Invite</a><div class="dropdown-menu"><a class="btn dropdown-item" data-user="3RmJFQbrGHaJjghorvCMf38yXl82" data-room="-MXx0hbVIN1R6oBrZVkK">sylvia's bunnies</a><a class="btn dropdown-item" data-user="3RmJFQbrGHaJjghorvCMf38yXl82" data-room="-M_X05e6q880r2cFgwtl">Temporary sanctuary</a><a class="btn dropdown-item" data-user="3RmJFQbrGHaJjghorvCMf38yXl82" data-room="-Mh8yDDpXS4WbRgmpWCl">AKEPB project</a><a class="btn dropdown-item" data-user="3RmJFQbrGHaJjghorvCMf38yXl82" data-room="roomid_1">ROOM1VALUE</a></div></div></div><div id="user-profile-KbPD9UuTFIc41NXl9w46cf1XJo22" class="d-flex flex-column col-6 col-sm-4 col-lg-3 py-2 text-center user-small-profile"><div data-user="KbPD9UuTFIc41NXl9w46cf1XJo22" class="my-auto"><img id="user-pic-KbPD9UuTFIc41NXl9w46cf1XJo22" src="https://prabook.com/web/show-photo.jpg?id=4557&amp;cache=false" class="browse-profile-pic rounded-circle w-75 img-rounded"></div><div class="mx-2"><div id="user-nick-KbPD9UuTFIc41NXl9w46cf1XJo22" class="browse-profile-nick text-truncate">Mr Mercury</div><button data-uid="KbPD9UuTFIc41NXl9w46cf1XJo22" class="btn mt-2 w-100 user-rmv-btn btn-danger">Remove</button></div><div class="btn-group dropup mt-2 mx-2"><a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Invite</a><div class="dropdown-menu"><a class="btn dropdown-item" data-user="KbPD9UuTFIc41NXl9w46cf1XJo22" data-room="-MXx0hbVIN1R6oBrZVkK">sylvia's bunnies</a><a class="btn dropdown-item" data-user="KbPD9UuTFIc41NXl9w46cf1XJo22" data-room="-M_X05e6q880r2cFgwtl">Temporary sanctuary</a><a class="btn dropdown-item" data-user="KbPD9UuTFIc41NXl9w46cf1XJo22" data-room="-Mh8yDDpXS4WbRgmpWCl">AKEPB project</a><a class="btn dropdown-item" data-user="KbPD9UuTFIc41NXl9w46cf1XJo22" data-room="roomid_1">ROOM1VALUE</a></div></div></div><div id="user-profile-mA9IpVa1vFZd9UKKg5eiRioiCqF2" class="d-flex flex-column col-6 col-sm-4 col-lg-3 py-2 text-center user-small-profile"><div data-user="mA9IpVa1vFZd9UKKg5eiRioiCqF2" class="my-auto"><img id="user-pic-mA9IpVa1vFZd9UKKg5eiRioiCqF2" src="./images/unknown_profile.jpg" class="browse-profile-pic rounded-circle w-75 img-rounded"></div><div class="mx-2"><div id="user-nick-mA9IpVa1vFZd9UKKg5eiRioiCqF2" class="browse-profile-nick text-truncate">Nick uid</div><button data-uid="mA9IpVa1vFZd9UKKg5eiRioiCqF2" class="btn mt-2 w-100 user-rmv-btn btn-danger">Remove</button></div><div class="btn-group dropup mt-2 mx-2"><a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Invite</a><div class="dropdown-menu"><a class="btn dropdown-item" data-user="mA9IpVa1vFZd9UKKg5eiRioiCqF2" data-room="-MXx0hbVIN1R6oBrZVkK">sylvia's bunnies</a><a class="btn dropdown-item" data-user="mA9IpVa1vFZd9UKKg5eiRioiCqF2" data-room="-M_X05e6q880r2cFgwtl">Temporary sanctuary</a><a class="btn dropdown-item" data-user="mA9IpVa1vFZd9UKKg5eiRioiCqF2" data-room="-Mh8yDDpXS4WbRgmpWCl">AKEPB project</a><a class="btn dropdown-item" data-user="mA9IpVa1vFZd9UKKg5eiRioiCqF2" data-room="roomid_1">ROOM1VALUE</a></div></div></div></div>
+                  </div>
+                </div>
+    
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>

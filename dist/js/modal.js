@@ -336,6 +336,9 @@ async function populate_room_profile_modal(snapshot)
         room_creator_nick_key = snapshot_json[__ROOMINFO_CRTR_KEY__],
         room_logo = snapshot_json[__ROOMINFO_LOGO_KEY__];
 
+    if (room_logo == "")
+        room_logo = __DEFAULT_ROOM_IMAGE_LINK__;
+
     remove_modal_body_content("view-room-profile-modal");
 
     let is_admin = Boolean(room_creator_nick_key == user_uid);
@@ -356,7 +359,9 @@ async function populate_room_profile_modal(snapshot)
             let content = $(
                 `<div class="col-12 col-sm-6 text-center my-auto">
                     <div id="room-profile-logo">
-                        <img id="room-profile-logo-img" src="${room_logo}" class="room-profile-logo-img w-75" alt="NO IMAGE">
+                        <object id="room-profile-logo-img" data="${room_logo}" type="image/jpg" class="room-profile-logo-img w-75 mx-auto">
+                            <img src="${__DEFAULT_ROOM_IMAGE_LINK__}" />
+                        </object>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 p-0 my-auto">
@@ -395,7 +400,7 @@ async function populate_room_profile_modal(snapshot)
                 need_h4_update = true;
             
             let view_profile = $(`<div class="col-12 col-sm-6 text-center">
-                    <div id="room-profile-logo">
+                    <div id="room-profile-logo" class="h-100 d-flex align-items-center justify-content-center">
                         <img src="${room_logo}" class="room-profile-logo-img w-50">
                     </div>
                 </div>
@@ -529,7 +534,13 @@ async function update_request_from_user_profile_modal(event)
     populate_object_field(fx_user, __USER_INFO_HOME__, fx_home, "No link");
     populate_object_field(fx_user, __USER_INFO_BIO__, fx_bio, "No bio");
 
-    await update_current_user_info(fx_user);
+    try {
+        await update_current_user_info(fx_user);
+    } catch (e) {
+        console.error(e);
+    }
+
+    //update local stores for user info
 
     queued_view_profile_user_id = user_uid;
     show_modal_user_profile(event, view_user_profile_modal_prep);
