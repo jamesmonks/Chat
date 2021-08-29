@@ -1,6 +1,6 @@
 let __FIREBASE_LISTENERS__;
 
-async function update_current_user_info(new_user_info, callback_function = null)
+async function update_current_user_info(new_user_info)
 {
     console.log("update_current_user_info");
     console.log(new_user_info);
@@ -8,6 +8,12 @@ async function update_current_user_info(new_user_info, callback_function = null)
     let update_obj = {};
     if (new_user_info[__USER_INFO_NAME__] != null)
         update_obj[`/users/${user_uid}/info/name`] = new_user_info[__USER_INFO_NAME__];
+    if (new_user_info[__USER_INFO_PIC__] != null)
+        update_obj[`/users/${user_uid}/info/pic`] = new_user_info[__USER_INFO_PIC__];
+    if (new_user_info[__USER_INFO_BIO__] != null)
+        update_obj[`/users/${user_uid}/info/bio`] = new_user_info[__USER_INFO_BIO__];
+    if (new_user_info[__USER_INFO_HOME__] != null)
+        update_obj[`/users/${user_uid}/info/homepage`] = new_user_info[__USER_INFO_HOME__];
     if (new_user_info[__USER_INFO_NICK__] != null)
     {
         update_obj[`/users/${user_uid}/info/nick`] = new_user_info[__USER_INFO_NICK__];
@@ -15,14 +21,19 @@ async function update_current_user_info(new_user_info, callback_function = null)
         update_obj[`/users/user_ids/${user_info[__USER_INFO_NICK__]}/${user_uid}`] = null;
         update_obj[`/users/user_ids/${new_user_info[__USER_INFO_NICK__]}/${user_uid}`] = true;
     }
-    if (new_user_info[__USER_INFO_PIC__] != null)
-        update_obj[`/users/${user_uid}/info/pic`] = new_user_info[__USER_INFO_PIC__];
-    if (new_user_info[__USER_INFO_BIO__] != null)
-        update_obj[`/users/${user_uid}/info/bio`] = new_user_info[__USER_INFO_BIO__];
-    if (new_user_info[__USER_INFO_HOME__] != null)
-        update_obj[`/users/${user_uid}/info/homepage`] = new_user_info[__USER_INFO_HOME__];
-    (callback_function) ? ref.update(new_user_info, callback_function)
-                        : ref.update(new_user_info);
+
+    ref.update(new_user_info).then(function() {
+        if (new_user_info[__USER_INFO_NAME__] != null)
+            user_info[__USER_INFO_NAME__] = new_user_info[__USER_INFO_NAME__];
+        if (new_user_info[__USER_INFO_NICK__] != null)
+            user_info[__USER_INFO_NICK__] = new_user_info[__USER_INFO_NICK__];
+        if (new_user_info[__USER_INFO_PIC__] != null)
+            user_info[__USER_INFO_PIC__] = new_user_info[__USER_INFO_PIC__];
+        if (new_user_info[__USER_INFO_BIO__] != null)
+            user_info[__USER_INFO_BIO__] = new_user_info[__USER_INFO_BIO__];
+        if (new_user_info[__USER_INFO_HOME__] != null)
+            user_info[__USER_INFO_HOME__] = new_user_info[__USER_INFO_HOME__];
+    });
 }
 
 function fetch_user_info(user_id, callback_function)

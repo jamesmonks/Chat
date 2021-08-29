@@ -70,6 +70,13 @@ function add_user_profile(  user_id, user_name, nickname = null, profile_pic_lin
     if (user_profiles.hasOwnProperty(user_id))
     {
         populate_profile_parameters(user_profiles[user_id], user_name, nickname, profile_pic_link, bio_info, homepage_link, null, null);
+        if ( user_id == user_uid )
+        {
+            //update local parameters for the user
+            console.log("*******************");
+            console.log("add_user_profile user is current user alert");
+            console.log("*******************");
+        }
         return;
     }
 
@@ -142,25 +149,21 @@ function init_user(event)
     console.log("init_user");
     add_user_profile(user_uid,                     user_info[__USER_INFO_NAME__], user_info[__USER_INFO_NICK__], 
                      user_info[__USER_INFO_PIC__], user_info[__USER_INFO_BIO__ ], user_info[__USER_INFO_HOME__]);
-
+        
     // user_rooms
     init_user_rooms();
     fetch_user_contacts(user_uid);
     
+    let ref = database.ref(`/users/${user_uid}/info`);
+    ref.on("value", received_user_profile);
+    register_firebase_listener(ref, "value", received_user_profile);
+
     $("#chat-input-row").show(400);
     $("#send-user-message").show(400);
     $("#user-message-text").show(400);
     $("#show-create-room-modal-button").show(400);
 
     navigation_setup(true);
-    // console.log("*********************");
-    // let profiles = $(".user-small-profile");
-    // profiles.each(index => {
-    //     //console.log(profiles[index]);
-    //     $(profiles[index]).on("click", load_user_profile);
-    // });
-    // console.log($(".user-small-profile").length);
-
 }
 
 function fetch_user_contacts(uid = user_uid)
@@ -185,25 +188,26 @@ function fetch_user_contacts(uid = user_uid)
     {
         //we need to create a list to query the firebase data with
         let ref = database.ref("/users/" + uid + "/contacts");
-        ref.once("value", received_user_contacts);
+        ref.once("value", received_user_contacts_list);
     }
 }
 
-function attach_received_user_profile_listener(key, ref)
-{
-    let reference = database.ref(ref);
-    register_firebase_listener(ref, "value", received_user_profile);
-    (user_profiles.hasOwnProperty(key)) ? reference.once("value", received_user_profile)
-                                        : reference.on("value", received_user_profile);
-}
-
-function received_user_contacts(snapshot)
+function received_user_contacts_list(snapshot)
 {
     console.log("received_user_contacts");
     let user_contacts = snapshot.val();
     Object.keys(user_contacts).forEach(key => {
         attach_received_user_profile_listener(key, `/users/${key}/info` );
     } );
+}
+
+function attach_received_user_profile_listener(key, ref)
+{
+    let reference = database.ref(ref);
+    register_firebase_listener(ref, "value", received_user_profile);
+    // (user_profiles.hasOwnProperty(key)) ? reference.once("value", received_user_profile)
+    //                                     :
+    reference.on("value", received_user_profile);
 }
 
 function received_user_profile(snapshot)
