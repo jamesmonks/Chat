@@ -316,7 +316,7 @@ function set_invalid(dom_elem, is_invalid = true)
 */}
 
 /**
- * Once a user has logged in
+ * Once a user has logged in and been validated, setup local variables
  */
 async function populate_user_data()
 {

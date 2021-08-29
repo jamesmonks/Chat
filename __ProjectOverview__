@@ -1,6 +1,7 @@
-When profile is updated, update user variables as well
-
 Bug: user is not added to a room when clicked
+Bug: nickname is not working under user search 
+
+// When profile is updated, update user variables as well
 
 //Amend Profile (User only)
 //    1) if nick is amended, update users/nicks
