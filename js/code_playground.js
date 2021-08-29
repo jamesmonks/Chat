@@ -107,7 +107,7 @@ function populate_profile_parameters(obj, user_name, nickname = null, profile_pi
         obj = {};
     
     populate_object_field(obj, __USER_INFO_NAME__,      user_name,          "No name");
-    populate_object_field(obj, __USER_INFO_NICK__,      nickname,           "No nick");
+    populate_object_field(obj, __USER_INFO_NICK__,      nickname,           "No_Nick");
     populate_object_field(obj, __USER_INFO_PIC__ ,      profile_pic_link,   __DEFAULT_PROFILE_IMAGE_LINK__);
     populate_object_field(obj, __USER_INFO_BIO__ ,      bio_info,           "No bio");
     populate_object_field(obj, __USER_INFO_HOME__,      homepage_link,      "");

@@ -200,7 +200,7 @@ function populate_user_profile_modal(snapshot = null)
         {
             //if not current user, show button to add / delete user
             let is_contact = lcl_uid in user_contacts;
-            let profile_btn = $(`<button data-uid="${skel_uid}" class="btn mt-3 w-75">`);
+            let profile_btn = $(`<button data-uid="${lcl_uid}" class="btn mt-3 w-75">`);
             (is_contact) ? profile_btn.addClass("user-rmv-btn btn-danger").text("Remove")
                          : profile_btn.addClass("user-add-btn btn-info").text("Add");
             profile_btn.on("click", toggle_contact);

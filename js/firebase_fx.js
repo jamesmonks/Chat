@@ -4,25 +4,33 @@ async function update_current_user_info(new_user_info)
 {
     console.log("update_current_user_info");
     console.log(new_user_info);
-    let ref = database.ref(`/users/${user_uid}/info`);
+
     let update_obj = {};
-    if (new_user_info[__USER_INFO_NAME__] != null)
-        update_obj[`/users/${user_uid}/info/name`] = new_user_info[__USER_INFO_NAME__];
-    if (new_user_info[__USER_INFO_PIC__] != null)
-        update_obj[`/users/${user_uid}/info/pic`] = new_user_info[__USER_INFO_PIC__];
-    if (new_user_info[__USER_INFO_BIO__] != null)
-        update_obj[`/users/${user_uid}/info/bio`] = new_user_info[__USER_INFO_BIO__];
-    if (new_user_info[__USER_INFO_HOME__] != null)
-        update_obj[`/users/${user_uid}/info/homepage`] = new_user_info[__USER_INFO_HOME__];
+
     if (new_user_info[__USER_INFO_NICK__] != null)
     {
-        update_obj[`/users/${user_uid}/info/nick`] = new_user_info[__USER_INFO_NICK__];
-        update_obj[`/users/nicks/${user_uid}`] = new_user_info[__USER_INFO_NICK__];
-        update_obj[`/users/user_ids/${user_info[__USER_INFO_NICK__]}/${user_uid}`] = null;
-        update_obj[`/users/user_ids/${new_user_info[__USER_INFO_NICK__]}/${user_uid}`] = true;
+        update_obj["/users/" + user_uid + "/info/" + __USER_INFO_NICK__] = new_user_info[__USER_INFO_NICK__];
+        update_obj["/users/nicks/" + user_uid] = new_user_info[__USER_INFO_NICK__];
+        let upd1 = "/users/user_ids/" + user_info[__USER_INFO_NICK__] + "/" + user_uid;
+        let upd2 = "/users/user_ids/" + new_user_info[__USER_INFO_NICK__] + "/" +user_uid;
+        update_obj[upd1] = null;
+        update_obj[upd2] = true;
+        console.log(upd1, `=null`);
+        console.log(upd2, `=true`);
     }
+    if (new_user_info[__USER_INFO_NAME__] != null)
+        update_obj["/users/" + user_uid + "/info/" + __USER_INFO_NAME__] = new_user_info[__USER_INFO_NAME__];
+    if (new_user_info[__USER_INFO_PIC__] != null)
+        update_obj["/users/" + user_uid + "/info/" + __USER_INFO_PIC__] = new_user_info[__USER_INFO_PIC__];
+    if (new_user_info[__USER_INFO_BIO__] != null)
+        update_obj["/users/" + user_uid + "/info/" + __USER_INFO_BIO__] = new_user_info[__USER_INFO_BIO__];
+    if (new_user_info[__USER_INFO_HOME__] != null)
+        update_obj["/users/" + user_uid + "/info/" + __USER_INFO_HOME__] = new_user_info[__USER_INFO_HOME__];
+    console.log(update_obj);
 
-    ref.update(new_user_info).then(function() {
+    firebase.database().ref().update(update_obj, function(error) {console.log("error");console.log(error)}).then(function(stuff) {
+        console.log("stuff");
+        console.log(stuff);
         if (new_user_info[__USER_INFO_NAME__] != null)
             user_info[__USER_INFO_NAME__] = new_user_info[__USER_INFO_NAME__];
         if (new_user_info[__USER_INFO_NICK__] != null)
@@ -33,6 +41,8 @@ async function update_current_user_info(new_user_info)
             user_info[__USER_INFO_BIO__] = new_user_info[__USER_INFO_BIO__];
         if (new_user_info[__USER_INFO_HOME__] != null)
             user_info[__USER_INFO_HOME__] = new_user_info[__USER_INFO_HOME__];
+    }, function(error) {
+        console.log(error);
     });
 }
 
