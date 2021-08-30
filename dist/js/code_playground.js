@@ -80,8 +80,9 @@ function add_user_profile(  user_id, user_name, nickname = null, profile_pic_lin
         return;
     }
 
+    let next_color = create_next_user_color():
     let obj = populate_profile_parameters({}, user_name, nickname, profile_pic_link, bio_info, homepage_link, 
-                                          create_next_user_color(), "user_" + user_id.toString());
+                                          next_color, "user_" + user_id.toString());
 
     user_profiles[user_id] = obj;
 
