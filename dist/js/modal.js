@@ -207,7 +207,7 @@ function populate_user_profile_modal(snapshot = null)
 
             img_foot = $(`<div>`).append(profile_btn);
             nick_lbl = $(`<label for="user-profile-nick" class="mb-0 mt-0">Nick</label>`);
-            nick_div = $(`<div id="user-profile-nick" class="text-left text-sm-center"><h4 class="text-uppercase">${lcl_nick}</h4></div`);
+            nick_div = $(`<div id="user-profile-nick" class="text-left text-sm-center"><h4 class="text-uppercase py-1">${lcl_nick}</h4></div`);
             home_lbl = $(`<label for="user-profile-homepage" class="mb-0 mt-2">Homepage</label>`);
             home_div = $(`<div id="user-profile-homepage" class="text-left text-sm-center"><h4><a href="${lcl_home}">Homepage</a></h4></div>`);
             bio_lbl = $(`<label for="user-profile-bio" class="mt-2 mb-0">Bio</label>`);
@@ -359,12 +359,12 @@ async function populate_room_profile_modal(snapshot)
             let content = $(
                 `<div class="col-12 col-sm-6 text-center my-auto">
                     <div id="room-profile-logo">
-                        <object id="room-profile-logo-img" data="${room_logo}" type="image/jpg" class="room-profile-logo-img w-75 mx-auto">
+                        <object id="room-profile-logo-img" data="${room_logo}" type="image/jpg" class="room-profile-logo-img w-100 mx-auto rounded">
                             <img src="${__DEFAULT_ROOM_IMAGE_LINK__}" />
                         </object>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 p-0 my-auto">
+                <div class="col-12 col-sm-6 px-0 py-3 my-auto">
                     <div id="room-profile-set-name" class="text-left mx-2">
                         <label class="mb-1" for="room-profile-set-name-tf">Room Name:</label>
                         <input id="room-profile-set-name-tf" type="text" class="form-control" placeholder="Enter Room Name" value="${room_name}"/>
@@ -380,7 +380,7 @@ async function populate_room_profile_modal(snapshot)
                             </div>
                         </div>
                     </div>
-                    <div id="room-profile-update" class="text-center mt-3 mt-sm-2 mt-lg-4">
+                    <div id="room-profile-update" class="text-center mt-3 mt-lg-4">
                         <button id="room-profile-update-btn" class="btn-primary btn form-group text">Submit</button>
                     </div>
                 </div>`);
@@ -401,10 +401,12 @@ async function populate_room_profile_modal(snapshot)
             
             let view_profile = $(`<div class="col-12 col-sm-6 text-center">
                     <div id="room-profile-logo" class="h-100 d-flex align-items-center justify-content-center">
-                        <img src="${room_logo}" class="room-profile-logo-img w-50">
+                        <object id="room-profile-logo-img" data="${room_logo}" type="image/jpg" class="room-profile-logo-img w-100 mx-auto rounded">
+                            <img src="${__DEFAULT_ROOM_IMAGE_LINK__}" />
+                        </object>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 p-0 my-auto">
+                <div class="col-12 col-sm-6 p-3 my-auto">
                     <div id="room-profile-view-name" class="text-center">
                         <h4 class="text-uppercase">${room_name}</h4>
                     </div>

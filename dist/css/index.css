@@ -9,8 +9,8 @@ header,
 
 .background-div {
     position: absolute;
-    left:0px;
-    top:0px;
+    left:0;
+    top:0;
     height: 100vh;
     width: 100vw;
     
@@ -89,7 +89,7 @@ a.dropdown-item.logging-option:hover {
 }
 
 div#chatroom {
-    padding-right: 0px;
+    padding-right: 0;
     padding-bottom: 5px;
     background: linear-gradient(to right bottom, rgba(185, 225, 225, 0.5), rgba(157, 225, 225, 0.25));
     height: 75vh;
@@ -120,25 +120,25 @@ div.all-messages.other-user-msg {
 div.speech-bg {
     background-color: white;
     margin-left: 0;
-    padding-right: 0px;
+    padding-right: 0;
     margin-top: 5px;
     padding-left: 0;
 }
 
 div.other-user-speech {
     border-bottom-left-radius: 15px;
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-left: 0;
+    margin-right: 0;
     background: dimgray;
 }
 
 input#user-message-text {
-    border-radius: 0px;
+    border-radius: 0;
     border-bottom-left-radius: 10px;
 }
 
 button#send-user-message {
-    border-radius: 0px;
+    border-radius: 0;
     border-bottom-right-radius: 10px;
     width: 150px;
 }
@@ -167,6 +167,11 @@ button#send-user-message {
 #user-profile-nick, #user-profile-homepage, #user-profile-bio, #search-users-results {
     background-color: #fff5;
     border-radius: 3px;
+}
+
+#user-profile-homepage > h4 > a {
+    color: #0056b3;
+    text-decoration: none;
 }
 
 .user-small-profile {
@@ -281,13 +286,14 @@ div#email-signup-modal .modal-body, div#email-login-modal .modal-body  {
 
 /* fail-safe image */
 #room-profile-logo {
-    /* width: 75%!important; */
     max-height: 40vh;
     overflow-y: hidden;
-    /* margin-left:auto;
-    margin-right: auto; */
 }
 
 object.room-profile-logo-img > img {
     width: 100%;
+}
+
+#view-room-profile-creator-nick {
+    font-weight: 300;
 }

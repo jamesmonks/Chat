@@ -1,4 +1,6 @@
 Bug: user is not added to a room when clicked
+Bug: ellipses on other user bio is displayed inappropriately
+GUI: Homepage link looks terrible
 
 //Bug: browsing profiles crashes
 

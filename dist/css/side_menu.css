@@ -69,12 +69,12 @@ button#show-create-room-modal-button {
 .room-initial {
     text-transform: capitalize;
     position: relative;
-    left: 0px;
+    left: 0;
     top: -24px;
 }
 
 .room-initial.only-letter {
-    left: 0px;
+    left: 0;
 }
 
 .room-initial.second-letter {
@@ -87,14 +87,14 @@ button#show-create-room-modal-button {
 .room-icon {
     position: relative;
     top: -26px;
-    left: 0px;
+    left: 0;
     width: 100%;
 }
 
 .room-button.full-room-minim .room-initial {
     font-size: medium;
     top: -15px;
-    left: 0px;
+    left: 0;
 }
 
 .room-button.full-room-minim .room-initial.second-letter {
@@ -112,13 +112,13 @@ button#show-create-room-modal-button {
 }
 
 .full-chatroom-name {
-    width: 0px;
-    left: 0px;
+    width: 0;
+    left: 0;
     color: #080808;
     position: relative;
     visibility: hidden;
     text-overflow: ellipsis;
-    top: 0px;
+    top: 0;
 }
 
 .full-room-minim {
@@ -128,7 +128,7 @@ button#show-create-room-modal-button {
 
 .room-button:hover {
     background-color: #484848;
-    left: 0px;
+    left: 0;
     width: 100%;
     color: white;
     border: 2px solid white;
@@ -141,14 +141,14 @@ button#show-create-room-modal-button {
 
 .room-button:hover .full-chatroom-name {
     width: 100%;
-    left: 0px;
+    left: 0;
     color: white;
     visibility: visible;
     transition-duration: 1000ms;
 }
 
 .sidemenu-room-summary-label {
-    margin-bottom: 0px;
+    margin-bottom: 0;
     color: dimgray;
 }
 
