@@ -60,7 +60,6 @@ async function add_room(room_id)
     
     room_info[room_id] = await firebase_get_room_info(room_id);
     return true;
-    // TODO add_room_to_menu(room_name, room_id, image_url);
 }
 
 /**
@@ -143,7 +142,7 @@ function create_description_div(room_id, room_name, room_creator)
             <div id="${room_id}-sidemenu-summary-creator" class="sidemenu-room-summary-text text-center">${room_creator}</div>
         </div>`);
     let room_info_btn_div = $(`<div class="text-center">`);
-    let room_info_btn = $(`<a class="btn py-0 my-2 btn-outline-primary" data-roomid="${room_id}">`).append("Info").on("click", TODO_show_room_info);
+    let room_info_btn = $(`<a class="btn py-0 my-2 btn-outline-primary" data-roomid="${room_id}">`).append("Info").on("click", show_room_info);
     desc_div.append( room_info_btn_div.append(room_info_btn) );
     desc_div.on("shown.bs.collapse", event => {
         event.currentTarget.scrollIntoView(false, { behavior: "smooth", block: "end" } );
@@ -151,15 +150,10 @@ function create_description_div(room_id, room_name, room_creator)
     return desc_div;
 }
 
-function TODO_show_room_info(event)
+function show_room_info(event)
 {
-
-
     room_selected(event);
     show_modal_room_info(event, view_room_info_modal_prep);
-
-    for (let i=0; i < 10; i++)
-        console.log(`*************TODO*TODO_show_room_info for room where user is not admin ***************${i}`);
 }
 
 /**
@@ -245,7 +239,6 @@ function add_chatroom_message(user_id, time_stamp, message_string)
     console.log("add_chatroom_message :- ", user_id, time_stamp, message_string);
     if (!(user_id in user_profiles))
     {
-        //todo change when communicating with remote server
         let user_ref = database.ref("/users/nicks/" + user_id);
         user_ref.once("value").then(
             function(snapshot) {
@@ -288,7 +281,7 @@ function continue_to_add_chatroom_message(user_id, time_stamp, message_string)
         !found + !insert_before_message_row = append //will be the only message or 2nd message
 */
 
-    //TODO insert at correct position
+    //ALGO to insert at correct position
     //traverse the divs that are chidren of chatlog
     //  there will be a div that has the format "user_id-timestamp" extract the timestamp
     //  compare the timestamp to the one being inserted (starting at the end)
@@ -365,6 +358,8 @@ function find_insert_before_point(time_stamp)
     return insert_before_message_row
 }
 
+//TODO #10 Insert comment time
+
 function create_user_message_div(dom_elem, msg_id, msg_string, usr_css_name)
 {
     console.log(`create_user_message_div(${dom_elem}, ${msg_id}, ${msg_string}, ${usr_css_name})`);
@@ -436,12 +431,16 @@ async function create_room_event(event)
     hide_visible_modal();
 }
 
-async function update_room_event(event)
+async function update_room_from_modal(event)
 {
     let room_id = current_roomid;
     let room_name_submitted = $(`#room-profile-set-name-tf`).val().trim();
     let room_logo_submitted = $(`#room-profile-set-logo-tf`).val().trim();
-    await firebase_update_chatroom(room_id, room_name_submitted, room_logo_submitted);
+    await firebase_update_chatroom(room_id, room_name_submitted, room_logo_submitted).then(
+        function() {
+            show_modal_room_info(null, view_room_info_modal_prep);
+        }
+    );
 }
 
 function reset_chatroom()

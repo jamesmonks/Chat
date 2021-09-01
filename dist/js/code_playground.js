@@ -284,8 +284,11 @@ function setup_navigation()
     $("#nav-github-login").on("click", attempt_github_login);
     // #nav-logged-in
     $("#nav-view-profile").on("click", load_user_profile);
-    $("#nav-signout").on("click", logout_user);
+    $("#nav-signout").on("click", function(event) {
+        firebase.auth().signOut();
+    });
     $("#nav-find-contacts").on("click", show_modal_search_users);
+    $("#nav-find-contacts").on("click", toggle_persistence);
     // #nav-returning-user
     $("#nav-last-login").on("click", attempt_last_login);
 }

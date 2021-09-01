@@ -1,3 +1,54 @@
+a#nav-toggle-persistence * {
+    transition-duration: 500ms;
+}
+
+a#nav-toggle-persistence > span {
+    display: inline;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+#persistence-toggler {
+    display: inline-block;
+    position: relative;
+    height: 18px;
+    width: 30px;
+    top: 5px;
+    left: 15px;
+    border: 2px solid #ccc;
+    border-radius: 9px;
+    background-color: #0008; 
+}
+
+#persistence-toggler.persistence-off {
+    background-color: #0008;
+}
+
+#persistence-toggler.persistence-on {
+    border: 2px solid #0008;
+    background-color: #fff;
+}
+
+#persistence-ball  {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid #0008;
+}
+
+#persistence-toggler.persistence-off #persistence-ball {
+    background-color: #ccc;
+    left: -0.5px;
+}
+
+#persistence-toggler.persistence-on #persistence-ball {
+    background-color: #aaf;
+    box-shadow: 0 0 5px #fff;
+    left: 12.5px;
+}
+
 nav#chatroom-nav {
     background-color: #000000a0;
     padding-left: 2px;

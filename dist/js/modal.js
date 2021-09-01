@@ -78,8 +78,6 @@ function show_queued_modal(event)
     queued_modal_id = queued_modal_fx = null;
 }
 
-//TODO add listeners to modals buttons that don't change
-
 function show_modal_login_email(event = null, prep_function = null)
 {
     console.log("show_modal_login_email");
@@ -142,19 +140,15 @@ function init_modal_button_functions()
     $("#email-login-button").on("click", login_with_email_event);
     $("#email-login-signup-button").on("click", show_modal_signup_email);
 
-    //TODO
     //room create
     $("#room-create-button").on("click", create_room_event);
 
-    //TODO
     //room view
     //$("#"); no buttons except when editing, those will need to be added on generation
 
-    //TODO
     //user view; no buttons except when editing, those will need to be added on generation
     $("#view-user-profile-modal");
 
-    //TODO
     //search users
     $("#search-users-btn").on("click", search_for_users_event);
 } 
@@ -192,8 +186,6 @@ function populate_user_profile_modal(snapshot = null)
     function modal_user_profile_info() 
     {
         console.log("modal_user_profile_info");
-        //TODO make fields editable if current_user id is the same as this modals
-        //TODO DIVS vs TEXT for u_pic_html
         let img_foot, nick_div, home_div, bio__div, image_load;
         let nick_lbl, home_lbl, bio_lbl;
         if (user_uid != lcl_uid)
@@ -347,10 +339,10 @@ async function populate_room_profile_modal(snapshot)
     // (is_admin)  ? $(`#room-profile-view`).hide()
     //             : $(`#room-profile-set`).hide();    
     
-    create_room_profile_info();
-    create_room_profile_contacts();
+    generate_room_profile_info();
+    generate_room_profile_contacts();
 
-    function create_room_profile_info()
+    function generate_room_profile_info()
     {
         $("#view-room-title").text(room_name);
 
@@ -387,7 +379,7 @@ async function populate_room_profile_modal(snapshot)
                 $(`#room-profile-info`).append(content);
 
                 $(`#room-logo-preview-btn`).on("click", preview_image);
-                $(`#room-profile-update-btn`).on("click", update_room_event);
+                $(`#room-profile-update-btn`).on("click", update_room_from_modal);
     
         }
         else
@@ -421,7 +413,7 @@ async function populate_room_profile_modal(snapshot)
         }
     }
 
-    function create_room_profile_contacts()
+    function generate_room_profile_contacts()
     {
         $("#room-profile-contacts").append($(`<h4 class="col-12 text-center">MEMBERS</h4>`));
         database.ref(`/rooms/chatrooms/${snapshot.ref.parent.key}/users`).once("value", snapshot => {
@@ -529,7 +521,6 @@ async function update_request_from_user_profile_modal(event)
     let fx_bio  = $(`#user-profile-bio-tf`).val();
 
     let fx_user = {};
-    let update_obj = {};
 
     populate_object_field(fx_user, __USER_INFO_PIC__, fx_link, __DEFAULT_PROFILE_IMAGE_LINK__);
     populate_object_field(fx_user, __USER_INFO_NICK__, fx_nick, "No nick");

@@ -28,6 +28,9 @@
     <!--Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- Placeholder for jQuery/js access -->
     <style id="dynamic-style" type="text/css"></style>
 
@@ -73,6 +76,12 @@
             <div class="dropdown-menu justify-content-center" aria-labelledby="nav-user-links">
               <a id="nav-view-profile" class="dropdown-item" href="#">View Profile</a>
               <a id="nav-find-contacts" class="dropdown-item" href="#">Find Contacts</a>
+              <a id="nav-toggle-persistence" class="dropdown-item" href="#">
+                <span id="persistence-toggler-label">Remember Me</span>
+                <div id="persistence-toggler" class="persistence-off">
+                  <div id="persistence-ball"></div>
+                </div>
+              </a>
               <!-- <a id="nav-signout" class="dropdown-item logging-option" type="button">Signout</a> -->
               <a id="nav-signout" class="dropdown-item">Signout</a>
             </div>
@@ -100,6 +109,11 @@
         <!---------------------------------->
         <nav id="chatroom-nav" class="col-3 col-md-2 text-center">
           <button id="show-create-room-modal-button" class="create-button btn btn-primary">New Room</button>
+          <!-- todo #8 user and room list toggle -->
+          <!-- <div class="toggle-room-view">
+            <i class="fa fa-users"></i>
+            <i class="fa fa-comments"></i>
+          </div> --> 
           <div id="chatrooms-div" class="allow-empty">
           </div>
         </nav>
