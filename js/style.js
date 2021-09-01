@@ -88,6 +88,8 @@ function vars_add_contact(user_key, callback_fx = null)
     let ref = database.ref(ref_path);
     ref.on("value", received_user_profile);
     register_firebase_listener(ref_path, "value", received_user_profile);
+    if (callback_fx)
+        callback_fx();
 }
 
 function vars_remove_contact(user_key, callback_fx = null)

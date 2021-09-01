@@ -15,13 +15,15 @@ function login_init()
     //temp until above todo is done
     firebase.auth().onAuthStateChanged(function(user){
         if (!user) {
+            unregister_firebase_listeners();
             empty_user_variables();
+            reset_gui();
         }
     });
 
     
     navigation_setup(_debug_bypass_login);
-    //TODO figure what to do when user lands on this page
+    
     if (_debug_bypass_login)
     {
         attempt_login_with_email("jameszmonks@gmail.com", "monkey");
@@ -32,11 +34,10 @@ function login_init()
 *  LOGIN FUNCTIONS  *
 ********************/
 
-//TODO
+//TODO #2 Enable altering of user persistence and use this state on page landing
 function attempt_last_login(event = null)
 {
     console.log("attempt_last_login");
-    //TODO
 }
 
 function login_with_email_event(event = null)
@@ -111,7 +112,6 @@ function attempt_login_with_email(email, pass)
         hide_visible_modal();
         console.log("****got here");
         await populate_user_data();
-        //todo remove this line
         queued_view_profile_user_id = user_uid;
         show_modal_user_profile(null, view_user_profile_modal_prep);
     }
@@ -147,8 +147,7 @@ function attempt_signup_with_email(email, pass)
                 console.log(error.message);
                 break;
             case "auth/network-request-failed" :
-                //TODO reload the page
-                //TODO retry the connection
+                //TODO #3 Reload the page
                 break;
             default : break;
         }
@@ -164,18 +163,17 @@ function attempt_signup_with_email(email, pass)
     }
     
     function account_setup_failed(error) {
-        //TODO
+        //TODO #4 Account setup failed
         console.log("account_setup_failed");
         console.log("failed to initialize the user accounts variables");
         console.log(error);
     }
 }
 
-//TODO
 async function attempt_facebook_login(event = null)
 {
     console.log("attempt_facebook_login");
-    //TODO
+    //TODO #5 Login failure
     let provider = new firebase.auth.FacebookAuthProvider();
 
     auth.signInWithPopup(provider).then((fb_login) => {
@@ -189,8 +187,8 @@ async function attempt_facebook_login(event = null)
         user_uid = auth.currentUser.uid;
 
         if (fb_login.additionalUserInfo.isNewUser) {
-            firebase_setup_new_user(user_login_complete /**, todo account failure here */);
-            // .catch( account_setup_failed(error) ); TODO
+            firebase_setup_new_user(user_login_complete /**, account failure here */);
+            // .catch( account_setup_failed(error) );
         }
         else
         {
@@ -219,11 +217,10 @@ async function attempt_facebook_login(event = null)
     });
 }
 
-//TODO
+//TODO #6 Add github login feature
 function attempt_github_login(event = null)
 {
     console.log("attempt_github_login");
-    //TODO
 }
 
 function reset_email_login_form(clear_text = false)
@@ -256,14 +253,6 @@ function reset_signup_email_form(clear_text = false)
         $("#signup-email-password").val("");
         $("#signup-email-password2").val("");
     }
-}
-
-function logout_user(event = null)
-{
-    unregister_firebase_listeners();
-    firebase.auth().signOut();
-    empty_user_variables();
-    reset_gui();
 }
 
 function set_invalid(dom_elem, is_invalid = true)
@@ -369,4 +358,11 @@ async function user_login_complete(obj) {
     await populate_user_data();
     queued_view_profile_user_id = user_uid;
     show_modal_user_profile(null, view_user_profile_modal_prep);
+}
+
+function toggle_persistence(event) {
+    let _p_local = firebase.auth.Auth.Persistence.LOCAL;
+    let _p_none =  firebase.auth.Auth.Persistence.NONE;
+
+    // auth.setPersistence(_p_local);
 }

@@ -1,13 +1,13 @@
 input.btn-tf {
     border-radius: 7px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 button.tf-btn {
     border-radius: 7px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .browse-profile-name {
@@ -28,19 +28,15 @@ ul#user-profile-chatrooms-ul {
 
 /* styles for '...' */ 
 blockquote {
-    font-size: 1.0em;
+    font-size: 1.0rem !important;
     /* hide text if it more than N lines  */
     overflow: hidden;
     /* for set '...' in absolute position */
     position: relative; 
     /* use this value to count block height */
-    line-height: 1.3em;
+    line-height: 1.2rem;
     /* max-height = line-height (1.2) * lines max number (5) */
-    max-height: 6em; 
-    /* fix problem when last visible word doesn't adjoin right side  */
-    text-align: justify;  
-    /* place for '...' */
-    margin-right: -1em;
+    max-height: 5rem;
     padding-right: 1em;
 }
 /* create the ... */
@@ -62,8 +58,8 @@ blockquote:after {
   /* set position to right bottom corner of text */
   right: 0;
   /* set width and height */
-  width: 1em;
-  height: 1em;
-  margin-top: 0.2em;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.2rem;
   /* bg color = bg color under block */
 }

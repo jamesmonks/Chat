@@ -1,3 +1,54 @@
+a#nav-toggle-persistence * {
+    transition-duration: 500ms;
+}
+
+a#nav-toggle-persistence > span {
+    display: inline;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+#persistence-toggler {
+    display: inline-block;
+    position: relative;
+    height: 18px;
+    width: 30px;
+    top: 5px;
+    left: 15px;
+    border: 2px solid #ccc;
+    border-radius: 9px;
+    background-color: #0008; 
+}
+
+#persistence-toggler.persistence-off {
+    background-color: #0008;
+}
+
+#persistence-toggler.persistence-on {
+    border: 2px solid #0008;
+    background-color: #fff;
+}
+
+#persistence-ball  {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid #0008;
+}
+
+#persistence-toggler.persistence-off #persistence-ball {
+    background-color: #ccc;
+    left: -0.5px;
+}
+
+#persistence-toggler.persistence-on #persistence-ball {
+    background-color: #aaf;
+    box-shadow: 0 0 5px #fff;
+    left: 12.5px;
+}
+
 nav#chatroom-nav {
     background-color: #000000a0;
     padding-left: 2px;
@@ -69,12 +120,12 @@ button#show-create-room-modal-button {
 .room-initial {
     text-transform: capitalize;
     position: relative;
-    left: 0px;
+    left: 0;
     top: -24px;
 }
 
 .room-initial.only-letter {
-    left: 0px;
+    left: 0;
 }
 
 .room-initial.second-letter {
@@ -87,14 +138,14 @@ button#show-create-room-modal-button {
 .room-icon {
     position: relative;
     top: -26px;
-    left: 0px;
+    left: 0;
     width: 100%;
 }
 
 .room-button.full-room-minim .room-initial {
     font-size: medium;
     top: -15px;
-    left: 0px;
+    left: 0;
 }
 
 .room-button.full-room-minim .room-initial.second-letter {
@@ -112,13 +163,13 @@ button#show-create-room-modal-button {
 }
 
 .full-chatroom-name {
-    width: 0px;
-    left: 0px;
+    width: 0;
+    left: 0;
     color: #080808;
     position: relative;
     visibility: hidden;
     text-overflow: ellipsis;
-    top: 0px;
+    top: 0;
 }
 
 .full-room-minim {
@@ -128,7 +179,7 @@ button#show-create-room-modal-button {
 
 .room-button:hover {
     background-color: #484848;
-    left: 0px;
+    left: 0;
     width: 100%;
     color: white;
     border: 2px solid white;
@@ -141,14 +192,14 @@ button#show-create-room-modal-button {
 
 .room-button:hover .full-chatroom-name {
     width: 100%;
-    left: 0px;
+    left: 0;
     color: white;
     visibility: visible;
     transition-duration: 1000ms;
 }
 
 .sidemenu-room-summary-label {
-    margin-bottom: 0px;
+    margin-bottom: 0;
     color: dimgray;
 }
 
