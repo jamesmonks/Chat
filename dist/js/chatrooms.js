@@ -1,4 +1,4 @@
-console.log("loaded here git updated 2");
+console.log("loaded here git updated 3");
 
 //holds room data
 let room_info = {};
@@ -397,7 +397,7 @@ function create_other_user_message_div(dom_elem, other_user_id, msg_id, msg_stri
  * When fired, removes the text/value associated with the object that fired the event
  * @param {*} event 
  */
-function clear_message_text(event)
+function clear_message_text(event = null)
 {
     $("#" + event.target.id).val("");
 }
@@ -413,7 +413,10 @@ function send_message_event(event)
     let chat_message_content = $("#user-message-text").val();
     
     if (chat_message_content.trim() != "")
+    {
         add_message_to_firebase(current_roomid, chat_message_type, chat_message_content);
+        clear_message_text({ target : { id : "user-message-text"}});
+    }
 }
 
 async function create_room_event(event)

@@ -1,6 +1,11 @@
+let _SIGNUP_WITH_EMAIL_ = "createUserWithEmailAndPassword";
+let _SIGNIN_WITH_EMAIL_ = "signInWithEmailAndPassword";
+let _SIGNIN_WITH_POPUP_ = "signInWithPopup";
+
 let _debug_bypass_login = false;
 let _auto_login = null;
 let _new_user = false;
+let _latest_login_source = "none";
 
 let __DEFAULT_USER_INFO = {
     "name" : "No Name",
@@ -46,13 +51,8 @@ function received_login_request(event)
 async function new_auth_login(user)
 {
     console.log("authstatechanged");
-    let user_loggedin = (user != null);
-
-    // cases
-    // start, auto login => _auto_login is null, will be set to true
-    // start, user login => _auto_login is null, will be set to false
-    // *, user logout => _auto_login is already set
-    // *, user logout, user login => _auto_login is already set
+    let user_loggedin = Boolean(user != null);
+    
     //TODO #22 auto_login multi-user
     // *, user logout && different user login => _auto_login should be false
 
@@ -63,38 +63,35 @@ async function new_auth_login(user)
     
     auto_set_persistence();
     if (_auto_login === null)
-    {
-        console.log("new_auth_login _auto_login is null, what conditions make this happen?");
-    }
-    else if (_auto_login === true)
-    {
-
+        console.log("new_auth_login _auto_login is null, what made this happen?");
+    else if (_auto_login == true)
         auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-    }
-    else if (_auto_login === false)
-    {
+    else if (_auto_login == false)
         auth.setPersistence(firebase.auth.Auth.Persistence.NONE);
-    }
 
     //if not email login, is this user a new user?
     if (user_loggedin)
-    // {
         if (user.additionalUserInfo)
             console.log(_new_user = user.additionalUserInfo.isNewUser);
-            // _new_user = user.additionalUserInfo.isNewUser;
-        // else
-    //         console.log("email login")
-    // }
+    
     console.log(user_loggedin, _new_user);
 
     //actual login function follows
     clear_previous_session();
     if (user_loggedin)
     {
-        await setup_current_user_vars();
-        navigation_setup(true);
-        queued_view_profile_user_id = user_uid;
-        show_modal_user_profile(null, view_user_profile_modal_prep); //default behaviour is to load user profile
+        let success = await setup_current_user_vars();
+        if (success)
+        {
+            navigation_setup(true);
+            queued_view_profile_user_id = user_uid;
+            show_modal_user_profile(null, view_user_profile_modal_prep); //default behaviour is to load user profile
+        }
+        else
+        {
+            firebase.auth().signOut();
+            show_error_modal("Signin error", "There was an internal sign in error.<br>Please refresh the page and try again.");
+        }
     }
     else
         navigation_setup(false);
@@ -112,11 +109,13 @@ function clear_previous_session()
 async function setup_current_user_vars()
 {
     user_uid = auth.currentUser.uid;
-    console.log("Attention, (user is new_user) = ", auth.currentUser.additinalUser);
+    let success = true;
     //TODO #4 Account setup failed
     if (_new_user)
-        await firebase_setup_new_user();
-    await populate_user_data();
+        await firebase_setup_new_user().catch(error => { success = false; });
+    if (success)
+        await populate_user_data().catch(error => { success = false; });
+    return success;
 }
 
 /********************
@@ -170,68 +169,20 @@ function signup_with_email_event(event = null)
 
 function attempt_login_with_email(email, pass)
 {
+    console.log("attempt_login_with_email", email, pass);
     _new_user = false;
-    auth.signInWithEmailAndPassword(email, pass).catch(email_login_error);
-    
-    function email_login_error(error) {
-        console.log(error);
-        
-        reset_email_login_form(false);
-
-        switch (error.code)
-        {
-        case "auth/wrong-password": $("#login-password-help").text("Password error"); 
-                                    $("#login-password").addClass("is-invalid");
-                                    break;
-        case "auth/user-not-found": $("#login-email-help").text("E-mail not found"); 
-                                    $("#login-email").addClass("is-invalid");
-                                    break;
-        case "auth/invalid-email" : $("#login-email-help").text("Please retype the e-mail"); 
-                                    $("#login-email").addClass("is-invalid");
-                                    break;
-        }
-
-    }
+    auth.signInWithEmailAndPassword(email, pass).catch( error => {
+        login_error_handler(_SIGNIN_WITH_EMAIL_, error);
+    });
 }
 
 function attempt_signup_with_email(email, pass)
 {
     console.log("attempt_signup_with_email", email, pass);
     _new_user = true;
-    try { auth.createUserWithEmailAndPassword(email, pass).catch( signup_failure ); }
-    catch (error)
-        { signup_failure(error); } //null arguments to auth function need a catch block
-        
-    function signup_failure(error = null) {
-        console.log("signup_failure");
-        console.log(error);
-        switch(error.code)
-        {
-            case "auth/email-already-in-use" : 
-                set_invalid("#signup-email-email", true);
-                $("#signup-email-email-help").text("Email address already in use");
-                break;
-            case "auth/invalid-email" : 
-                set_invalid("#signup-email-email", true);
-                $("#signup-email-email-help").text(error.message);
-                break;
-            case "auth/weak-password" : 
-                set_invalid("#signup-email-password", true);
-                set_invalid("#signup-email-password2", true);
-                $("#signup-email-password-help").text(error.message);
-                $("#signup-email-password2-help").text(error.message);
-                break;
-            case "auth/argument-error" :
-                console.log(error.message);
-                break;
-            case "auth/network-request-failed" :
-                //TODO #3 Reload the page
-                break;
-            default : break;
-        }
-    }
-    
-
+    auth.createUserWithEmailAndPassword(email, pass).catch( error => {
+        login_error_handler(_SIGNUP_WITH_EMAIL_, error);
+    });
 }
 
 async function attempt_facebook_login(event = null)
@@ -240,7 +191,7 @@ async function attempt_facebook_login(event = null)
     //TODO #5 Login failure
     let provider = new firebase.auth.FacebookAuthProvider();
 
-    auth.signInWithPopup(provider).then().catch(
+    auth.signInWithPopup(provider).catch(
         error_obj => {
         console.log(error_obj.code);
         switch (error_obj.code) {
@@ -248,17 +199,13 @@ async function attempt_facebook_login(event = null)
                 break;
             case "auth/auth-domain-config-required" :
                 break;
-            case "auth/credential-already-in-use" :
-                break;
             case "auth/email-already-in-use" :
                 break;
             case "auth/operation-not-allowed" :
                 break;
             case "auth/operation-not-supported-in-this-environment" :
                 break;
-            case "auth/timeout" :
-                break;
-            default :
+                default :
         }
     });
 }
@@ -271,6 +218,133 @@ function attempt_github_login(event = null)
         console.log(error_obj)
     });
     console.log("attempt_github_login");
+}
+
+function login_error_handler(source, error)
+{
+    let err_code = error.code;
+    let err_message = error.message;
+    console.log("login_error_handler");
+    console.log(source, error)
+
+    if (source == _SIGNIN_WITH_EMAIL_)
+        reset_email_login_form(false);
+    else if (source == _SIGNUP_WITH_EMAIL_)
+        reset_signup_email_form(false);
+
+    switch (err_code)
+    {
+        case "auth/email-already-in-use" : 
+            //called by createUserWithEmailAndPassword -> attempt_signup_with_email
+            set_invalid("#signup-email-email", true);
+            $("#signup-email-email-help").text("Email address already in use");
+            break;
+
+        case "auth/invalid-email" : 
+            //Thrown if the email address is not valid.
+            //called by createUserWithEmailAndPassword -> attempt_signup_with_email
+            if (source == _SIGNUP_WITH_EMAIL_)
+            {
+                set_invalid("#signup-email-email", true);
+                $("#signup-email-email-help").text(err_message);
+            }
+            //called by signInWithEmailAndPassword -> attempt_login_with_email()
+            else if (source == _SIGNIN_WITH_EMAIL_)
+            {
+                set_invalid("#login-email", true);
+                $("#login-email-help").text("Please retype the e-mail"); 
+            }
+            break;
+
+        case "auth/weak-password" : //signup with email and password
+            //called by createUserWithEmailAndPassword -> attempt_signup_with_email
+            set_invalid("#signup-email-password", true);
+            set_invalid("#signup-email-password2", true);
+            $("#signup-email-password-help").text(err_message);
+            $("#signup-email-password2-help").text(err_message);
+            break;
+
+        case "auth/network-request-failed" :
+            //Thrown if a network error (such as timeout, interrupted connection or unreachable host) has occurred.
+            show_error_modal("Network error", "A network error has occurred, if the error persists please try again later");
+            break;
+
+        case "auth/user-disabled" :
+            //Thrown if the user corresponding to the given email has been disabled.
+            //called by signInWithEmailAndPassword -> attempt_login_with_email()
+            show_error_modal("Account disabled", err_message);
+            break;
+
+        case "auth/user-not-found" :
+            //Thrown if there is no user corresponding to the given email.
+            //called by signInWithEmailAndPassword -> attempt_login_with_email()
+            $("#login-email-help").text("E-mail not found"); 
+            $("#login-email").addClass("is-invalid");
+            break;
+
+        case "auth/wrong-password" :
+            //Thrown if the password is invalid for the given email, or the account corresponding to the email does not have a password set.
+            //called by signInWithEmailAndPassword -> attempt_login_with_email()
+            $("#login-password-help").text("Password error");
+            set_invalid("#login-password", true);
+            break;
+
+        case "auth/cancelled-popup-request" :
+            //Thrown if successive popup operations are triggered. Only one popup request is allowed at one time. All the popups would fail with this error except for the last one.
+            //called by signInWithPopup -> multiple
+            //DO NOTHING
+            break;
+
+        case "auth/popup-blocked" :
+            //Thrown if the popup was blocked by the browser, typically when this operation is triggered outside of a click handler.
+            //called by signInWithPopup -> multiple
+            show_error_modal("Popup error", "The popup is unable to be shown.<br>This could be a result a browser's popup blocker");
+            break;
+
+        case "auth/popup-closed-by-user" :
+            //Thrown if the popup window is closed by the user without completing the sign in to the provider.
+            //called by signInWithPopup -> multiple
+            show_error_modal("Popup error", "The user has closed the popup before authentication could proceed.");
+            break;
+
+        case "auth/timeout" :
+            show_error_modal("Timeout", "The site took too long to respond.");
+            break;
+
+        case "auth/account-exists-with-different-credential" :
+            //Thrown if there already exists an account with the email address asserted by the credential. Resolve this by calling firebase.auth.Auth.fetchSignInMethodsForEmail with the error.email and then asking the user to sign in using one of the returned providers. Once the user is signed in, the original credential retrieved from the error.credential can be linked to the user with firebase.User.linkWithCredential to prevent the user from signing in again to the original provider via popup or redirect. If you are using redirects for sign in, save the credential in session storage and then retrieve on redirect and repopulate the credential using for example firebase.auth.GoogleAuthProvider.credential depending on the credential provider id and complete the link.
+            //called by signInWithPopup -> multiple
+        case "auth/credential-already-in-use" :
+            show_error_modal("Account exists", "This profile is already linked to an account!<br>Please log in to the other account.");
+            break;
+            
+            /** The following are developer errors */
+        case "auth/argument-error" :
+            //Thrown if a method is called with incorrect arguments
+        case "auth/auth-domain-config-required" :
+            //Thrown if authDomain configuration is not provided when calling firebase.initializeApp(). Check Firebase Console for instructions on determining and passing that field.
+            //called by signInWithPopup -> multiple
+        case "auth/operation-not-allowed" :
+            //Thrown if the type of account corresponding to the credential is not enabled. Enable the account type in the Firebase Console, under the Auth tab.
+            //called by createUserWithEmailAndPassword -> attempt_signup_with_email
+            //called by signInWithPopup -> multiple
+        case "auth/operation-not-supported-in-this-environment" :
+            //Thrown if this operation is not supported in the environment your application is running on. "location.protocol" must be http or https.
+            //called by signInWithPopup -> multiple
+        case "auth/unauthorized-domain" :
+            //Thrown if the app domain is not authorized for OAuth operations for your Firebase project. Edit the list of authorized domains from the Firebase console.
+            //called by signInWithPopup -> multiple
+            show_error_modal("Dev Error", `${err_code} <br> ${err_message}`);
+            break;
+    }
+}
+
+function show_error_modal(title, body)
+{
+    remove_allow_empty_children("#error-modal", true);
+    $("#error-modal-title").html(title);
+    $("#error-modal-body").html(body);
+    show_modal("#error-modal");
 }
 
 function reset_email_login_form(clear_text = false)
@@ -424,22 +498,4 @@ function auto_set_persistence()
         $(selector).removeClass("persistence-on");
     }
     console.log("toggle toggle toggel");
-    
-    // auth.setPersistence(_p_local);
 }
-
-
-
-{/**
- * Transitions
- * USE CASE 1
- * modal exists
- * it is :visible, shown, show or hide                                  function modal_exists
- * if it is showing, need to listen for shown, then start hiding        if function modal_state() == "showing"
- *                                                                          on(shown.bs.modal, hide_current_modal)
- * if it is hiding, need to listen for hidden, then load next modal     if function modal_state() == "hiding"
- *                                                                          on(hidden.bs.modal, show_next_modal)
- * if it is not in transition, then load next modal                     if function modal_state() == "shown"
- *                                                                          .modal("show")
- * **** NB CSS transitions don't have or need intermediate animation states in bootstrap modals
-*/}

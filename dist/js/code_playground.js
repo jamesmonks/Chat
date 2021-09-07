@@ -42,6 +42,12 @@ async function prep(event)
 
     $("#chat-input-row").hide();
     $("#send-user-message").on("click", send_message_event).hide();
+    $("#user-message-text").on("keypress", event => {
+        if (event.key === 'Enter')
+        {
+            send_message_event(event);
+        }
+    });
     $("#user-message-text").on("click", clear_message_text).hide();
     $("#sign-in-method-button").on("click", event => {
         _auto_login = false;
@@ -51,6 +57,7 @@ async function prep(event)
     await login_init();
 
     $(`#welcomeModal`).modal(`show`);
+    $(`.navbar-brand`).on("click", event => { $(`#welcomeModal`).modal(`show`) });
 
     window.onresize = do_breakpoint_change_detection;
     document.addEventListener(BOOTSTRAP_BREAKPOINT_CHANGE_EVENT, chatlog_scroll_on_breakpoint);
@@ -290,8 +297,6 @@ function setup_navigation_listeners()
     });
     $("#nav-find-contacts").on("click", show_modal_search_users);
     $("#nav-toggle-persistence").on("click", toggle_persistence);
-    // #nav-returning-user
-    $("#nav-last-login").on("click", attempt_last_login);
 }
 
 // TODO JZM

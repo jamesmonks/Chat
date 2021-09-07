@@ -117,10 +117,9 @@
     </div>
   </main>
 
-
-  <!--
-    GREETING MODAL
-  -->
+<!------------------------->
+<!---- GREETING MODAL ----->
+<!------------------------->
   <div class="modal show in" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -143,38 +142,41 @@
     </div>
   </div>
 
+<!------------------------->
 <!-- Login methods Modal -->
-<div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title">Log in via ...</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body container">
-              <div class="row sign-in-methods">
-                  <div id="nav-email-login" class="col-6 d-flex justify-content-center align-items-center">
-                      <i class="fa fa-at fa-6x fa-fw" aria-hidden="true"></i>E-MAIL
-                  </div>
-                  <div id="nav-facebook-login" class="col-6">
-                      <i class="fa fa-facebook-official fa-6x fa-fw" aria-hidden="true"></i>FACEBOOK
-                  </div>
-                  <div id="nav-github-login" class="col-6">
-                      <i class="fa fa-github fa-6x fa-fw" aria-hidden="true"></i>GITHUB
-                  </div>
-                  <div id="nav-guest-login" class="col-6">
-                      <i class="fa fa-user-secret fa-6x fa-fw" aria-hidden="true"></i>GUEST
-                  </div>
-              </div>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
-          </div>
-      </div>
+<!------------------------->
+
+  <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Log in via ...</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body container">
+                <div class="row sign-in-methods">
+                    <div id="nav-email-login" class="col-6 d-flex justify-content-center align-items-center">
+                        <i class="fa fa-at fa-6x fa-fw" aria-hidden="true"></i>E-MAIL
+                    </div>
+                    <div id="nav-facebook-login" class="col-6">
+                        <i class="fa fa-facebook-official fa-6x fa-fw" aria-hidden="true"></i>FACEBOOK
+                    </div>
+                    <div id="nav-github-login" class="col-6">
+                        <i class="fa fa-github fa-6x fa-fw" aria-hidden="true"></i>GITHUB
+                    </div>
+                    <div id="nav-guest-login" class="col-6">
+                        <i class="fa fa-user-secret fa-6x fa-fw" aria-hidden="true"></i>GUEST
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
   </div>
-</div>
 
   <!----------------------------------->
   <!-- SIGNUP VIA EMAIL AND PASSWORD -->
@@ -512,6 +514,29 @@
         </div>
         <div class="modal-footer m-0" style="background-color: lightblue;">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!----------------->
+  <!-- ERROR MODAL -->
+  <!----------------->
+
+  <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="error-modal-title" class="modal-title allow-empty">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div id="error-modal-body" class="modal-body allow-empty">
+          Body
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

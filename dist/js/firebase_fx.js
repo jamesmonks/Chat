@@ -279,11 +279,6 @@ async function firebase_setup_new_user(success_callback, failure_callback)
     }
     else
         user_login_complete();
-    let update_obj = firebase_initial_user_values_object();
-    console.log(update_obj);
-    database.ref().update(update_obj).then(success_callback).catch(err_value => {
-        failure_callback(err_value);
-    });
 }
 
 function firebase_initial_user_values_object() 
@@ -301,6 +296,23 @@ async function register_firebase_listener(reference, event_type = null, fx = nul
     if (! __FIREBASE_LISTENERS__)
         __FIREBASE_LISTENERS__ = [];
     __FIREBASE_LISTENERS__.push([reference, event_type, fx]);
+}
+
+async function delete_user()
+{
+    //todo #7
+    // 1) get user's rooms
+    // 2) get comments by user in those rooms and rooms where user is the creator
+        //chatrooms/roomid/messages/msg_id/user = user_uid
+        //chatrooms/roomid/info/creator = user_uid
+        //with messages, don't forget to add an index
+        //https://stackoverflow.com/questions/40471284/firebase-search-by-child-value
+    // 3) set userid to null in users/nicks
+    // 4) set user's id to null in users/user_ids/nick
+    // 5) from 1), set chatrooms/roomid/users/user_uid to null
+    // 6) from 2), set chatrooms/roomid/messages/msg_id/media_msg to "user deleted"
+    // 7) from 2), set chatrooms/roomid/messages/msg_id/user to "User Deleted"
+    // 8) from 2), remove chatrooms/roomid
 }
 
 function unregister_firebase_listeners()
