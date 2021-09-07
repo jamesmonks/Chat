@@ -29,7 +29,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     
     <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/f39761baba.js" crossorigin="anonymous"></script>
 
     <!-- Placeholder for jQuery/js access -->
     <style id="dynamic-style" type="text/css"></style>
@@ -47,53 +47,30 @@
 <body class="override">
   <div class="background-div"></div>
   <header class="container-fluid px-0">
-    <nav class="navbar navbar-expand-md navbar-dark px-3" id="bulletNav">
-      <a class="navbar-brand" href="#">NoodleChat</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" 
-        data-target="#nav-menu-items" aria-controls="nav-menu-items" 
-        aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-dark px-3" id="noodlechat-nav">
+      <a class="navbar-brand" href="#">
+        <img src="./images/favicon.ico" alt="" class="d-inline-block align-top" style="height: 2rem;padding-right:5px">NoodleChat
+      </a>
+      <button id="navbar-toggler" class="navbar-toggler dropdown ml-auto" type="button" data-toggle="collapse" data-target="#nav-menu-items" aria-controls="nav-menu-items" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-    
-      <div class="collapse navbar-collapse navbar-nav justify-content-end" id="nav-menu-items">
-
-        <div id="nav-logged-out">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="nav-anonymous-links" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">Login</a>
-            <div class="dropdown-menu" aria-labelledby="nav-anonymous-links">
-              <a id="nav-email-login" class="dropdown-item" href="#">E-mail login</a>
-              <a id="nav-facebook-login" class="dropdown-item" href="#">Facebook login</a>
-              <!-- <a id="nav-github-login" class="dropdown-item" href="#">GitHub login</a> -->
+      <!-- //LOGGED OUT -->
+      <button id="sign-in-method-button" class="btn btn-outline-info nav-link" href="#" data-toggle="modal" data-target="#sign-in-modal">Login</button>
+      <!-- //LOGGED IN -->
+      <div id="nav-logged-in">
+        <div id="nav-menu-items" class="dropdown-menu dropdown-menu-right justify-content-center" aria-labelledby="nav-user-links">
+          <a id="nav-view-profile" class="dropdown-item" href="#">View Profile</a>
+          <a id="nav-find-contacts" class="dropdown-item" href="#">Find Contacts</a>
+          <a id="nav-toggle-persistence" class="dropdown-item" href="#" data-toggle="tooltip" data-placement="left" title="Logging out will disable this.">
+            <span id="persistence-toggler-label">Remember Me</span>
+            <div id="persistence-toggler" class="persistence-off">
+              <div id="persistence-ball"></div>
             </div>
-          </li>
+          </a>
+          <div class="dropdown-divider" style="border-color: #3333;margin:.2rem 0;"></div>
+          <!-- <a id="nav-signout" class="dropdown-item logging-option" type="button">Signout</a> -->
+          <a id="nav-signout" class="dropdown-item" href="#">Signout</a>
         </div>
-        
-        <div id="nav-logged-in">
-          <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="nav-user-links" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">User area</a>
-            <div class="dropdown-menu justify-content-center" aria-labelledby="nav-user-links">
-              <a id="nav-view-profile" class="dropdown-item" href="#">View Profile</a>
-              <a id="nav-find-contacts" class="dropdown-item" href="#">Find Contacts</a>
-              <a id="nav-toggle-persistence" class="dropdown-item" href="#">
-                <span id="persistence-toggler-label">Remember Me</span>
-                <div id="persistence-toggler" class="persistence-off">
-                  <div id="persistence-ball"></div>
-                </div>
-              </a>
-              <!-- <a id="nav-signout" class="dropdown-item logging-option" type="button">Signout</a> -->
-              <a id="nav-signout" class="dropdown-item">Signout</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- TODO test for cookie and hide if necessary -->
-        <div id="nav-returning-user" class="nav-item">
-        <!-- TODO use cookies to store last login and resume chat
-          <a id="nav-last-login" class="nav-link btn btn-outline-secondary" href="#">Login</a> -->
-        </div>        
-        
       </div>
     </nav>
   </header>
@@ -165,6 +142,39 @@
       </div>
     </div>
   </div>
+
+<!-- Login methods Modal -->
+<div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Log in via ...</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body container">
+              <div class="row sign-in-methods">
+                  <div id="nav-email-login" class="col-6 d-flex justify-content-center align-items-center">
+                      <i class="fa fa-at fa-6x fa-fw" aria-hidden="true"></i>E-MAIL
+                  </div>
+                  <div id="nav-facebook-login" class="col-6">
+                      <i class="fa fa-facebook-official fa-6x fa-fw" aria-hidden="true"></i>FACEBOOK
+                  </div>
+                  <div id="nav-github-login" class="col-6">
+                      <i class="fa fa-github fa-6x fa-fw" aria-hidden="true"></i>GITHUB
+                  </div>
+                  <div id="nav-guest-login" class="col-6">
+                      <i class="fa fa-user-secret fa-6x fa-fw" aria-hidden="true"></i>GUEST
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
 
   <!----------------------------------->
   <!-- SIGNUP VIA EMAIL AND PASSWORD -->
@@ -335,7 +345,7 @@
           </form>
         </div>
         <div class="modal-footer">
-          <a id="email-login-signup-button" type="button" class="btn btn-primary mr-auto">Signup</a>
+          <button id="email-login-signup-button" type="button" class="btn btn-primary ml-auto mr-2">Signup</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
         </div>
       </div>

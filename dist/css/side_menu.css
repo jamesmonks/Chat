@@ -14,20 +14,17 @@ a#nav-toggle-persistence > span {
     position: relative;
     height: 18px;
     width: 30px;
-    top: 5px;
+    top: 3px;
     left: 15px;
     border: 2px solid #ccc;
     border-radius: 9px;
     background-color: #0008; 
 }
 
-#persistence-toggler.persistence-off {
-    background-color: #0008;
-}
-
 #persistence-toggler.persistence-on {
-    border: 2px solid #0008;
-    background-color: #fff;
+    border: 2px solid #0005;
+    background-color: #cff;
+    box-shadow: 0 0 10px white;
 }
 
 #persistence-ball  {
@@ -38,7 +35,7 @@ a#nav-toggle-persistence > span {
     border: 1px solid #0008;
 }
 
-#persistence-toggler.persistence-off #persistence-ball {
+#persistence-toggler #persistence-ball {
     background-color: #ccc;
     left: -0.5px;
 }

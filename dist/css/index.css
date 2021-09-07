@@ -43,12 +43,13 @@ main {
     color: #000;
 }
 
-nav#bulletNav {
+nav#noodlechat-nav {
     background: #345060;
 }
 
-nav#nav-menu-items {
-    letter-spacing: 3px;
+#nav-menu-items {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .navbar-nav .dropdown-menu {
@@ -56,8 +57,23 @@ nav#nav-menu-items {
     transform: translateX(-50%);
 }
 
+#navbar-toggler {
+    padding: .25rem .75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+#navbar-toggler:focus {
+    outline: none !important;
+    border: 1px solid #fff2 !important;
+}
+
 .dropdown-menu {
     background: #CFF !important;
+    transform: translateY(-2px);
 }
 
 a.dropdown-item {
@@ -68,7 +84,6 @@ a.dropdown-item:hover {
     background: #fff !important;
     transition-duration: 400ms;
     border-radius: 5px;
-    border: 1px solid gray;
     box-shadow: 0 0 5px gray;
     z-index: 5;
 }
@@ -296,4 +311,31 @@ object.room-profile-logo-img > img {
 
 #view-room-profile-creator-nick {
     font-weight: 300;
+}
+
+/* sign in modal css */
+
+.sign-in-methods {
+    margin: 0;
+}
+
+.sign-in-methods > div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+    overflow: hidden;
+    color: #333;
+    width: 100%;
+}
+
+.sign-in-methods > div:hover {
+    color: blue;
+    width: 100%;
+}
+
+#sign-in-modal .modal-sm {
+    max-width: 300px;   
+    margin: .5rem auto;
 }
