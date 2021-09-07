@@ -120,6 +120,20 @@ function print_user_contacts()
 }
 
 /**
+ * Clears the site's chatrooms and room messages, plus any user specific
+ * visual elements.
+ * @param {*} event 
+ */
+ function reset_gui(event = null)
+ {
+     //TODO
+     $("#chat-input-row").hide(400);
+     $("#show-create-room-modal-button").hide(400);
+     remove_allow_empty_children("#chat-app");
+     navigation_setup(false);
+ }
+
+/**
  * 
  * @param {*} logged_in 
  */
@@ -127,11 +141,15 @@ function navigation_setup(logged_in)
 {
     if (logged_in)
     {
+        $(`#sign-in-method-button`).addClass(`d-none`);
+        $(`.navbar-toggler`).removeClass(`d-none`).addClass(`d-inline-block`);
         $(`#nav-logged-in`).show(1000);
         $(`#nav-logged-out`).hide();
     }
     else
     {
+        $(`#sign-in-method-button`).removeClass(`d-none`);
+        $(`.navbar-toggler`).addClass(`d-none`).removeClass(`d-inline-block`);
         $(`#nav-logged-in`).hide();
         $(`#nav-logged-out`).show(1000);
     }

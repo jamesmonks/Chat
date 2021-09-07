@@ -1,4 +1,6 @@
 let _debug_bypass_login = false;
+let _auto_login = null;
+let _new_user = false;
 
 let __DEFAULT_USER_INFO = {
     "name" : "No Name",
@@ -8,35 +10,123 @@ let __DEFAULT_USER_INFO = {
     "homepage" : "www.google.com"
 };
 
-function login_init()
+async function login_init()
 {
-    //TODO figure out if this will work or undo variables due to race conditions
-    //firebase.auth().onAuthStateChanged(empty_user_variables);
-    //temp until above todo is done
-    firebase.auth().onAuthStateChanged(function(user){
-        if (!user) {
-            empty_user_variables();
-        }
-    });
-
+    firebase.auth().onAuthStateChanged(new_auth_login);
     
-    navigation_setup(_debug_bypass_login);
-    //TODO figure what to do when user lands on this page
     if (_debug_bypass_login)
     {
         attempt_login_with_email("jameszmonks@gmail.com", "monkey");
     }
 }
 
+function received_login_request(event)
+{
+    console.log(event.currentTarget.id);
+    switch (event.currentTarget.id)
+    {
+        case "nav-email-login" :
+            show_modal_login_email();
+            break;
+        case "nav-facebook-login" : 
+            attempt_facebook_login();
+            break;
+        case "nav-github-login": 
+            attempt_github_login();
+            break;
+        case "nav-guest-login": 
+            attempt_guest_login();
+            break;
+        default :
+            console.log(event.currentTarget);
+            console.log(event.currentTarget.id);    
+    }
+}
+
+async function new_auth_login(user)
+{
+    console.log("authstatechanged");
+    let user_loggedin = (user != null);
+
+    // cases
+    // start, auto login => _auto_login is null, will be set to true
+    // start, user login => _auto_login is null, will be set to false
+    // *, user logout => _auto_login is already set
+    // *, user logout, user login => _auto_login is already set
+    //TODO #22 auto_login multi-user
+    // *, user logout && different user login => _auto_login should be false
+
+    //if the user clicks on the login button, _auto_login is set to false
+    //_auto_login is only null here if the user has not attempted to login
+    if (_auto_login === null && user_loggedin)
+        _auto_login = true;
+    
+    auto_set_persistence();
+    if (_auto_login === null)
+    {
+        console.log("new_auth_login _auto_login is null, what conditions make this happen?");
+    }
+    else if (_auto_login === true)
+    {
+
+        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+    }
+    else if (_auto_login === false)
+    {
+        auth.setPersistence(firebase.auth.Auth.Persistence.NONE);
+    }
+
+    //if not email login, is this user a new user?
+    if (user_loggedin)
+    // {
+        if (user.additionalUserInfo)
+            console.log(_new_user = user.additionalUserInfo.isNewUser);
+            // _new_user = user.additionalUserInfo.isNewUser;
+        // else
+    //         console.log("email login")
+    // }
+    console.log(user_loggedin, _new_user);
+
+    //actual login function follows
+    clear_previous_session();
+    if (user_loggedin)
+    {
+        await setup_current_user_vars();
+        navigation_setup(true);
+        queued_view_profile_user_id = user_uid;
+        show_modal_user_profile(null, view_user_profile_modal_prep); //default behaviour is to load user profile
+    }
+    else
+        navigation_setup(false);
+}
+
+function clear_previous_session()
+{
+    unregister_firebase_listeners();
+    empty_user_variables();
+    reset_gui();
+    reset_email_login_form(true);//unnecessary for other than email login, but won't break anything
+    reset_signup_email_form(true);//unnecessary for other than email signup, but won't break anything
+}
+
+async function setup_current_user_vars()
+{
+    user_uid = auth.currentUser.uid;
+    console.log("Attention, (user is new_user) = ", auth.currentUser.additinalUser);
+    //TODO #4 Account setup failed
+    if (_new_user)
+        await firebase_setup_new_user();
+    await populate_user_data();
+}
+
 /********************
 *  LOGIN FUNCTIONS  *
 ********************/
 
-//TODO
+//TODO #2 Enable altering of user persistence and use this state on page landing
 function attempt_last_login(event = null)
 {
     console.log("attempt_last_login");
-    //TODO
 }
 
 function login_with_email_event(event = null)
@@ -80,8 +170,8 @@ function signup_with_email_event(event = null)
 
 function attempt_login_with_email(email, pass)
 {
-    //auth.createUserWithEmailAndPassword(email, pass).catch(email_login_error);
-    auth.signInWithEmailAndPassword(email, pass).then(successful_email_login).catch(email_login_error);
+    _new_user = false;
+    auth.signInWithEmailAndPassword(email, pass).catch(email_login_error);
     
     function email_login_error(error) {
         console.log(error);
@@ -102,25 +192,13 @@ function attempt_login_with_email(email, pass)
         }
 
     }
-
-    async function successful_email_login(user)
-    {
-        console.log("successful_email_login");
-        empty_user_variables();
-        reset_email_login_form(true);
-        hide_visible_modal();
-        console.log("****got here");
-        await populate_user_data();
-        //todo remove this line
-        queued_view_profile_user_id = user_uid;
-        show_modal_user_profile(null, view_user_profile_modal_prep);
-    }
 }
 
 function attempt_signup_with_email(email, pass)
 {
     console.log("attempt_signup_with_email", email, pass);
-    try { auth.createUserWithEmailAndPassword(email, pass).then(  successful_signup ).catch( signup_failure ); }
+    _new_user = true;
+    try { auth.createUserWithEmailAndPassword(email, pass).catch( signup_failure ); }
     catch (error)
         { signup_failure(error); } //null arguments to auth function need a catch block
         
@@ -147,58 +225,24 @@ function attempt_signup_with_email(email, pass)
                 console.log(error.message);
                 break;
             case "auth/network-request-failed" :
-                //TODO reload the page
-                //TODO retry the connection
+                //TODO #3 Reload the page
                 break;
             default : break;
         }
     }
     
-    function successful_signup(user = null) {
-        console.log("successful_signup");
-        console.log(user);
-        empty_user_variables();
-        user_uid = auth.currentUser.uid;
 
-        firebase_setup_new_user( user_login_complete, account_setup_failed );
-    }
-    
-    function account_setup_failed(error) {
-        //TODO
-        console.log("account_setup_failed");
-        console.log("failed to initialize the user accounts variables");
-        console.log(error);
-    }
 }
 
-//TODO
 async function attempt_facebook_login(event = null)
 {
     console.log("attempt_facebook_login");
-    //TODO
+    //TODO #5 Login failure
     let provider = new firebase.auth.FacebookAuthProvider();
 
-    auth.signInWithPopup(provider).then((fb_login) => {
-        console.log(fb_login.credential);
-        console.log(fb_login.user);
-        console.log(fb_login.credential.accessToken);
-
-        console.log(fb_login.additionalUserInfo.isNewUser);
-
-        empty_user_variables();
-        user_uid = auth.currentUser.uid;
-
-        if (fb_login.additionalUserInfo.isNewUser) {
-            firebase_setup_new_user(user_login_complete /**, todo account failure here */);
-            // .catch( account_setup_failed(error) ); TODO
-        }
-        else
-        {
-            user_login_complete();
-        }
-    }).catch(error_obj => {
+    auth.signInWithPopup(provider).then().catch(
+        error_obj => {
         console.log(error_obj.code);
-
         switch (error_obj.code) {
             case "auth/account-exists-with-different-credential" :
                 break;
@@ -219,11 +263,14 @@ async function attempt_facebook_login(event = null)
     });
 }
 
-//TODO
+//TODO #6 Add github login feature
 function attempt_github_login(event = null)
 {
+    let provider = new firebase.auth.GithubAuthProvider();
+    auth.signInWithPopup(provider).catch(error_obj => {
+        console.log(error_obj)
+    });
     console.log("attempt_github_login");
-    //TODO
 }
 
 function reset_email_login_form(clear_text = false)
@@ -256,14 +303,6 @@ function reset_signup_email_form(clear_text = false)
         $("#signup-email-password").val("");
         $("#signup-email-password2").val("");
     }
-}
-
-function logout_user(event = null)
-{
-    unregister_firebase_listeners();
-    firebase.auth().signOut();
-    empty_user_variables();
-    reset_gui();
 }
 
 function set_invalid(dom_elem, is_invalid = true)
@@ -300,20 +339,6 @@ function set_invalid(dom_elem, is_invalid = true)
         }
     }
 }
-
-{/**
- * Transitions
- * USE CASE 1
- * modal exists
- * it is :visible, shown, show or hide                                  function modal_exists
- * if it is showing, need to listen for shown, then start hiding        if function modal_state() == "showing"
- *                                                                          on(shown.bs.modal, hide_current_modal)
- * if it is hiding, need to listen for hidden, then load next modal     if function modal_state() == "hiding"
- *                                                                          on(hidden.bs.modal, show_next_modal)
- * if it is not in transition, then load next modal                     if function modal_state() == "shown"
- *                                                                          .modal("show")
- * **** NB CSS transitions don't have or need intermediate animation states in bootstrap modals
-*/}
 
 /**
  * Once a user has logged in and been validated, setup local variables
@@ -370,3 +395,51 @@ async function user_login_complete(obj) {
     queued_view_profile_user_id = user_uid;
     show_modal_user_profile(null, view_user_profile_modal_prep);
 }
+
+function toggle_persistence(event) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    if (_auto_login === true)
+        _auto_login = false;
+    else if (_auto_login === false)
+        _auto_login = true;
+    auto_set_persistence();
+}
+
+function auto_set_persistence()
+{
+    console.log("auto_set_persistence", _auto_login);
+    let selector = "#nav-toggle-persistence #persistence-toggler";
+    if (_auto_login === true)
+    {
+        console.log(true);
+        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+        $(selector).addClass("persistence-on");
+    }
+    if (_auto_login === false)
+    {
+        console.log(false);
+        auth.setPersistence(firebase.auth.Auth.Persistence.NONE);
+        $(selector).removeClass("persistence-on");
+    }
+    console.log("toggle toggle toggel");
+    
+    // auth.setPersistence(_p_local);
+}
+
+
+
+{/**
+ * Transitions
+ * USE CASE 1
+ * modal exists
+ * it is :visible, shown, show or hide                                  function modal_exists
+ * if it is showing, need to listen for shown, then start hiding        if function modal_state() == "showing"
+ *                                                                          on(shown.bs.modal, hide_current_modal)
+ * if it is hiding, need to listen for hidden, then load next modal     if function modal_state() == "hiding"
+ *                                                                          on(hidden.bs.modal, show_next_modal)
+ * if it is not in transition, then load next modal                     if function modal_state() == "shown"
+ *                                                                          .modal("show")
+ * **** NB CSS transitions don't have or need intermediate animation states in bootstrap modals
+*/}

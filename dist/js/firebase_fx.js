@@ -165,6 +165,7 @@ async function firebase_add_user_to_chatroom(user_id, chatroom_id, callback_fx =
 
 async function firebase_get_room_info(room_id)
 {
+    //todo #9 add room info updates in real time
     console.log(`firebase_get_room_info(${room_id})`);
     let ref1 = database.ref(`rooms/chatrooms/${room_id}/info`);
     let ref2 = database.ref(`rooms/chatrooms/${room_id}/users`);
@@ -204,8 +205,8 @@ async function add_message_to_firebase(room_id, msg_type, content) {
  */
 function connect_to_firebase()
 {
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
+    // Initialize Firebase
+    firebase.initializeApp({
         apiKey: "AIzaSyD5z0Ul3RHeFlfkkHJxUJSXxjyCssuyvQg",
         authDomain: "noodlemessager.firebaseapp.com",
         databaseURL: "https://noodlemessager-default-rtdb.firebaseio.com",
@@ -213,9 +214,7 @@ function connect_to_firebase()
         storageBucket: "noodlemessager.appspot.com",
         messagingSenderId: "797233813077",
         appId: "1:797233813077:web:094f137d99b9971462a6dc"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    });
     database = firebase.database();
     auth = firebase.auth();
 }
@@ -230,7 +229,7 @@ function message_received(snapshot, prev_key)
     let valid = true;
     let debug = false;
     //todo validity checks
-    console.log("message_received()");
+    // console.log("message_received()");
     if (debug)
         console.log(snapshot.ref.key, snapshot.toJSON());
     if (valid)
@@ -268,6 +267,18 @@ function message_received(snapshot, prev_key)
 async function firebase_setup_new_user(success_callback, failure_callback)
 {
     console.log(`firebase_setup_new_user()`);
+    if (_new_user)
+    {
+        _new_user = false;
+        //do stuff here
+        let update_obj = firebase_initial_user_values_object();
+        console.log(update_obj);
+        database.ref().update(update_obj).then(success_callback).catch(err_value => {
+            failure_callback(err_value);
+        });
+    }
+    else
+        user_login_complete();
     let update_obj = firebase_initial_user_values_object();
     console.log(update_obj);
     database.ref().update(update_obj).then(success_callback).catch(err_value => {

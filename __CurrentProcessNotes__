@@ -1,0 +1,101 @@
+persistence logic
+    alter login dropdown to be a single button option
+    persistence is initially set to localStorage
+        if user selects sign in,
+            stop sign in and change storage type to none
+        else 
+            keep it as whatever it is
+
+function onauth_login_function()
+{
+// process ->
+async function new_auth_login()
+{
+    clear_previous_session();
+    await setup_current_user_vars();
+    queued_view_profile_user_id = user_uid;
+    show_modal_user_profile(null, view_user_profile_modal_prep);
+}
+
+function clear_previous_session() //code_playground.js
+{
+    unregister_firebase_listeners();
+    empty_user_variables();
+    clear_gui();//where is this function?
+    reset_email_login_form(true);//unnecessary for other than email login, but won't break anything
+}
+
+async function setup_current_user_vars() //code_playground.js
+{
+    user_uid = auth.currentUser.uid;
+    console.log("Attention, (user is new_user) = ", auth.currentUser.additinalUser);
+    if (_new_user)
+        await firebase_setup_new_user();
+    await populate_user_data();
+}
+
+// *** facebook login
+// attempt_facebook_login
+//        empty_user_variables(); //** functions_to_add */
+//        user_uid = auth.currentUser.uid; //** functions_to_add */
+//	    _new_user ? firebase_setup_new_user -> user_login_complete
+//		          : user_login_complete
+
+// *** email signup
+
+// attempt_signup_with_email
+    // function successful_signup(user = null) {
+//        empty_user_variables(); //** functions_to_Add */
+//        user_uid = auth.currentUser.uid; //** functions_to_add */
+//        firebase_setup_new_user( user_login_complete, account_setup_failed );
+    // }
+
+// *** email login
+// successful_email_login(user)
+//    empty_user_variables(); //** functions_to_add */
+    //where did I load user_uid??
+//    reset_email_login_form(true); //??
+//    hide_visible_modal(); //Unnecessary
+
+    // await populate_user_data(); //** user_login_complete */
+    // queued_view_profile_user_id = user_uid; //** user_login_complete */
+    // show_modal_user_profile(null, view_user_profile_modal_prep); //** user_login_complete */
+
+// signout
+
+
+// async function firebase_setup_new_user(success_callback, failure_callback)
+// {
+//     console.log(`firebase_setup_new_user()`);
+//     if (_new_user)
+//     {
+//         _new_user = false;
+//         //do stuff here
+//         let update_obj = firebase_initial_user_values_object();
+//         await database.ref().update(update_obj).then(success_callback).catch(err_value => {
+//             failure_callback(err_value);
+//         });
+//     }
+//     else
+//         user_login_complete();
+// }
+
+
+// the common task
+// async function user_login_complete(obj) {
+//     functions_to_add();
+//     await populate_user_data();
+//     queued_view_profile_user_id = user_uid;
+//     show_modal_user_profile(null, view_user_profile_modal_prep);
+// }
+
+// functions_to_add() {
+//     empty_user_variables();
+//     user_uid = auth.currentUser.uid; //need to set user_uid
+
+//     if (_new_user)
+//     {
+//         await firebase_setup_new_user()
+//     }
+// }
+}
