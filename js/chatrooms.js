@@ -1,4 +1,4 @@
-console.log("loaded here git updated 1");
+console.log("loaded here git updated 2");
 
 //holds room data
 let room_info = {};
@@ -163,7 +163,7 @@ function show_room_info(event)
  */
 function flash_room_on_menu(room_key)
 {
-    console.log("flash_room_on_menu:", room_key);
+    // console.log("flash_room_on_menu:", room_key);
     if ( room_key != current_roomid && ! $("#" + room_key).hasClass("has-unread-messages") )
     {
         $("#" + room_key).addClass("has-unread-messages");

@@ -30,22 +30,25 @@ let user_profiles = {};
 var database;
 var auth;
 
-function prep(event)
+async function prep(event)
 {
     //dummy_data();
     user_info = {};
 
-    setup_navigation();
-
+    setup_navigation_listeners();
     init_modal_button_functions();
+
     connect_to_firebase();
 
     $("#chat-input-row").hide();
-
     $("#send-user-message").on("click", send_message_event).hide();
     $("#user-message-text").on("click", clear_message_text).hide();
-    $("#show-create-room-modal-button").hide().on("click", create_room);
-    login_init();
+    $("#sign-in-method-button").on("click", event => {
+        _auto_login = false;
+    });
+    $("#show-create-room-modal-button").on("click", create_room).hide();
+
+    await login_init();
 
     $(`#welcomeModal`).modal(`show`);
 
@@ -276,35 +279,19 @@ function change_contact(event)
 /**
  * Function sets up the "click" listeners for the page's nav links
  */
-function setup_navigation()
+function setup_navigation_listeners()
 {
     //  nav-logged-out
-    $("#nav-email-login").on("click", show_modal_login_email);
-    $("#nav-facebook-login").on("click", attempt_facebook_login);
-    $("#nav-github-login").on("click", attempt_github_login);
+    $(".sign-in-methods > div").on("click", received_login_request);
     // #nav-logged-in
     $("#nav-view-profile").on("click", load_user_profile);
     $("#nav-signout").on("click", function(event) {
         firebase.auth().signOut();
     });
     $("#nav-find-contacts").on("click", show_modal_search_users);
-    $("#nav-find-contacts").on("click", toggle_persistence);
+    $("#nav-toggle-persistence").on("click", toggle_persistence);
     // #nav-returning-user
     $("#nav-last-login").on("click", attempt_last_login);
-}
-
-/**
- * Clears the site's chatrooms and room messages, plus any user specific
- * visual elements.
- * @param {*} event 
- */
-function reset_gui(event = null)
-{
-    //TODO
-    $("#chat-input-row").hide(400);
-    $("#show-create-room-modal-button").hide(400);
-    remove_allow_empty_children("#chat-app");
-    navigation_setup(false);
 }
 
 // TODO JZM
