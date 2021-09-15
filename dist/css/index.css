@@ -103,6 +103,11 @@ a.dropdown-item.logging-option:hover {
     height: 100%;
 }
 
+#chatlog .row:nth-child(odd):hover + .row
+{
+
+}
+
 div#chatroom {
     padding-right: 0;
     padding-bottom: 5px;

@@ -60,7 +60,7 @@ async function prep(event)
     $(`.navbar-brand`).on("click", event => { $(`#welcomeModal`).modal(`show`) });
 
     window.onresize = do_breakpoint_change_detection;
-    document.addEventListener(BOOTSTRAP_BREAKPOINT_CHANGE_EVENT, chatlog_scroll_on_breakpoint);
+    document.addEventListener(BOOTSTRAP_BREAKPOINT_CHANGE_EVENT, scroll_to_last_row);
 }
 
 /**

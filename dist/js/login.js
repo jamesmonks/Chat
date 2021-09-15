@@ -2,7 +2,7 @@ let _SIGNUP_WITH_EMAIL_ = "createUserWithEmailAndPassword";
 let _SIGNIN_WITH_EMAIL_ = "signInWithEmailAndPassword";
 let _SIGNIN_WITH_POPUP_ = "signInWithPopup";
 
-let _debug_bypass_login = false;
+let _debug_bypass_login = true;
 let _auto_login = null;
 let _new_user = false;
 let _latest_login_source = "none";
@@ -86,6 +86,7 @@ async function new_auth_login(user)
             navigation_setup(true);
             queued_view_profile_user_id = user_uid;
             show_modal_user_profile(null, view_user_profile_modal_prep); //default behaviour is to load user profile
+            chatbot_init();
         }
         else
         {

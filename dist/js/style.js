@@ -15,7 +15,7 @@ function create_user_style(user_id)
                         `color : ${user_font_color}; } `);
     dyn_sht.insertRule( `div.speech-bg.${user_obj[__USER_PROFILE_CSS__]} {` +
                         `background-color : #${user_obj[__USER_PROFILE_COLOR__]}; } `);
-    dyn_sht.insertRule( `.other-user-msg.${user_obj[__USER_PROFILE_CSS__]}:before {
+    dyn_sht.insertRule( `.other-user-msg.${user_obj[__USER_PROFILE_CSS__]}:after {
                         content: "";
                         width: 0px;
                         height: 0px;

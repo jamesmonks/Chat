@@ -46,11 +46,12 @@ async function init_user_rooms()
 }
 
 /**
- * 
- * Function handles adding a room along with internal logic
- * @param {*} room_name 
+ * Function takes a room_id and checks if that there's not a room already internally stored with that
+ * unique room_id. If so, then it sends a request to the firebase database for information to be stored
+ * locally. If not, no information request is performed and a return of false is given, signifying that 
+ * this room is already being tracked internally
  * @param {*} room_id 
- * @returns Boolean whether the room was added
+ * @returns Boolean Whether the room was added 
  */
 async function add_room(room_id)
 {
@@ -64,11 +65,39 @@ async function add_room(room_id)
 
 /**
  * 
+ * @param {*} room_id 
+ * @param {*} room_name Human readable name
+ * @param {*} room_creator uid of the room's creator
+ * @param {*} room_logo Link to the room's logo, if any
+ * @param {*} users Array of users of this room, identified by their uid
+ * @returns An object with the rooms properties
+ */
+function add_non_firebase_room(room_id, room_name, room_creator, room_logo, users)
+{
+
+    if (room_info.hasOwnProperty(room_id))
+    {
+        throw new Error(`"add_non_firebase_room(${room_id}, ...args)Room already exists"`)
+    }
+
+    let obj = {};
+    obj[__ROOMINFO_NAME_KEY__]  = room_name;
+    obj[__ROOMINFO_CRTR_KEY__]  = room_creator;
+    obj[__ROOMINFO_LOGO_KEY__]  = room_logo;
+    obj[__ROOMINFO_USRS_KEY__]  = users;
+
+    room_info[room_id] = obj;
+
+    return obj
+}
+
+/**
+ * 
  * Function adds the room to the side menu bar
  * @param {*} room_name String with a hopefully user readable roomname
  * @param {*} room_id roomid from firebase server
  * @param {*} image_url 
- * @returns Whether the room was added to the menu
+ * @returns The button-shaped element that was added or Null if no element was added.
  */
 async function add_room_to_menu(room_id)
 {
@@ -76,7 +105,7 @@ async function add_room_to_menu(room_id)
     let room_icon_url = room_info[room_id][__ROOMINFO_LOGO_KEY__];
     console.log(`add_room_to_menu(${room_id}) => room_name: ${room_name}, room_icon: ${room_icon_url}`);
     if ($(`#${room_id}`).length > 0)
-        return false; //already exists
+        return null; //already exists
     
     let initials_arr = room_name.split(` `);
     let room_div = $(`<div id="${room_id}" class="room-button"  
@@ -102,7 +131,7 @@ async function add_room_to_menu(room_id)
     $("#chatrooms-div").append(room_div);
     $("#chatrooms-div").append( create_description_div(room_id, room_name, room_info[room_id][__ROOMINFO_CRTR_KEY__]) );
 
-    return true;
+    return room_div;
 }
 
 function attempt_room_icon(div, img_src, initials_arr)
@@ -177,21 +206,13 @@ function flash_room_on_menu(room_key)
 function room_selected(event)
 {
     console.log("room_selected() event triggered");
+    $(".current-room").removeClass("current-room");
     // console.log(event);
     // console.log(event.currentTarget);
     // console.log(event.currentTarget.id);
     current_roomid = event.currentTarget.getAttribute("data-roomid");
-    // current_roomid = event.currentTarget.id;
-    $(`#${current_roomid}`).removeClass(`has-unread-messages`);
-    console.log(current_roomid, $(event.currentTarget).data("roomid"));
-    // let room_buttons = $(".room-button");
-
-    $(".current-room").removeClass("current-room");
-    // for (let i=0; i<room_buttons.length; i++)
-    // {
-    //     $(room_buttons[i]).removeClass("current-room");
-    // }
-    $("#" + current_roomid).addClass("current-room");
+    $(`#${current_roomid}`).removeClass(`has-unread-messages`).addClass(`current-room`);
+    // console.log(current_roomid, $(event.currentTarget).data("roomid"));
     let data_target = $(`#${current_roomid}`).data("target");
     $(".room-button").not(`#${current_roomid}`).not('.collapsed').addClass("collapsed").attr("aria-expanded", "false");
     $("#chatrooms-div .collapse.show").not(data_target).removeClass("show");
@@ -203,12 +224,6 @@ function load_room_chat(room_id)
     console.log("load_room_chat(" + room_id + ")");
     console.log("room_info:");
     console.log(room_info);
-    {/**
-     * 1 if room exists
-     * 2 retrieve reference to root of messages
-     * 3 remove alert class if exists
-     * 4 load chat messages
-    */}
 
     //if (room_id in room_info)
     if (room_info.hasOwnProperty(room_id))
@@ -233,8 +248,9 @@ function load_room_chat(room_id)
  * @param {*} user_id 
  * @param {*} time_stamp 
  * @param {*} message_string 
+ * @returns The div object containing the message
  */
-function add_chatroom_message(user_id, time_stamp, message_string)
+async function add_chatroom_message(user_id, time_stamp, message_string)
 {
     console.log("add_chatroom_message :- ", user_id, time_stamp, message_string);
     if (!(user_id in user_profiles))
@@ -247,12 +263,12 @@ function add_chatroom_message(user_id, time_stamp, message_string)
                 add_user_profile(user_id, user_root[__USER_INFO_NAME__], 
                     user_root[__USER_INFO_NICK__], user_root[__USER_INFO_PIC__], 
                     user_root[__USER_INFO_BIO__], user_root[__USER_INFO_HOME__]);
-                continue_to_add_chatroom_message(user_id, time_stamp, message_string);
+                return continue_to_add_chatroom_message(user_id, time_stamp, message_string);
             }
         );
     }
     else
-        continue_to_add_chatroom_message(user_id, time_stamp, message_string);
+        return continue_to_add_chatroom_message(user_id, time_stamp, message_string);
 }
  
  /**
@@ -260,6 +276,7 @@ function add_chatroom_message(user_id, time_stamp, message_string)
   * @param {*} user_id 
   * @param {*} time_stamp 
   * @param {*} message_string 
+  * @returns The div object containing the message
   */
 function continue_to_add_chatroom_message(user_id, time_stamp, message_string)
 {
@@ -272,21 +289,6 @@ function continue_to_add_chatroom_message(user_id, time_stamp, message_string)
 
     let message_row = $(document.createElement("div")).addClass("row");
 
-    {/**
- 0 elements append
-    n elements
-        found + insert_before_message_row = insertBefore
-        found + !insert_before_message_row = append //will be the latest message
-        !found + insert_before_message_row = insertBefore //will be the earliest message
-        !found + !insert_before_message_row = append //will be the only message or 2nd message
-*/
-
-    //ALGO to insert at correct position
-    //traverse the divs that are chidren of chatlog
-    //  there will be a div that has the format "user_id-timestamp" extract the timestamp
-    //  compare the timestamp to the one being inserted (starting at the end)
-    //
-    }
     let insert_before_message_row = find_insert_before_point(time_stamp);
 
     (insert_before_message_row == null) ? $("#chatlog").append(message_row)
@@ -295,7 +297,8 @@ function continue_to_add_chatroom_message(user_id, time_stamp, message_string)
     (user_id == user_uid) ? create_user_message_div(message_row, new_message_id, message_string, user_css_name)
                           : create_other_user_message_div(message_row, user_id, new_message_id, message_string);
     
-    $(`#chatlog`)[0].scrollIntoView({behavior: "smooth", block: "end"});
+    scroll_to_last_row();
+    return message_row;
 }
 
 function debug_mangle_timestamp(unmangled)
@@ -456,8 +459,9 @@ function reset_chatroom()
  * can see the most recent message
  * @param {*} event 
  */
-function chatlog_scroll_on_breakpoint(event)
+function scroll_to_last_row(event)
 {
-    if ($(`#chatlog`).length == 1)
-        $(`#chatlog`)[0].scrollIntoView({behavior: "smooth", block: "end"});
+    let last_row_index = $(`#chatlog .row`).length - 1;
+    if (last_row_index > 0)
+        $(`#chatlog .row`)[last_row_index].scrollIntoView({behavior: "smooth", block: "end"});
 }
