@@ -56,7 +56,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- //LOGGED OUT -->
-      <button id="sign-in-method-button" class="btn btn-outline-info nav-link" href="#" data-toggle="modal" data-target="#sign-in-modal">Login</button>
+      <div data-toggle="tooltip" data-placement="left" title="Click here to login.">
+        <button id="sign-in-method-button" class="btn btn-outline-info nav-link" href="#" data-toggle="modal" data-target="#sign-in-modal">Login</button>
+      </div>
       <!-- //LOGGED IN -->
       <div id="nav-logged-in">
         <div id="nav-menu-items" class="dropdown-menu dropdown-menu-right justify-content-center" aria-labelledby="nav-user-links">
@@ -188,7 +190,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="email-signup-title">Please fill in info</h5>
+          <h5 class="modal-title" id="email-signup-title">SIGNUP: Please enter signup info</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -212,11 +214,11 @@
               <small id="signup-email-password-help2" class="form-text text-muted-amended">Re-enter your password</small>
             </div>
 
-            <input id="email-signup-button" type="button" class="btn btn-primary" value="Signup" />
+            <input id="email-signup-button" type="button" class="btn btn-primary" value="SIGNUP" />
           </form>
         </div>
         <div class="modal-footer">
-          <a id="email-signup-login-button" class="btn btn-primary mr-auto">Login</a>
+          <a id="email-signup-login-button" class="btn btn-primary ml-auto">Login</a>
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -322,7 +324,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="email-login-title">Please Enter login info</h5>
+          <h5 class="modal-title" id="email-login-title">LOGIN: Please Enter Login Info</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -344,7 +346,7 @@
               <input type="checkbox" class="form-check-input" id="permanent-email-login" aria-describedby="permanent-email-login-help" />
               <small id="permanent-email-login-help" class="form-text text-muted-amended">Automatic login, this should not be checked on unsecured or shared computers</small>
             </div>
-            <input id="email-login-button" type="button" class="btn btn-primary" value="Login" />
+            <input id="email-login-button" type="button" class="btn btn-primary" value="LOGIN" />
           </form>
         </div>
         <div class="modal-footer">

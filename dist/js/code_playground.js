@@ -288,6 +288,8 @@ function change_contact(event)
  */
 function setup_navigation_listeners()
 {
+    $("#sign-in-method-button").addClass("noodlechat-alert").on("click", event => {$("#sign-in-method-button").removeClass("noodlechat-alert");});
+
     //  nav-logged-out
     $(".sign-in-methods > div").on("click", received_login_request);
     // #nav-logged-in

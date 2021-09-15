@@ -17,6 +17,7 @@ let _STATEMENT_TYPES_ = [_ROBOT_STATEMENT_TYPE__TEXT_, _ROBOT_STATEMENT_TYPE__QU
 
 let _ROBOT_DIALOG_;
 let _ROBOT_UID_;
+let _ROBOT_ROOM_ID_ = "robot_help"
 
 
 function chatbot_init()
@@ -30,8 +31,8 @@ function generate_responses()
 {
     add_response_to_chatbot("d001", "intro_001", "Welcome",
         [
-            create_response_statement_object(_ROBOT_STATEMENT_TYPE__TEXT_, "Welcome to my app"),
-            create_response_statement_object(_ROBOT_STATEMENT_TYPE__TEXT_, "I'm a robot"),
+            create_response_statement_object(_ROBOT_STATEMENT_TYPE__TEXT_, "Welcome to my chat app"),
+            create_response_statement_object(_ROBOT_STATEMENT_TYPE__TEXT_, "I'm a robot, you can click on any 'Option' chat bubbles. With that said ..."),
             create_response_statement_object(_ROBOT_STATEMENT_TYPE__QUESTION_, "Can I help you with the following?")
         ],
         ["d002", "d003"]);
@@ -64,12 +65,11 @@ function setup_robot()
 
 async function setup_robot_room()
 {
-    let robot_room_id = "robot_help";
     //create a room
-    add_non_firebase_room(robot_room_id, "Help", user_uid, 
+    add_non_firebase_room(_ROBOT_ROOM_ID_, "Help", user_uid, 
     __DEFAULT_ROOM_IMAGE_LINK__, [user_uid, _ROBOT_UID_]);
     //add room to menu
-    let room = await add_room_to_menu(robot_room_id);
+    let room = await add_room_to_menu(_ROBOT_ROOM_ID_);
     room.on("click", event => { send_robot_response("d001"); })
     //send a message to the room
     send_robot_response("d001");

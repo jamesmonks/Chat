@@ -2,17 +2,17 @@ let _SIGNUP_WITH_EMAIL_ = "createUserWithEmailAndPassword";
 let _SIGNIN_WITH_EMAIL_ = "signInWithEmailAndPassword";
 let _SIGNIN_WITH_POPUP_ = "signInWithPopup";
 
-let _debug_bypass_login = true;
+let _debug_bypass_login = false;
 let _auto_login = null;
 let _new_user = false;
 let _latest_login_source = "none";
 
 let __DEFAULT_USER_INFO = {
-    "name" : "No Name",
-    "nick" : "No Nick",
+    "name" : "Enter your chat name",
+    "nick" : "Enter your chat nick",
     "pic"  : "./images/unknown_profile.jpg",
-    "bio"  : "This person appears to have no history. M Night Shyamalan.",
-    "homepage" : "www.google.com"
+    "bio"  : "Enter your chat bio here",
+    "homepage" : "Enter your homepage here"
 };
 
 async function login_init()
