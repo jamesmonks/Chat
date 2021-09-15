@@ -41,6 +41,7 @@
     <script type="text/javascript" src="./js/chatrooms.js"></script>
     <script type="text/javascript" src="./js/modal.js"></script>
     <script type="text/javascript" src="./js/code_playground.js"></script>
+    <script type="text/javascript" src="./js/robot.js"></script>
     <!-- <script type="text/javascript" src="./js/index.js"></script> -->
     <!-- End custom js  -->
 </head>
@@ -55,7 +56,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- //LOGGED OUT -->
-      <button id="sign-in-method-button" class="btn btn-outline-info nav-link" href="#" data-toggle="modal" data-target="#sign-in-modal">Login</button>
+      <div data-toggle="tooltip" data-placement="left" title="Click here to login.">
+        <button id="sign-in-method-button" class="btn btn-outline-info nav-link" href="#" data-toggle="modal" data-target="#sign-in-modal">Login</button>
+      </div>
       <!-- //LOGGED IN -->
       <div id="nav-logged-in">
         <div id="nav-menu-items" class="dropdown-menu dropdown-menu-right justify-content-center" aria-labelledby="nav-user-links">
@@ -117,10 +120,9 @@
     </div>
   </main>
 
-
-  <!--
-    GREETING MODAL
-  -->
+<!------------------------->
+<!---- GREETING MODAL ----->
+<!------------------------->
   <div class="modal show in" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -143,38 +145,41 @@
     </div>
   </div>
 
+<!------------------------->
 <!-- Login methods Modal -->
-<div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title">Log in via ...</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body container">
-              <div class="row sign-in-methods">
-                  <div id="nav-email-login" class="col-6 d-flex justify-content-center align-items-center">
-                      <i class="fa fa-at fa-6x fa-fw" aria-hidden="true"></i>E-MAIL
-                  </div>
-                  <div id="nav-facebook-login" class="col-6">
-                      <i class="fa fa-facebook-official fa-6x fa-fw" aria-hidden="true"></i>FACEBOOK
-                  </div>
-                  <div id="nav-github-login" class="col-6">
-                      <i class="fa fa-github fa-6x fa-fw" aria-hidden="true"></i>GITHUB
-                  </div>
-                  <div id="nav-guest-login" class="col-6">
-                      <i class="fa fa-user-secret fa-6x fa-fw" aria-hidden="true"></i>GUEST
-                  </div>
-              </div>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
-          </div>
-      </div>
+<!------------------------->
+
+  <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Log in via ...</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body container">
+                <div class="row sign-in-methods">
+                    <div id="nav-email-login" class="col-6 d-flex justify-content-center align-items-center">
+                        <i class="fa fa-at fa-6x fa-fw" aria-hidden="true"></i>E-MAIL
+                    </div>
+                    <div id="nav-facebook-login" class="col-6">
+                        <i class="fa fa-facebook-official fa-6x fa-fw" aria-hidden="true"></i>FACEBOOK
+                    </div>
+                    <div id="nav-github-login" class="col-6">
+                        <i class="fa fa-github fa-6x fa-fw" aria-hidden="true"></i>GITHUB
+                    </div>
+                    <div id="nav-guest-login" class="col-6">
+                        <i class="fa fa-user-secret fa-6x fa-fw" aria-hidden="true"></i>GUEST
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
   </div>
-</div>
 
   <!----------------------------------->
   <!-- SIGNUP VIA EMAIL AND PASSWORD -->
@@ -185,7 +190,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="email-signup-title">Please fill in info</h5>
+          <h5 class="modal-title" id="email-signup-title">SIGNUP: Please enter signup info</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -209,11 +214,11 @@
               <small id="signup-email-password-help2" class="form-text text-muted-amended">Re-enter your password</small>
             </div>
 
-            <input id="email-signup-button" type="button" class="btn btn-primary" value="Signup" />
+            <input id="email-signup-button" type="button" class="btn btn-primary" value="SIGNUP" />
           </form>
         </div>
         <div class="modal-footer">
-          <a id="email-signup-login-button" class="btn btn-primary mr-auto">Login</a>
+          <a id="email-signup-login-button" class="btn btn-primary ml-auto">Login</a>
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -319,7 +324,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="email-login-title">Please Enter login info</h5>
+          <h5 class="modal-title" id="email-login-title">LOGIN: Please Enter Login Info</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -341,7 +346,7 @@
               <input type="checkbox" class="form-check-input" id="permanent-email-login" aria-describedby="permanent-email-login-help" />
               <small id="permanent-email-login-help" class="form-text text-muted-amended">Automatic login, this should not be checked on unsecured or shared computers</small>
             </div>
-            <input id="email-login-button" type="button" class="btn btn-primary" value="Login" />
+            <input id="email-login-button" type="button" class="btn btn-primary" value="LOGIN" />
           </form>
         </div>
         <div class="modal-footer">
@@ -512,6 +517,29 @@
         </div>
         <div class="modal-footer m-0" style="background-color: lightblue;">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!----------------->
+  <!-- ERROR MODAL -->
+  <!----------------->
+
+  <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="error-modal-title" class="modal-title allow-empty">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div id="error-modal-body" class="modal-body allow-empty">
+          Body
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

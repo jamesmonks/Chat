@@ -94,8 +94,12 @@ button#show-create-room-modal-button {
     transition-duration: 250ms;
 }
 
-.room-button.has-unread-messages {
+.has-unread-messages {
     animation: glow 2s infinite;
+}
+
+.noodlechat-alert {
+    animation: glow2 2s infinite;
 }
 
 @keyframes glow {
@@ -107,6 +111,18 @@ button#show-create-room-modal-button {
     }
     100% {
         border: 3px solid #080808;
+    }
+}
+
+@keyframes glow2 {
+    0% {
+        border: 3px solid rgba(255, 166, 0, 0);
+    }
+    50% {
+        border: 3px solid rgba(255, 166, 0, 1);
+    }
+    100% {
+        border: 3px solid rgba(255, 166, 0, 0);
     }
 }
 

@@ -63,3 +63,58 @@ blockquote:after {
   margin-top: 0.2rem;
   /* bg color = bg color under block */
 }
+
+
+
+
+
+/* ************* */
+/* robot styling */
+/* ************* */
+
+.robot-question::before
+{
+    color: #333;
+    content: "Question: \A";
+    font-weight: bold;
+    font-size: 1rem;
+    white-space: pre;
+}
+.robot-question {
+    text-transform: capitalize;
+    color: #333;
+}
+
+
+.robot-answer::before {
+    color: green;
+    content: 'Answer: ';
+    font-weight: bold;
+}
+.robot-answer {
+    font-style: italic;
+    color: #484848;
+}
+
+
+.robot-option::before {
+    color: #333388;
+    content: 'Option: ';
+}
+.robot-option {
+    color: #333368;
+}
+.robot-option:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+.robot-text, .robot-default {
+    color: #555;
+}
+
+
+.robot-default, .robot-text, .robot-question { 
+    cursor: default;
+}

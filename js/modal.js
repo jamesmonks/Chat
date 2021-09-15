@@ -134,11 +134,21 @@ function init_modal_button_functions()
 {
     //email signup
     $("#email-signup-button").on("click", signup_with_email_event);
-    $("#email-signup-login-button").on("click", show_modal_login_email);
+    $("#email-signup-login-button").on("click", event => {
+        show_modal_login_email(event, function() {
+            $("#login-email").val( $("#signup-email-email").val() );
+            $("#login-password").val( $("#signup-email-password").val() );
+        });
+    });
 
     //email login
     $("#email-login-button").on("click", login_with_email_event);
-    $("#email-login-signup-button").on("click", show_modal_signup_email);
+    $("#email-login-signup-button").on("click", event => {
+        show_modal_signup_email(event, function() {
+            $("#signup-email-email").val( $("#login-email").val() );
+            $("#signup-email-password").val( $("#login-password").val() );
+        });
+    });
 
     //room create
     $("#room-create-button").on("click", create_room_event);
@@ -238,14 +248,15 @@ function populate_user_profile_modal(snapshot = null)
 
     function modal_user_chatrooms()
     {
+        let has_chatrooms = false;
         console.log("modal_user_chatrooms");
         let chatrooms_div = $("#user-profile-chatrooms");
         let chatrooms_ul = $(`<div id="user-profile-chatrooms-ul">`);
         chatrooms_div.append($("<h4>CHATROOMS</h4>"));
         if (lcl_rooms)
         {
-            chatrooms_div.append(chatrooms_ul);
             Object.keys(lcl_rooms).forEach(key => {
+                has_chatrooms = true;
                 let chatroom_li = $(`<div id="room-key-${key}" class="user-profile-chatrooms text-truncate" data-roomid="${key}">`).append(lcl_rooms[key]);
                 chatroom_li.on("click", function(event) {
                     room_selected(event);
@@ -262,8 +273,20 @@ function populate_user_profile_modal(snapshot = null)
                 set_text_from_ref(`/rooms/chatrooms/${key}/info/name`, `#room-key-${key}`);
             });
         }
+
+        if (has_chatrooms)
+            chatrooms_div.append(chatrooms_ul)
         else
-            chatrooms_div.append( $(`<h5 class="text-truncate">`).append("You are not a member of any chatrooms") );
+        {
+            chatrooms_div.append(`<h5>You are not a member of any chatrooms</h5>`);
+            let clickable_span = $(`<span>Click here or on the 'Help' Chatroom for help.</span>`)
+                                .on("click", function() {
+                                    $(`#${_ROBOT_ROOM_ID_}`).trigger("click");
+                                    hide_visible_modal();
+                                } );
+            chatrooms_div.append(clickable_span);
+        }
+    
     }
 
     remove_modal_body_content("view-user-profile-modal");
@@ -282,6 +305,7 @@ function populate_user_profile_modal(snapshot = null)
 
     //populate contacts
     let modal_contacts = $(`#user-profile-contacts`);
+    let has_no_contacts = true;
     console.log(lcl_contacts);
     console.log(user_contacts);
     if (lcl_contacts)
@@ -289,13 +313,25 @@ function populate_user_profile_modal(snapshot = null)
         console.log(lcl_contacts);
         Object.keys(lcl_contacts).forEach( key => {
             console.log(key, user_contacts);
+            has_no_contacts = false;
             let skel = create_small_user_profile( key );
             modal_contacts.append(skel);
 
         });
     }
-    else
-        modal_contacts.append($(`<h5 class="col-12">`).append("No contacts"));
+
+    if (has_no_contacts)
+    {
+        let modal_contacts_div = $(`<div class="col-12">`);
+        modal_contacts_div.append(`<h5>You do not have any contacts</h5>`);
+        let clickable_span = $(`<span>Click here or on the 'Help' Chatroom for help.</span>`)
+                             .on("click", function() {
+                                $(`#${_ROBOT_ROOM_ID_}`).trigger("click");
+                                hide_visible_modal();
+                            });
+        modal_contacts_div.append(clickable_span);
+        modal_contacts.append(modal_contacts_div);
+    }
 }
 
 
