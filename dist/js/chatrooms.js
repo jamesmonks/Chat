@@ -284,9 +284,6 @@ function continue_to_add_chatroom_message(user_id, time_stamp, message_string)
     let user_css_name = user_profiles[user_id][__USER_PROFILE_CSS__];
     let new_message_id = time_stamp.toString() + "-" + user_id.toString();
 
-    //aids in debugging visually
-    // message_string += " " + debug_mangle_timestamp(time_stamp);
-
     let message_row = $(document.createElement("div")).addClass("row");
 
     let insert_before_message_row = find_insert_before_point(time_stamp);
@@ -294,16 +291,11 @@ function continue_to_add_chatroom_message(user_id, time_stamp, message_string)
     (insert_before_message_row == null) ? $("#chatlog").append(message_row)
                                         : $(message_row).insertBefore( insert_before_message_row );
     
-    (user_id == user_uid) ? create_user_message_div(message_row, new_message_id, message_string, user_css_name)
-                          : create_other_user_message_div(message_row, user_id, new_message_id, message_string);
+    (user_id == user_uid) ? create_user_message_div(message_row, new_message_id, message_string, user_css_name, time_stamp)
+                          : create_other_user_message_div(message_row, user_id, new_message_id, message_string, time_stamp);
     
     scroll_to_last_row();
     return message_row;
-}
-
-function debug_mangle_timestamp(unmangled)
-{
-    return Math.ceil(parseInt(unmangled) / 1000) % 10000000;
 }
 
 function debug_print_timestamps(message_doms = null)
@@ -319,7 +311,7 @@ function debug_print_timestamps(message_doms = null)
         {
             let parse_id = /**(parse_messages.length == 1) ? parse_messages.id :*/ message_doms[j].id;
             let parse_ts = parse_id.substring(0, parse_id.indexOf("-"));
-            parsed_string += debug_mangle_timestamp(parse_ts) + "\n";
+            parsed_string += parse_ts + "\n";
         }
     }
     console.log(parsed_string);
@@ -343,7 +335,7 @@ function find_insert_before_point(time_stamp)
             let prev_msg_id = (i == all_messages.length -1) ? "" 
                                                             : all_messages[i+1].id;
             let i_timestamp = parseInt(msg_id.substring(0, msg_id.indexOf("-")));
-            console.log(`   timestamp: ${debug_mangle_timestamp(time_stamp)}, i_timestamp: ${debug_mangle_timestamp(i_timestamp)}`);
+            console.log(`   timestamp: ${time_stamp}, i_timestamp: ${i_timestamp}`);
             found = (parseInt(time_stamp) > parseInt(i_timestamp));
             if (found)
             {
@@ -363,7 +355,7 @@ function find_insert_before_point(time_stamp)
 
 //TODO #10 Insert comment time
 
-function create_user_message_div(dom_elem, msg_id, msg_string, usr_css_name)
+function create_user_message_div(dom_elem, msg_id, msg_string, usr_css_name, time_stamp) //JZMTODO time_stamp
 {
     console.log(`create_user_message_div(${dom_elem}, ${msg_id}, ${msg_string}, ${usr_css_name})`);
     let div = $(`<div id=${msg_id} class="all-messages this-user-message col-8 ${usr_css_name}">`);
@@ -373,7 +365,7 @@ function create_user_message_div(dom_elem, msg_id, msg_string, usr_css_name)
     return dom_elem;
 }
 
-function create_other_user_message_div(dom_elem, other_user_id, msg_id, msg_string)
+function create_other_user_message_div(dom_elem, other_user_id, msg_id, msg_string, time_stamp) //JZMTODO time_stamp
 {
     console.log(`create_other_user_message_div()`);
     let user_css_name = user_profiles[other_user_id][__USER_PROFILE_CSS__];
@@ -388,11 +380,37 @@ function create_other_user_message_div(dom_elem, other_user_id, msg_id, msg_stri
     dom_elem.append(msg_div);//.append(bbl);
 
     let username_row = $(`<div class="row">`);
-    let msg_uid = $(`<div class="message-name col-10 offset-2">`).append(`by ${user_nickname}`);
+    let msg_uid = $(`<div class="message-name col-10 offset-2">`).append(`by ${user_nickname}, ${human_readable_timestamp(time_stamp)}`);
 
     username_row.append(msg_uid);
     //dom_elem.append(username_row);
     username_row.insertAfter(dom_elem);
+}
+
+/**
+ * Function takes a date and returns a String object that is an intuitive and non-confusing
+ * representation of that date.
+ * @param {*} time_stamp time in milliseconds or date object
+ * @returns A string displaying the time in a non-confusing human readable format
+ */
+function human_readable_timestamp(time_stamp)
+{
+    if (!(time_stamp instanceof Date || Number.isInteger(time_stamp) || Number.isInteger(Number.parseInt(time_stamp))))
+        return `Not a date:${time_stamp}`;
+
+    let time_stamp_date = (time_stamp instanceof Date) ? time_stamp : new Date(Number.parseInt(time_stamp));
+    let diff = (new Date()).getTime() - time_stamp;
+    let one_day = 1000 * 60 * 60 * 24;
+    let str = "";
+
+    if (diff < one_day)
+        str = `Today @ ${time_stamp_date.toLocaleTimeString().substr(0, 5)}`;
+    else if (diff < one_day * 7)
+        str = `${new Intl.DateTimeFormat('en-UK', { weekday : 'short'}).format(time_stamp_date)} @ ${time_stamp_date.toLocaleTimeString().substr(0, 5)}`;
+    else
+        str = `${Math.floor(diff/one_day)} days ago @ ${time_stamp_date.toLocaleTimeString().substr(0, 5)}`;
+    
+    return `<span>${str}</span>`;
 }
 
 

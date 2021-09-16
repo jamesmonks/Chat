@@ -118,8 +118,13 @@ div#chatroom {
 }
 
 div.message-name {
-    color: lightgray;
+    color: aliceblue;
     font-size: 0.75em;
+    text-shadow: 0 0 2px darkorange;
+}
+
+div.message-name > span {
+    color: lightgray;
 }
 
 div.all-messages {

@@ -32,6 +32,7 @@ var auth;
 
 async function prep(event)
 {
+    
     //dummy_data();
     user_info = {};
 
