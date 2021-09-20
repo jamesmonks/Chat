@@ -1,9 +1,17 @@
 body {
-    margin: 0 50px !important;
+    min-width: 300px;
+    margin: 0 !important;
+}
+
+@media screen and (min-width: 450px) {
+    body {
+        margin: 0 50px !important;
+    }
 }
 
 header,
 #chat-app {
+    min-width: 300px;
     max-width: 900px;
 }
 
@@ -103,11 +111,6 @@ a.dropdown-item.logging-option:hover {
     height: 100%;
 }
 
-#chatlog .row:nth-child(odd):hover + .row
-{
-
-}
-
 div#chatroom {
     padding-right: 0;
     padding-bottom: 5px;
@@ -117,13 +120,38 @@ div#chatroom {
     display: flex;
 }
 
-div.message-name {
+div.row.message-content-row + div.row
+{
+    height: 0;
+    transition-duration: .5s;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media (max-width: 575.98px) {
+    div.row.message-content-row:hover + div.row,
+    div.row.message-content-row:focus + div.row
+    {
+        height: 2.125rem;
+    }
+}
+
+@media (min-width: 576px) {
+    div.row.message-content-row:hover + div.row,
+    div.row.message-content-row:focus + div.row
+    {
+        height: 1rem;
+    }    
+}
+
+
+div.message-meta-info {
     color: aliceblue;
-    font-size: 0.75em;
+    font-size: 0.75rem;
     text-shadow: 0 0 2px darkorange;
 }
 
-div.message-name > span {
+div.message-meta-info > span {
     color: lightgray;
 }
 
@@ -135,7 +163,6 @@ div.all-messages {
 
 div.all-messages.this-user-message {
     border-radius: 10px 10px 10px 0;
-    margin-bottom: 5px;
 }
 
 div.all-messages.other-user-msg {
