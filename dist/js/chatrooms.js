@@ -284,7 +284,7 @@ function continue_to_add_chatroom_message(user_id, time_stamp, message_string)
     let user_css_name = user_profiles[user_id][__USER_PROFILE_CSS__];
     let new_message_id = time_stamp.toString() + "-" + user_id.toString();
 
-    let message_row = $(document.createElement("div")).addClass("row");
+    let message_row = $(document.createElement("div")).addClass("row message-content-row");
 
     let insert_before_message_row = find_insert_before_point(time_stamp);
 
@@ -358,10 +358,12 @@ function find_insert_before_point(time_stamp)
 function create_user_message_div(dom_elem, msg_id, msg_string, usr_css_name, time_stamp) //JZMTODO time_stamp
 {
     console.log(`create_user_message_div(${dom_elem}, ${msg_id}, ${msg_string}, ${usr_css_name})`);
-    let div = $(`<div id=${msg_id} class="all-messages this-user-message col-8 ${usr_css_name}">`);
+    let div = $(`<div id=${msg_id} class="all-messages this-user-message col-9 ${usr_css_name}">`);
     div.append(msg_string);
     $(dom_elem).append(div);
-    $('#' + msg_id).scroll
+
+    let time_row = $(`<div class="row"><div class="col-9 px-0 text-right message-meta-info message-meta-content">by You, <br class="d-sm-none">${human_readable_timestamp(time_stamp)}</div></div>`);
+    time_row.insertAfter(dom_elem);
     return dom_elem;
 }
 
@@ -380,11 +382,12 @@ function create_other_user_message_div(dom_elem, other_user_id, msg_id, msg_stri
     dom_elem.append(msg_div);//.append(bbl);
 
     let username_row = $(`<div class="row">`);
-    let msg_uid = $(`<div class="message-name col-10 offset-2">`).append(`by ${user_nickname}, ${human_readable_timestamp(time_stamp)}`);
+    let msg_uid = $(`<div class="message-meta-info px-0 col-10 offset-2">`).append(`by ${user_nickname}, <br class="d-sm-none">${human_readable_timestamp(time_stamp)}`);
 
     username_row.append(msg_uid);
     //dom_elem.append(username_row);
     username_row.insertAfter(dom_elem);
+    return dom_elem;
 }
 
 /**
