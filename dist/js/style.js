@@ -141,6 +141,9 @@ function navigation_setup(logged_in)
 {
     if (logged_in)
     {
+        $(`.users-chatrooms-selector`).removeClass(`d-none`).addClass(`d-block`);
+        $(`.chat-show-users`).addClass("d-none");
+        $(`.chat-show-chatrooms`).one("click", event => { $(`.chat-show-users`).removeClass("d-none"); })
         $(`#sign-in-method-button`).addClass(`d-none`);
         $(`.navbar-toggler`).removeClass(`d-none`).addClass(`d-inline-block`);
         $(`#nav-logged-in`).show(1000);
@@ -148,9 +151,23 @@ function navigation_setup(logged_in)
     }
     else
     {
+        $(`.users-chatrooms-selector`).addClass(`d-none`).removeClass(`d-block`);
         $(`#sign-in-method-button`).removeClass(`d-none`);
         $(`.navbar-toggler`).addClass(`d-none`).removeClass(`d-inline-block`);
         $(`#nav-logged-in`).hide();
         $(`#nav-logged-out`).show(1000);
     }
+}
+
+/**
+ * Function alters the size of the buttons for switching between viewing the chatrooms and
+ * viewing the users in a chatroom. The buttons are located in the side navigation of the
+ * actual chat app.
+ */
+function resize_menu_button()
+{
+    let div_width = $("#chatroom-nav").width();
+    console.log("ratio setting")
+    let ratio = Math.max(1.25, 1.125);
+    $(".users-chatrooms-selector .fa").css( "font-size", div_width * (0.5 * 0.6) / ratio );
 }

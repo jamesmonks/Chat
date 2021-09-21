@@ -89,12 +89,18 @@
         <!---------------------------------->
         <nav id="chatroom-nav" class="col-3 col-md-2 text-center">
           <button id="show-create-room-modal-button" class="create-button btn btn-primary">New Room</button>
+          <div class="w-100 d-none my-2 users-chatrooms-selector">
+            <i class="fa fa-comments fa-fw d-inline text-light chat-show-chatrooms pr-1 pl-auto"></i>
+            <i class="fa fa-users fa-fw text-secondary d-inline chat-show-users pl-1 pr-auto"></i>
+          </div>
           <!-- todo #8 user and room list toggle -->
           <!-- <div class="toggle-room-view">
             <i class="fa fa-users"></i>
             <i class="fa fa-comments"></i>
           </div> --> 
           <div id="chatrooms-div" class="allow-empty">
+          </div>
+          <div id="chatroom-users-div" class="allow-empty d-none">
           </div>
         </nav>
 

@@ -39,17 +39,16 @@ main {
     backdrop-filter: blur(3px);
 }
 
-.modal-content {
-    background-color: #8ec6c6db !important;
-}
-
-.modal-footer {
-    background-color: rgb(159, 202, 202);
-}
-
 .text-muted-amended {
     color: #000;
 }
+
+
+
+/* ************************************ */
+/*          MENU NAVIGATION             */
+/* ************************************ */
+
 
 nav#noodlechat-nav {
     background: #345060;
@@ -107,6 +106,59 @@ a.dropdown-item.logging-option:hover {
     transition-duration: 400ms;
 }
 
+
+/* ************************************ */
+/*              CHAT APP                */
+/* ************************************ */
+
+
+/* SIDE NAVIGATION */
+#chatroom-nav i {
+    transition-duration: 0.5s;
+}
+
+#chatrooms-div,
+#chatroom-users-div {
+    position: absolute;
+    width: 100%;
+    transition-timing-function: cubic-bezier(0.06, 0.68, 0.29, 0.88);
+    overflow-x: hidden;
+}
+
+#chatrooms-div {
+    left: 0;
+}
+
+#chatroom-users-div {
+    left: 100%;
+}
+
+.chatroom-member {
+    display: flex;
+    align-items: center;
+    overflow-x: hidden;
+    width: 90%;
+    left: 5%;
+    position: relative;
+    border-radius: 10px;
+    margin: 4px 0;
+}
+
+.chatroom-member > img {
+    max-width: 30px;
+    max-height: 30px;
+    display: inline;
+    border-radius: 50%;
+}
+
+.chatroom-member > div {
+    display: inline;
+    padding-left: 8px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/* MAIN MESSAGING AREA */
 #chatlog {
     height: 100%;
 }
@@ -120,10 +172,13 @@ div#chatroom {
     display: flex;
 }
 
+
 div.row.message-content-row + div.row
 {
     height: 0;
+    opacity: 0;
     transition-duration: .5s;
+    transition-delay: .5s;
     white-space: nowrap;
     overflow: hidden;
 }
@@ -132,6 +187,7 @@ div.row.message-content-row + div.row
     div.row.message-content-row:hover + div.row,
     div.row.message-content-row:focus + div.row
     {
+        opacity: 1;
         height: 2.125rem;
     }
 }
@@ -140,10 +196,10 @@ div.row.message-content-row + div.row
     div.row.message-content-row:hover + div.row,
     div.row.message-content-row:focus + div.row
     {
+        opacity: 1;
         height: 1rem;
     }    
 }
-
 
 div.message-meta-info {
     color: aliceblue;
@@ -184,6 +240,11 @@ div.other-user-speech {
     background: dimgray;
 }
 
+#chatlog > div:last-child {
+    padding-bottom: 2rem;
+}
+
+/* SEND MESSAGE FORM */
 input#user-message-text {
     border-radius: 0;
     border-bottom-left-radius: 10px;
@@ -193,6 +254,20 @@ button#send-user-message {
     border-radius: 0;
     border-bottom-right-radius: 10px;
     width: 150px;
+}
+
+
+/* ************************************ */
+/*             MODAL STYLING            */
+/* ************************************ */
+
+
+.modal-content {
+    background-color: #8ec6c6db !important;
+}
+
+.modal-footer {
+    background-color: rgb(159, 202, 202);
 }
 
 @keyframes profile-glow {
@@ -250,13 +325,13 @@ button#send-user-message {
     border-radius: 5px;
 }
 
-.user-profile-chatrooms {
+.user-profile-chatroom {
     padding-left: 5px;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.user-profile-chatrooms:hover {
+.user-profile-chatroom:hover {
     background-color: #fffc;
 }
 
@@ -351,7 +426,6 @@ object.room-profile-logo-img > img {
 }
 
 /* sign in modal css */
-
 .sign-in-methods {
     margin: 0;
 }

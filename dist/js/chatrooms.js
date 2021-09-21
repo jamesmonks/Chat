@@ -45,6 +45,39 @@ async function init_user_rooms()
     }
 }
 
+function toggle_chatrooms_users(event)
+{
+    let show_users = $(event.currentTarget).hasClass("chat-show-users");
+    console.log(show_users);
+    $("#chatroom-nav").css("overflow", "hidden hidden");     //hide overflow from parent div
+    $("#chatrooms-div, #chatroom-users-div").removeClass("d-none").addClass("d-block");    //add display-block to children
+    //style buttons     //animate children    //add display-none to hidden child    //add overflow to parent div
+    (show_users) ? side_nav_show_users() : side_nav_show_chatrooms();
+}
+
+function side_nav_show_users()
+{
+    $(".chat-show-users").removeClass("text-secondary").addClass("text-light");
+    $(".chat-show-chatrooms").addClass("text-secondary").removeClass("text-light");
+
+    $("#chatroom-users-div").animate( { left : 0 }, { duration : ".6s"});
+    $("#chatrooms-div").animate( { left : "-100%" }, { duration : ".6s", complete : function() 
+                                                                                    {   $("#chatrooms-div").addClass("d-none").removeClass("d-block");
+                                                                                        $("#chatroom-nav").css( "overflow", "hidden overlay");   } });
+}
+
+function side_nav_show_chatrooms()
+{
+    $(".chat-show-users").addClass("text-secondary").removeClass("text-light");
+    $(".chat-show-chatrooms").removeClass("text-secondary").addClass("text-light");
+
+    $("#chatroom-users-div").animate( { left : "100%" }, { duration : ".6s"});
+    $("#chatrooms-div").animate( { left : 0 }, { duration : ".6s", complete : function() 
+                                                                              {   $("#chatroom-users-div").addClass("d-none").removeClass("d-block");
+                                                                                  $("#chatroom-nav").css( "overflow", "hidden overlay");}   });
+}
+
+
 /**
  * Function takes a room_id and checks if that there's not a room already internally stored with that
  * unique room_id. If so, then it sends a request to the firebase database for information to be stored
@@ -217,6 +250,7 @@ function room_selected(event)
     $(".room-button").not(`#${current_roomid}`).not('.collapsed').addClass("collapsed").attr("aria-expanded", "false");
     $("#chatrooms-div .collapse.show").not(data_target).removeClass("show");
     load_room_chat(current_roomid);
+    load_room_users(current_roomid);
 }
 
 function load_room_chat(room_id)
@@ -241,6 +275,37 @@ function load_room_chat(room_id)
             add_chatroom_message(msg[__MSG_USER_KEY__], msg[__MSG_TIME_KEY__], msg[__MSG_TEXT_KEY__]);
         });
     }
+}
+
+function load_room_users(room_id)
+{
+    console.log(`load_room_users(${room_id})`);
+    if (room_id in room_info)
+    {
+        remove_allow_empty_children(`#chatroom-users-div`);
+
+        let usrs = room_info[room_id][__ROOMINFO_USRS_KEY__];
+        console.log(usrs);
+        if (!usrs)
+            usrs = {};
+        Object.keys(usrs).forEach(key => {
+            add_to_chatroom_users_list(usrs[key]);
+        });
+    }
+}
+
+function add_to_chatroom_users_list(chatroom_usr_id)
+{
+    let spiel = (chatroom_usr_id in user_profiles) ? user_profiles[chatroom_usr_id][__USER_INFO_NICK__]
+                                                   : chatroom_usr_id;
+    //create a link
+    let usr_div=$(`<div class="chatroom-member">`).css("background-color", `#${user_profiles[chatroom_usr_id][__USER_PROFILE_COLOR__]}`);
+    $("#chatroom-users-div").append(usr_div);
+    usr_div.append(`<img src="${user_profiles[chatroom_usr_id][__USER_INFO_PIC__]}"><div>${spiel}</div>`);
+    usr_div.on("click", event => {
+        queued_view_profile_user_id = chatroom_usr_id;
+        show_modal_user_profile(event, view_user_profile_modal_prep);
+    });
 }
 
 /**
