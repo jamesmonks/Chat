@@ -257,7 +257,7 @@ function populate_user_profile_modal(snapshot = null)
         {
             Object.keys(lcl_rooms).forEach(key => {
                 has_chatrooms = true;
-                let chatroom_li = $(`<div id="room-key-${key}" class="user-profile-chatrooms text-truncate" data-roomid="${key}">`).append(lcl_rooms[key]);
+                let chatroom_li = $(`<div id="room-key-${key}" class="user-profile-chatroom text-truncate" data-roomid="${key}">`).append(lcl_rooms[key]);
                 chatroom_li.on("click", function(event) {
                     room_selected(event);
                     show_modal_room_info(event, view_room_info_modal_prep);

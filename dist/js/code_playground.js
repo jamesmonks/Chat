@@ -289,6 +289,11 @@ function change_contact(event)
  */
 function setup_navigation_listeners()
 {
+    //chatroom nav buttons
+    $(window).on("resize", resize_menu_button);
+    resize_menu_button();
+    $(".chat-show-users, .chat-show-chatrooms").on("click", toggle_chatrooms_users);
+
     $("#sign-in-method-button").addClass("noodlechat-alert").on("click", event => {$("#sign-in-method-button").removeClass("noodlechat-alert");});
 
     //  nav-logged-out
@@ -337,7 +342,7 @@ function remove_allow_empty_children(identifier, indiscriminate = true)
 {
     console.log(`remove_allow_empty_children(${identifier})`);
     let jq_elems = $(identifier);
-    let selector = `.allow-empty`;
+    let selector = `allow-empty`;
 
     if (jq_elems.length == 0)
         return;
@@ -349,7 +354,7 @@ function remove_allow_empty_children(identifier, indiscriminate = true)
             if (node.hasClass(selector))
                 node.empty();
             else
-                node.find(selector).each( function() { $(this).empty(); });
+                node.find(`.${selector}`).each( function() { $(this).empty(); });
         });
         return;
     }
@@ -365,6 +370,7 @@ function remove_allow_empty_children(identifier, indiscriminate = true)
 
 function has_allow_empty_descendents(node)
 {
+    let selector = ".allow-empty";
     return ($(node).find(selector).length);
 }
 
@@ -376,7 +382,7 @@ function has_allow_empty_descendents(node)
  */
 function discerning_allow_empty(node)
 {
-    let selector = `.allow-empty`;
+    let selector = `allow-empty`;
     //any guard clauses before performing should go here
     recurse(node);
 
