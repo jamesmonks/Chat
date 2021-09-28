@@ -517,20 +517,30 @@ function create_other_user_message_div(dom_elem, other_user_id, msg_id, msg_stri
  */
 function human_readable_timestamp(time_stamp)
 {
+    time_stamp += _time_offset;
     if (!(time_stamp instanceof Date || Number.isInteger(time_stamp) || Number.isInteger(Number.parseInt(time_stamp))))
         return `Not a date:${time_stamp}`;
 
-    let time_stamp_date = (time_stamp instanceof Date) ? time_stamp : new Date(Number.parseInt(time_stamp));
+    let time_stamp_date = (time_stamp instanceof Date) ? new Date(time_stamp.getTime() + _time_offset) : new Date(Number.parseInt(time_stamp));
     let diff = (new Date()).getTime() - time_stamp;
     let one_day = 1000 * 60 * 60 * 24;
     let str = "";
 
-    if (diff < one_day)
-        str = `Today @ ${time_stamp_date.toLocaleTimeString().substr(0, 5)}`;
-    else if (diff < one_day * 7)
-        str = `${new Intl.DateTimeFormat('en-UK', { weekday : 'short'}).format(time_stamp_date)} @ ${time_stamp_date.toLocaleTimeString().substr(0, 5)}`;
+    let local_time,
+        ts_hours = time_stamp_date.getHours();
+
+    if (__USE_24_HOUR_CLOCK__)
+        local_time = time_stamp_date.toLocaleTimeString().substr(0, 5);
     else
-        str = `${Math.floor(diff/one_day)} days ago @ ${time_stamp_date.toLocaleTimeString().substr(0, 5)}`;
+        local_time = (ts_hours > 12)  ? `${ts_hours-12}${time_stamp_date.toLocaleTimeString().substr(2, 3)}pm`
+                                      : `${ts_hours-00}${time_stamp_date.toLocaleTimeString().substr(2, 3)}am`;
+
+    if (diff < one_day)
+        str = `Today @ ${local_time}`;
+    else if (diff < one_day * 7)
+        str = `${new Intl.DateTimeFormat('en-UK', { weekday : 'short'}).format(time_stamp_date)} @ ${local_time}`;
+    else
+        str = `${Math.floor(diff/one_day)} days ago @ ${local_time}`;
     
     return `<span>${str}</span>`;
 }

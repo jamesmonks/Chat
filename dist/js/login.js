@@ -7,6 +7,8 @@ let _auto_login = null;
 let _new_user = false;
 let _latest_login_source = "none";
 
+let _time_offset = 0;
+
 let __DEFAULT_USER_INFO = {
     "name" : "Enter your chat name",
     "nick" : "Enter your chat nick",
@@ -423,6 +425,9 @@ async function populate_user_data()
     console.log("populate_user_data");
     user_uid = auth.currentUser.uid;
     console.log(user_uid);
+    database.ref(`/.info/serverTimeOffset`).once("value", time_snapshot => {
+        _time_offset = time_snapshot.val();
+    });
     let snapshot = await database.ref("/users/" + user_uid).once("value");
 
     // function ref_call(snapshot)

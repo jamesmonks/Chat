@@ -13,6 +13,8 @@ let __USER_PROFILE_COLOR__ = "color";
 let __DEFAULT_PROFILE_IMAGE_LINK__ = "./images/unknown_profile.jpg";
 let __DEFAULT_ROOM_IMAGE_LINK__ = "./images/empty-round-room.jpg";
 
+let __USE_24_HOUR_CLOCK__ = false;
+
 //for currently viewed user profile
 let queued_view_profile_user_id = "";
 
