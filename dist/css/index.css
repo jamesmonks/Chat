@@ -189,7 +189,8 @@ div.row.message-content-row + div.row
 
 @media (max-width: 575.98px) {
     div.row.message-content-row:hover + div.row,
-    div.row.message-content-row:focus + div.row
+    div.row.message-content-row:focus + div.row,
+    div.row.message-content-row + div.row:hover
     {
         opacity: 1;
         height: 2.125rem;
@@ -198,7 +199,8 @@ div.row.message-content-row + div.row
 
 @media (min-width: 576px) {
     div.row.message-content-row:hover + div.row,
-    div.row.message-content-row:focus + div.row
+    div.row.message-content-row:focus + div.row,
+    div.row.message-content-row + div.row:hover
     {
         opacity: 1;
         height: 1rem;
@@ -211,8 +213,12 @@ div.message-meta-info {
     text-shadow: 0 0 2px darkorange;
 }
 
-div.message-meta-info > span {
+div.message-meta-info > span.meta-timestamp {
     color: lightgray;
+}
+
+div.message-meta-info > span[data-user-nick] {
+    cursor: pointer;
 }
 
 div.all-messages {

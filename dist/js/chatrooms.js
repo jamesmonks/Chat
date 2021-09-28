@@ -501,7 +501,15 @@ function create_other_user_message_div(dom_elem, other_user_id, msg_id, msg_stri
     dom_elem.append(msg_div);//.append(bbl);
 
     let username_row = $(`<div class="row">`);
-    let msg_uid = $(`<div class="message-meta-info px-0 col-10 offset-2">`).append(`by ${user_nickname}, <br class="d-sm-none">${human_readable_timestamp(time_stamp)}`);
+    let username_row_nick_span = $(`<span data-user-nick="${other_user_id}">${user_nickname}</span>`);
+    username_row_nick_span.on("click", function() {
+        queued_view_profile_user_id = other_user_id;
+        show_modal_user_profile(null, view_user_profile_modal_prep);
+    })
+    let msg_uid = $(`<div class="message-meta-info px-0 col-10 offset-2">`)
+                .append(`by `)
+                .append(username_row_nick_span)
+                .append(`, <br class="d-sm-none">${human_readable_timestamp(time_stamp)}`);
 
     username_row.append(msg_uid);
     //dom_elem.append(username_row);
@@ -542,7 +550,7 @@ function human_readable_timestamp(time_stamp)
     else
         str = `${Math.floor(diff/one_day)} days ago @ ${local_time}`;
     
-    return `<span>${str}</span>`;
+    return `<span class="meta-timestamp">${str}</span>`;
 }
 
 
