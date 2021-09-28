@@ -553,7 +553,7 @@ function send_message_event(event)
 {
     console.log("send_message_event() take 2", event);
     let chat_message_type = "TEXT";
-    let chat_message_content = $("#user-message-text").val();
+    let chat_message_content = $("#user-message-text").val().trim();
     
     if (current_roomid == "robot_help" || current_roomid == "") //as it currently stands, when current_roomid == "", the help room is the currently displayed room
     {
@@ -561,7 +561,7 @@ function send_message_event(event)
         return;
     }
 
-    if (chat_message_content.trim() != "")
+    if (chat_message_content != "")
     {
         add_message_to_firebase(current_roomid, chat_message_type, chat_message_content);
         clear_message_text({ target : { id : "user-message-text"}});

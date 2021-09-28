@@ -107,6 +107,55 @@ async function send_robot_response(response_id)
         }
 }
 
+async function send_robot_response(response_id)
+{
+    if (!(response_id in _ROBOT_DIALOG_))
+        throw new Error(`no such response_id: ${response_id}`);
+
+    let statements = _ROBOT_DIALOG_[response_id][_ROBOT_RESPONSE_STATEMENTS_];
+    let options = _ROBOT_DIALOG_[response_id][_ROBOT_RESPONSE_OPTIONS_];
+    let i, css_style, text, elem, option_response_id;
+
+    if (statements)
+        for (i=0; i < statements.length; i++)
+        {
+            let type = statements[i][_ROBOT_STATEMENT_TYPE_];
+            css_style = get_statement_css_classname(type);
+            text = statements[i][_ROBOT_STATEMENT_DATA_];
+            elem = await add_chatroom_message(_ROBOT_UID_, (new Date()).getTime(), text);
+            $(elem).children(".other-user-msg").addClass(css_style);
+        }
+    
+    if (options)
+        for (i=0; i < options.length; i++)
+        {
+            option_response_id = options[i];
+            css_style = get_statement_css_classname(_ROBOT_STATEMENT_TYPE__OPTION_);
+            text = _ROBOT_DIALOG_[option_response_id][_ROBOT_RESPONSE_DESCRIPTION_];
+            elem = await add_chatroom_message(_ROBOT_UID_, (new Date()).getTime(), text);
+            elem.children(".other-user-msg").addClass(css_style)
+                .attr("data-option-response-id", option_response_id)
+                .on("click", event => {
+                    let prev_messages = $(`#chatlog`).children();
+                    for (let i=0; i < prev_messages.length; i++)
+                    {
+                        let child_elem = $(prev_messages[i]);
+                        let child_height = child_elem.height();
+                        console.log(child_height + "px");
+                        child_elem.css(`opacity`, `0`)
+                                  .one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(event) {
+                                            console.log("zero alpha");
+                                            $(event.currentTarget).css(`height`, `0px`);
+                                        });
+                    }
+                    //send this user message
+                    let curr_obj = $(event.currentTarget);
+                    // $(`#chatlog`).empty();
+                    add_chatroom_message(user_uid, (new Date()).getTime(), `Tell me about: "${curr_obj.html()}"`);
+                    send_robot_response( curr_obj.attr("data-option-response-id") );
+                });
+        }
+}
 
 function get_statement_css_classname(type)
 {

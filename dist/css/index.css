@@ -172,6 +172,10 @@ div#chatroom {
     display: flex;
 }
 
+div.row.message-content-row 
+{
+    transition-duration: 500ms;
+}
 
 div.row.message-content-row + div.row
 {
