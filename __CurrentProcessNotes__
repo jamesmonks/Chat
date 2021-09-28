@@ -1,101 +1,33 @@
-persistence logic
-    alter login dropdown to be a single button option
-    persistence is initially set to localStorage
-        if user selects sign in,
-            stop sign in and change storage type to none
-        else 
-            keep it as whatever it is
-
-function onauth_login_function()
-{
-// process ->
-async function new_auth_login()
-{
-    clear_previous_session();
-    await setup_current_user_vars();
-    queued_view_profile_user_id = user_uid;
-    show_modal_user_profile(null, view_user_profile_modal_prep);
-}
-
-function clear_previous_session() //code_playground.js
-{
-    unregister_firebase_listeners();
-    empty_user_variables();
-    clear_gui();//where is this function?
-    reset_email_login_form(true);//unnecessary for other than email login, but won't break anything
-}
-
-async function setup_current_user_vars() //code_playground.js
-{
-    user_uid = auth.currentUser.uid;
-    console.log("Attention, (user is new_user) = ", auth.currentUser.additinalUser);
-    if (_new_user)
-        await firebase_setup_new_user();
-    await populate_user_data();
-}
-
-// *** facebook login
-// attempt_facebook_login
-//        empty_user_variables(); //** functions_to_add */
-//        user_uid = auth.currentUser.uid; //** functions_to_add */
-//	    _new_user ? firebase_setup_new_user -> user_login_complete
-//		          : user_login_complete
-
-// *** email signup
-
-// attempt_signup_with_email
-    // function successful_signup(user = null) {
-//        empty_user_variables(); //** functions_to_Add */
-//        user_uid = auth.currentUser.uid; //** functions_to_add */
-//        firebase_setup_new_user( user_login_complete, account_setup_failed );
-    // }
-
-// *** email login
-// successful_email_login(user)
-//    empty_user_variables(); //** functions_to_add */
-    //where did I load user_uid??
-//    reset_email_login_form(true); //??
-//    hide_visible_modal(); //Unnecessary
-
-    // await populate_user_data(); //** user_login_complete */
-    // queued_view_profile_user_id = user_uid; //** user_login_complete */
-    // show_modal_user_profile(null, view_user_profile_modal_prep); //** user_login_complete */
-
-// signout
+// when a user receives an invite to a room, add it to the side menu
+// users/$uid/rooms/$chatroom_id
+ref(`users/${user_id}/rooms`).on("child_added", add_room)
 
 
-// async function firebase_setup_new_user(success_callback, failure_callback)
-// {
-//     console.log(`firebase_setup_new_user()`);
-//     if (_new_user)
-//     {
-//         _new_user = false;
-//         //do stuff here
-//         let update_obj = firebase_initial_user_values_object();
-//         await database.ref().update(update_obj).then(success_callback).catch(err_value => {
-//             failure_callback(err_value);
-//         });
-//     }
-//     else
-//         user_login_complete();
-// }
+chatrooms.js -> init_user_rooms -> init_room
 
 
-// the common task
-// async function user_login_complete(obj) {
-//     functions_to_add();
-//     await populate_user_data();
-//     queued_view_profile_user_id = user_uid;
-//     show_modal_user_profile(null, view_user_profile_modal_prep);
-// }
+// TRACK CHANGES TO USER_PROFILES
 
-// functions_to_add() {
-//     empty_user_variables();
-//     user_uid = auth.currentUser.uid; //need to set user_uid
+//<div id="${room_id}" class="room-button" data-toggle="collapse" data-target="#sidemenu-room-summary-${room_id}" data-roomid="${room_id}">
 
-//     if (_new_user)
-//     {
-//         await firebase_setup_new_user()
-//     }
-// }
-}
+    // NEED room_id and new_room_name
+    $(`#${room_id} > .full-chatroom-name`).html(new_room_name);
+    $(`#${room_id}-sidemenu-summary-name`).html(new_room_name);
+    $(`#${room_id}`).removeClass("full-room-minim");
+    if (new_room_name.length > 12)
+        $(`#${room_id}`).addClass("full-room-minim");
+
+
+// to check for users need user_id and user_name and user_profile_url
+$(`#chatroom-users-div > #chatroom-member-${user_id} > div`).length > 0;
+
+// the following is to edit the user
+$(`#chatroom-users-div > #chatroom-member-${user_id} > div`).html(new_user_name);
+$(`#chatroom-users-div > #chatroom-member-${user_id} > img`).attr("src", "./images/robot.png");
+
+// the following is to add the user
+add_to_chatroom_users_list(user_id);
+
+// the following is to remove the user
+$(`#chatroom-member-${user_id}`).remove();
+// ... don't forget to check if the current_room is the room the member is to be removed from

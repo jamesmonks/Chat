@@ -1,4 +1,4 @@
-console.log("loaded here git updated 3");
+let CHATROOM_VERBOSE_DEBUG = false;
 
 //holds room data
 let room_info = {};
@@ -25,23 +25,38 @@ let __MESSAGE_GROUPINGS__ = 10; //todo allow to view older messages by some acti
 async function init_user_rooms()
 {
     console.log("init_user_rooms");
-    // user_rooms
-    if (user_rooms != null)//if it exists
+    if (user_rooms != null)//if user_rooms exists
     {
         //if not set, user_rooms will have { room_key: true } objects, true needs to be replaced with the room_name
         let room_keys = Object.keys(user_rooms);
         for (let i=0; i < room_keys.length; i++)
         {
-            let i_roomid = room_keys[i];
-            let is_new_room = await add_room(i_roomid);
-            add_room_to_menu(i_roomid);
-            if (is_new_room)
-            {
-                let ref = database.ref(`/rooms/chatrooms/${i_roomid}/messages`);
-                ref.orderByChild(__MSG_TIME_KEY__).limitToLast(__INITIAL_MESSAGES_FETCH_LIMIT__).on("child_added", message_received);
-                register_firebase_listener(`/rooms/chatrooms/${i_roomid}/messages`, "child_added", message_received);
-            }
+            await init_room(room_keys[i]);
         }
+    }
+    database.ref(`/users/${user_uid}/rooms`).on("child_added", user_was_added_to_chatroom)
+}
+
+let temporary_room_snapshot = null;
+
+async function user_was_added_to_chatroom(snapshot)
+{
+    temporary_room_snapshot = snapshot;
+    let room_key = snapshot.key;
+    if (!(room_key in user_rooms))
+        user_rooms[room_key] = true;
+    await init_room(room_key);
+}
+
+async function init_room(room_id)
+{
+    let is_new_room = await add_room(room_id); //this populates room_info[room_id]
+    add_room_to_menu(room_id); //this uses room_info[room_id] data
+    if (is_new_room)
+    {
+        let ref = database.ref(`/rooms/chatrooms/${room_id}/messages`);
+        ref.orderByChild(__MSG_TIME_KEY__).limitToLast(__INITIAL_MESSAGES_FETCH_LIMIT__).on("child_added", message_received);
+        register_firebase_listener(`/rooms/chatrooms/${room_id}/messages`, "child_added", message_received);
     }
 }
 
@@ -93,6 +108,7 @@ async function add_room(room_id)
         return false;
     
     room_info[room_id] = await firebase_get_room_info(room_id);
+    firebase_add_room_listener(room_id);
     return true;
 }
 
@@ -135,41 +151,33 @@ function add_non_firebase_room(room_id, room_name, room_creator, room_logo, user
 async function add_room_to_menu(room_id)
 {
     let room_name = room_info[room_id][__ROOMINFO_NAME_KEY__];
-    let room_icon_url = room_info[room_id][__ROOMINFO_LOGO_KEY__];
-    console.log(`add_room_to_menu(${room_id}) => room_name: ${room_name}, room_icon: ${room_icon_url}`);
-    if ($(`#${room_id}`).length > 0)
-        return null; //already exists
+    let room_logo_url = room_info[room_id][__ROOMINFO_LOGO_KEY__];
+    console.log(`add_room_to_menu(${room_id}) => room_name: ${room_name}, room_icon: ${room_logo_url}`);
+
+    if ($(`#${room_id}`).length > 0) return null; //already exists
     
     let initials_arr = room_name.split(` `);
-    let room_div = $(`<div id="${room_id}" class="room-button"  
-        data-toggle="collapse" data-target="#sidemenu-room-summary-${room_id}"
-        data-roomid="${room_id}">`);
-    let full_room_name = $(`<div class="full-chatroom-name">`).append(room_name);
+    let room_div = $(`<div id="${room_id}" class="room-button" data-toggle="collapse" data-target="#sidemenu-room-summary-${room_id}" data-roomid="${room_id}" >`);
+    let full_room_name = $(`<div class="full-chatroom-name" data-room-name="${room_id}">`).append(room_name);
     
     if (room_name.length > 12)
         room_div.addClass(`full-room-minim`);
     
     room_div.append( full_room_name );
         
-    if (room_icon_url != null && room_icon_url != "")
-    {
-        attempt_room_icon(room_div, room_icon_url, initials_arr);
-    }
-    else
-    {
-        add_room_initials(room_div, initials_arr);
-    }
+    (room_logo_url != null && room_logo_url != "") ? attempt_room_logo(room_div, room_logo_url, initials_arr, room_id)
+                                                   : add_room_initials(room_div, initials_arr);
 
     room_div.on("click", room_selected);
-    $("#chatrooms-div").append(room_div);
-    $("#chatrooms-div").append( create_description_div(room_id, room_name, room_info[room_id][__ROOMINFO_CRTR_KEY__]) );
+    $("#chatrooms-div").append(room_div)
+    .append( create_description_div(room_id, room_name, room_info[room_id][__ROOMINFO_CRTR_KEY__]) );
 
     return room_div;
 }
 
-function attempt_room_icon(div, img_src, initials_arr)
+function attempt_room_logo(div, img_src, initials_arr, room_id)
 {
-    let image = $(`<img class="room-icon">`);
+    let image = $(`<img class="room-icon" data-room-logo="${room_id}">`);
     image.on(`load`, function() { 
             console.log("image loaded");
             div.append(image); }
@@ -193,22 +201,23 @@ function add_room_initials(div, initials_arr)
         div.append( $(`<div class="room-initial second-letter">${initials_arr[1].substr(0, 1)}</div>`) );
 }
 
-function create_description_div(room_id, room_name, room_creator)
+function create_description_div(room_id, room_name, room_creator_id)
 {
-    room_creator = (room_creator in user_profiles) ? user_profiles[room_creator][__USER_INFO_NICK__] : "Not in friends list";
+    let room_creator_name = (room_creator_id in user_profiles) ? user_profiles[room_creator_id][__USER_INFO_NICK__] : "Not in friends list";
     let desc_div = $(
-        `<div id="sidemenu-room-summary-${room_id}" class="border-top border-bottom border-primary collapse my-2">
-            <label for="${room_id}-sidemenu-summary-name" class="small sidemenu-room-summary-label">Roomname:</label>
-            <div id="${room_id}-sidemenu-summary-name" class="sidemenu-room-summary-text text-center">${room_name}</div>
-            <label for="${room_id}-sidemenu-summary-creator" class="small sidemenu-room-summary-label">Creator:</label>
-            <div id="${room_id}-sidemenu-summary-creator" class="sidemenu-room-summary-text text-center">${room_creator}</div>
-        </div>`);
+        `<div id="sidemenu-room-summary-${room_id}" class="border-top border-bottom border-primary collapse my-2">\n` +
+        `    <label for="${room_id}-sidemenu-summary-name" class="small sidemenu-room-summary-label">Roomname:</label>\n` +
+        `    <div id="${room_id}-sidemenu-summary-name" data-room-name="${room_id}" class="sidemenu-room-summary-text text-center">${room_name}</div>\n` +
+        `    <label for="${room_id}-sidemenu-summary-creator" class="small sidemenu-room-summary-label">Creator:</label>\n` +
+        `    <div id="${room_id}-sidemenu-summary-creator" data-user-nick="${room_creator_id}" class="sidemenu-room-summary-text text-center">${room_creator_name}</div>\n` +
+        `</div>\n`);
     let room_info_btn_div = $(`<div class="text-center">`);
     let room_info_btn = $(`<a class="btn py-0 my-2 btn-outline-primary" data-roomid="${room_id}">`).append("Info").on("click", show_room_info);
     desc_div.append( room_info_btn_div.append(room_info_btn) );
     desc_div.on("shown.bs.collapse", event => {
         event.currentTarget.scrollIntoView(false, { behavior: "smooth", block: "end" } );
     });
+    set_text_from_ref(`/users/nicks/${room_creator_id}`, `#${room_id}-sidemenu-summary-creator`);
     return desc_div;
 }
 
@@ -294,18 +303,58 @@ function load_room_users(room_id)
     }
 }
 
-function add_to_chatroom_users_list(chatroom_usr_id)
+async function add_to_chatroom_users_list(chatroom_usr_id)
 {
-    let spiel = (chatroom_usr_id in user_profiles) ? user_profiles[chatroom_usr_id][__USER_INFO_NICK__]
-                                                   : chatroom_usr_id;
+    console.log(chatroom_usr_id);
+    console.log(user_profiles);
+
+    if (!(chatroom_usr_id in user_profiles))
+        await retrieve_user_info(chatroom_usr_id);
+
+    let chatroom_usr_nick = user_profiles[chatroom_usr_id][__USER_INFO_NICK__];
+
     //create a link
-    let usr_div=$(`<div class="chatroom-member">`).css("background-color", `#${user_profiles[chatroom_usr_id][__USER_PROFILE_COLOR__]}`);
+    let usr_div=$(`<div id="chatroom-member-${chatroom_usr_id}" class="chatroom-member">`)
+                .css("background-color", `#${user_profiles[chatroom_usr_id][__USER_PROFILE_COLOR__]}`)
+                .append(`<img src="${user_profiles[chatroom_usr_id][__USER_INFO_PIC__]}">`)
+                .append(`<div data-user-nick="${chatroom_usr_id}">${chatroom_usr_nick}</div>`)
+                .on("click", event => {
+                        queued_view_profile_user_id = chatroom_usr_id;
+                        show_modal_user_profile(event, view_user_profile_modal_prep);
+                    });
     $("#chatroom-users-div").append(usr_div);
-    usr_div.append(`<img src="${user_profiles[chatroom_usr_id][__USER_INFO_PIC__]}"><div>${spiel}</div>`);
-    usr_div.on("click", event => {
-        queued_view_profile_user_id = chatroom_usr_id;
-        show_modal_user_profile(event, view_user_profile_modal_prep);
-    });
+}
+
+function modify_chatroom_values(snapshot, event_string)
+{
+    let room_key;
+    switch (event_string)
+    {
+        case "child_changed" :
+            room_key = snapshot.ref.parent.parent.key;
+            console.log("detected change of room_id:", room_key);
+            console.log(room_key, snapshot.key, snapshot.val());
+            room_info[room_key][snapshot.key] = snapshot.val(); //Change locally internally stored information
+            if (snapshot.key == __ROOMINFO_NAME_KEY__)
+                $(`[data-room-name="${room_key}"]`).html(snapshot.val());
+            if (snapshot.key == __ROOMINFO_LOGO_KEY__)
+            {
+                let str1 = `img[data-room-logo="${room_key}"]`;
+                let str2 = `Object[data-room-logo="${room_key}"]`;
+                console.log(str1, str2, snapshot.val());
+                $(str1).attr("src", snapshot.val());
+                $(str2).attr("data", snapshot.val());
+                console.log("you need to change the url buddy TODO");
+            }
+            break;
+        default :
+            break;
+    }
+}
+
+function modify_chatroom_user_list(event)
+{
+
 }
 
 /**
@@ -384,14 +433,16 @@ function debug_print_timestamps(message_doms = null)
 
 function find_insert_before_point(time_stamp)
 {
-    console.log(`find_insert_before_point`);
+    if (CHATROOM_VERBOSE_DEBUG)
+        console.log(`find_insert_before_point`);
     let all_messages = $("#chatlog > div > div.all-messages");
     let insert_before_message_row = null;
     let found = false;
     if (all_messages.length > 0)
     {
-        console.log("----");
-        debug_print_timestamps(all_messages);
+        if (CHATROOM_VERBOSE_DEBUG)
+            console.log("----");
+        //debug_print_timestamps(all_messages);
 
         for (let i=all_messages.length -1; i >=0 && !found; i--)
         {
@@ -400,14 +451,17 @@ function find_insert_before_point(time_stamp)
             let prev_msg_id = (i == all_messages.length -1) ? "" 
                                                             : all_messages[i+1].id;
             let i_timestamp = parseInt(msg_id.substring(0, msg_id.indexOf("-")));
-            console.log(`   timestamp: ${time_stamp}, i_timestamp: ${i_timestamp}`);
+            if (CHATROOM_VERBOSE_DEBUG)
+                console.log(`   timestamp: ${time_stamp}, i_timestamp: ${i_timestamp}`);
             found = (parseInt(time_stamp) > parseInt(i_timestamp));
             if (found)
             {
-                console.log("   parseInt(time_stamp) > parseInt(i_timestamp)");
+                if (CHATROOM_VERBOSE_DEBUG)
+                    console.log("   parseInt(time_stamp) > parseInt(i_timestamp)");
                 if (prev_msg_id != "") //no previous id means it needs to be added to the bottom of the chatlog as this is only the case for i=length-1
                     insert_before_message_row = $("#" + prev_msg_id).parent();
-                console.log("   prev_msg_id:", prev_msg_id, insert_before_message_row);
+                if (CHATROOM_VERBOSE_DEBUG)
+                    console.log("   prev_msg_id:", prev_msg_id, insert_before_message_row);
             }
         }
 
@@ -516,8 +570,6 @@ async function create_room_event(event)
     let room_key = await firebase_create_chatroom(room_name_submitted, room_logo_submitted);
     user_rooms[room_key] = true;
     await init_user_rooms();
-    // await add_room(room_key);
-    // add_room_to_menu(room_key);
     let div = $(`<div data-roomid="${room_key}">`);
     div.on("click", room_selected).trigger("click");
     hide_visible_modal();
@@ -528,7 +580,7 @@ async function update_room_from_modal(event)
     let room_id = current_roomid;
     let room_name_submitted = $(`#room-profile-set-name-tf`).val().trim();
     let room_logo_submitted = $(`#room-profile-set-logo-tf`).val().trim();
-    await firebase_update_chatroom(room_id, room_name_submitted, room_logo_submitted).then(
+    await firebase_edit_chatroom(room_id, room_name_submitted, room_logo_submitted).then(
         function() {
             show_modal_room_info(null, view_room_info_modal_prep);
         }

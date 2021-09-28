@@ -76,7 +76,7 @@ function create_next_user_color()
     return col;
 }
 
-function vars_add_contact(user_key, callback_fx = null)
+async function retrieve_user_info(user_key)
 {
     //1 test if contact already has a profile
     if (user_key in user_contacts)
@@ -86,10 +86,8 @@ function vars_add_contact(user_key, callback_fx = null)
     //2 assign if not. I think this is quite large, there may be an ill-defined object's role in user_contacts or elsewhere
     let ref_path = `/users/${user_key}/info`;
     let ref = database.ref(ref_path);
-    ref.on("value", received_user_profile);
+    await ref.once("value", received_user_profile);
     register_firebase_listener(ref_path, "value", received_user_profile);
-    if (callback_fx)
-        callback_fx();
 }
 
 function vars_remove_contact(user_key, callback_fx = null)

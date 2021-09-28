@@ -209,20 +209,21 @@ function received_user_contacts_list(snapshot)
     console.log("received_user_contacts");
     let user_contacts = snapshot.val();
     Object.keys(user_contacts).forEach(key => {
-        attach_received_user_profile_listener(key, `/users/${key}/info` );
+        attach_received_user_profile_listener(key);
     } );
 }
 
-function attach_received_user_profile_listener(key, ref)
+async function attach_received_user_profile_listener(key)
 {
-    let reference = database.ref(ref);
-    register_firebase_listener(ref, "value", received_user_profile);
+    let reference = database.ref(`/users/${key}/info`);
+    register_firebase_listener(reference, "value", received_user_profile);
     // (user_profiles.hasOwnProperty(key)) ? reference.once("value", received_user_profile)
     //                                     :
+    //TODO populate with dummy values while waiting for the information to be retrieved
     reference.on("value", received_user_profile);
 }
 
-function received_user_profile(snapshot)
+async function received_user_profile(snapshot)
 {
     console.log("received_user_profile");
     let user_info_root = snapshot.val();
@@ -308,11 +309,11 @@ function setup_navigation_listeners()
 }
 
 // TODO JZM
-async function add_contact(key, callback_fx = null)
+async function add_contact(key)
 {
-    console.log(`add_contact(${key}, ${callback_fx})`);
+    console.log(`add_contact(${key})`);
     await firebase_add_contact(key);
-    vars_add_contact(key, callback_fx);
+    retrieve_user_info(key, callback_fx);
 }
 
 async function remove_contact(key, callback_fx = null)

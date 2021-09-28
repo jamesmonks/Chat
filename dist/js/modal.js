@@ -257,7 +257,7 @@ function populate_user_profile_modal(snapshot = null)
         {
             Object.keys(lcl_rooms).forEach(key => {
                 has_chatrooms = true;
-                let chatroom_li = $(`<div id="room-key-${key}" class="user-profile-chatroom text-truncate" data-roomid="${key}">`).append(lcl_rooms[key]);
+                let chatroom_li = $(`<div id="room-key-${key}" class="user-profile-chatroom text-truncate" data-roomid="${key}" data-room-name="${key}">`).append(lcl_rooms[key]);
                 chatroom_li.on("click", function(event) {
                     room_selected(event);
                     show_modal_room_info(event, view_room_info_modal_prep);
@@ -362,7 +362,8 @@ async function populate_room_profile_modal(snapshot)
     let snapshot_json = snapshot.val();
     let room_name = snapshot_json[__ROOMINFO_NAME_KEY__],
         room_creator_nick_key = snapshot_json[__ROOMINFO_CRTR_KEY__],
-        room_logo = snapshot_json[__ROOMINFO_LOGO_KEY__];
+        room_logo = snapshot_json[__ROOMINFO_LOGO_KEY__],
+        snapshot_room_key = snapshot.ref.parent.key;
 
     if (room_logo == "")
         room_logo = __DEFAULT_ROOM_IMAGE_LINK__;
@@ -387,7 +388,7 @@ async function populate_room_profile_modal(snapshot)
             let content = $(
                 `<div class="col-12 col-sm-6 text-center my-auto">
                     <div id="room-profile-logo">
-                        <object id="room-profile-logo-img" data="${room_logo}" type="image/jpg" class="room-profile-logo-img w-100 mx-auto rounded">
+                        <object id="room-profile-logo-img" data="${room_logo}" data-room-logo="${snapshot_room_key}" type="image/jpg" class="room-profile-logo-img w-100 mx-auto rounded">
                             <img src="${__DEFAULT_ROOM_IMAGE_LINK__}" />
                         </object>
                     </div>
@@ -429,14 +430,14 @@ async function populate_room_profile_modal(snapshot)
             
             let view_profile = $(`<div class="col-12 col-sm-6 text-center">
                     <div id="room-profile-logo" class="h-100 d-flex align-items-center justify-content-center">
-                        <object id="room-profile-logo-img" data="${room_logo}" type="image/jpg" class="room-profile-logo-img w-100 mx-auto rounded">
+                        <object id="room-profile-logo-img" data="${room_logo}" data-room-logo="${snapshot_room_key}" type="image/jpg" class="room-profile-logo-img w-100 mx-auto rounded">
                             <img src="${__DEFAULT_ROOM_IMAGE_LINK__}" />
                         </object>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 p-3 my-auto">
                     <div id="room-profile-view-name" class="text-center">
-                        <h4 class="text-uppercase">${room_name}</h4>
+                        <h4 class="text-uppercase" data-room-name="${snapshot_room_key}">${room_name}</h4>
                     </div>
                     <div class="room-profile-creator-nick text-center">
                         ${h4_str}
