@@ -555,11 +555,19 @@ function send_message_event(event)
     let chat_message_type = "TEXT";
     let chat_message_content = $("#user-message-text").val();
     
+    if (current_roomid == "robot_help" || current_roomid == "") //as it currently stands, when current_roomid == "", the help room is the currently displayed room
+    {
+        $("#user-message-text").val("Click on an option to engage with this chatroom");
+        return;
+    }
+
     if (chat_message_content.trim() != "")
     {
         add_message_to_firebase(current_roomid, chat_message_type, chat_message_content);
         clear_message_text({ target : { id : "user-message-text"}});
     }
+    else
+        $("#user-message-text").val("");
 }
 
 async function create_room_event(event)
