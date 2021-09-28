@@ -52,7 +52,7 @@ function fetch_user_info(user_id, callback_function)
     ref.once("value", callback_function);
 }
 
-async function firebase_add_contact(contact_id, callback_fx = null)
+async function firebase_add_contact(contact_id)
 {
     console.log(`firebase_add_contact(${contact_id}, ${callback_fx})`);
     let ref = database.ref(`users/${user_uid}/contacts/${contact_id}`);    //retrieve the user's nick
@@ -115,11 +115,11 @@ async function firebase_create_chatroom(room_name, room_logo)
         "media_msg" : `${user_profiles[user_uid][__USER_INFO_NICK__]} has opened this channel`
     }
     
-    await firebase_update_chatroom(key, room_name, room_logo, msg_obj);
+    await firebase_edit_chatroom(key, room_name, room_logo, msg_obj);
     return key;
 }
 
-async function firebase_update_chatroom(room_id, room_name, room_logo, msg_object = null)
+async function firebase_edit_chatroom(room_id, room_name, room_logo, msg_object = null)
 {
     let updates = {};
     updates[`/rooms/chatrooms/${room_id}/info`] = {
@@ -146,8 +146,6 @@ function firebase_add_user_to_chatroom_event(event)
 async function firebase_add_user_to_chatroom(user_id, chatroom_id, callback_fx = null)
 {
     console.log(`firebase_add_user_to_chatroom(${user_id}, ${chatroom_id})`);
-//    let ref = `rooms/chatrooms/${chatroom_id}/users/${user_id}`;
-//    let ref2= `users/${user_id}/rooms/${chatroom_id}`;
     let add2chat = {};
     add2chat[`rooms/chatrooms/${chatroom_id}/users/${user_id}`] = true;
     add2chat[`users/${user_id}/rooms/${chatroom_id}`] = true;
@@ -185,6 +183,16 @@ async function firebase_get_room_info(room_id)
 
     return obj;
 }
+
+function firebase_add_room_listener(room_id)
+{
+    let ref1 = database.ref(`rooms/chatrooms/${room_id}/info`);
+    let ref2 = database.ref(`rooms/chatrooms/${room_id}/users`);
+    ref1.on("child_changed", (snapshot) => {modify_chatroom_values(snapshot, "child_changed")});
+    ref2.on("child_added", modify_chatroom_user_list);
+}
+
+
 
 async function firebase_get_room_messages(room_id, callback_function = null)
 {

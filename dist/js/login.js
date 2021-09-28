@@ -443,7 +443,6 @@ async function populate_user_data()
     console.log(user_rooms);
     console.log(user_contacts);
     console.log(user_tokens);
-    
     init_user();
     // }
 }
