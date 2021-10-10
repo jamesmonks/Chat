@@ -46,11 +46,11 @@ async function update_current_user_info(new_user_info)
     });
 }
 
-function fetch_user_info(user_id, callback_function)
-{
-    let ref = database.ref("/users/" + user_id + "/info");
-    ref.once("value", callback_function);
-}
+// function fetch_user_info(user_id, callback_function)
+// {
+//     let ref = database.ref("/users/" + user_id + "/info");
+//     ref.once("value", callback_function);
+// }
 
 async function firebase_add_contact(contact_id)
 {
@@ -308,6 +308,139 @@ async function register_firebase_listener(reference, event_type = null, fx = nul
 
 async function delete_user()
 {
+    let update_obj = {},
+        jane_doe = `0000000000000000000000000000`,
+        all_data_retrieved = true,
+        rooms_keys = [];
+        errors = [];
+
+    // 01) user_uid is value of rooms.chatrooms.room_id.info.creator *replace with jane_doe*
+    async function del01_get_creatorship_rooms(obj)
+    {
+        console.log("doing 01")
+        await database.ref(`/rooms/chatrooms/`)
+                    .orderByChild(`info/creator`)
+                    .equalTo(user_uid)
+                    .once("value")
+                    .then(snapshot => {  
+                        snapshot.forEach(child => { obj[`/rooms/chatrooms/${child.key}/info/creator`] = jane_doe });
+                        console.log("done 01")                })
+                    .catch( error => { all_data_retrieved = false; errors.push(error)});
+        return obj;
+    }
+    
+    
+    // 02) user_uid is in chatroom users => rooms.chatrooms.room_id.users.[user_uid] *delete*
+    async function del02_get_membership_rooms(obj)
+    {
+        console.log("doing 02");
+        await database.ref(`/users/${user_uid}/rooms`)
+                    .once("value")
+                    .then(snapshot => {
+                        users_rooms = snapshot;
+                        snapshot.forEach(child => {
+                            rooms_keys.push(child.key);
+                            obj[`/rooms/chatrooms/${child.key}/users/${user_uid}`] = null; //delete user
+                            obj[`/rooms/chatrooms/${child.key}/users/${jane_doe}`] = true; //make new user for deleted
+                        });
+                        console.log("done 02")  })
+                    .catch( error => { all_data_retrieved = false; errors.push(error) } );
+        return obj;
+    }
+        
+    
+    // We will not keep any reference to there being a user or a deleted user here
+    // Reason: creating many users and then deleting them will fill up the users list
+
+    // 03) User uid is a value in rooms.chatrooms.room_id.messages.message_id.user
+    // Replace this value with the uid of the 'deleted user' (basically a John Doe account)
+    // rooms.chatrooms.room_id.messages.message_id.media_msg = "User has been removed"
+    // rooms.chatrooms.room_id.messages.message_id.media_typ = "Text"
+    // let rooms_msgs_snapshots = [];
+    
+    async function del03_get_all_messages(obj)
+    {
+        console.log("doing 03");
+        for (let i=0; i < rooms_keys.length; i++)
+        {
+            let room_key = rooms_keys[i];
+            await database.ref(`/rooms/chatrooms/${room_key}/messages/`)
+            .orderByChild(`user`)
+            .equalTo(user_uid)
+            .once("value")
+            .then(
+                snapshot => 
+                { 
+                    // rooms_msgs_snapshots[child.key] = snapshot; 
+                    snapshot.forEach( (msg) => 
+                    {
+                        let chatroom_key = room_key,
+                        msg_key = msg.key;
+                        console.log(msg, chatroom_key, msg_key);
+                        obj[`/rooms/chatrooms/${chatroom_key}/messages/${msg_key}/user`] = jane_doe;
+                        obj[`/rooms/chatrooms/${chatroom_key}/messages/${msg_key}/media_typ`] = "text";
+                        obj[`/rooms/chatrooms/${chatroom_key}/messages/${msg_key}/media_msg`] = "User message has been removed by System";
+                        console.log("message made");
+                    } );
+                }
+            )
+            .catch( error => { all_data_retrieved = false; errors.push(error) } );
+            console.log("done 03");
+        };
+        console.log("after 03");
+        return obj;
+    }
+
+    // for (let i=0; i <test_room_arr.length; i++)
+    // {
+    //     let test_ref2 = database.ref(`/rooms/chatrooms/${test_room_arr[i]}/messages/`).orderByChild(`user`).equalTo(user_uid);
+    //     test_ref2.once("value", snapshot => { rooms_msgs_snapshots[i] = snapshot; } );
+    // }
+    
+// 04) users.[uid].contacts <== Use this to iterate through contacts and delete any self reference in other users
+    async function del04_get_contacts(obj)
+    {
+        console.log("doing 04")
+        await database.ref(`/users/${user_uid}/contacts`)
+            .once("value")
+            .then( snapshot => { snapshot.forEach(child => { obj[`/users/${child.key}/contacts/${user_uid}`] = null }); console.log("done 04")})
+            .catch( error => { all_data_retrieved = false; errors.push(error) } );
+        return obj;
+    }
+
+    function del05_other_cleanup(obj)
+    {
+        // 05) users.nicks.[uid] *delete*
+        obj[`/users/nicks/${user_uid}`] = null;
+        // 06) users.user_ids.[user_nick].[uid] *delete*
+        obj[`/users/user_ids/${user_info[__USER_INFO_NICK__]}/${user_uid}`] = null;
+        // 07) users.[uid] *delete*
+        // update_obj[`/users/${user_uid}`] = null;
+        // Keep this last, as after this we will not be able to retrieve these values to use for searching purposes
+    }
+
+    await del01_get_creatorship_rooms(update_obj);
+    await del02_get_membership_rooms(update_obj);
+    await del03_get_all_messages(update_obj);
+    await del04_get_contacts(update_obj);
+    del05_other_cleanup(update_obj);
+
+// 07) users.[uid] *delete*
+    // update_obj[`/users/${user_uid}`] = null;
+    // Keep this last, as after this we will not be able to retrieve these values to use for searching purposes
+// 08) execute
+    unregister_firebase_listeners();
+    console.log(JSON.stringify(update_obj));
+    if (all_data_retrieved)
+        firebase.database().ref().update(update_obj);//.then(signout()).catch( error => { errors.push(error) } );
+    
+    if (errors.length > 0)
+    {
+        show_error_modal("<h3>Unable to delete user</h3>", `<p>We are unable to delete your account at this time. Please
+            contact the admin directly via e-mail</p><p>Apologies for the inconvenience</p>`);
+        errors.forEach(error => { console.log(error) });
+    }
+        
     //todo #7
     // 1) get user's rooms
     // 2) get comments by user in those rooms and rooms where user is the creator

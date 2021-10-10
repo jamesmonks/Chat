@@ -221,6 +221,10 @@ div.message-meta-info > span[data-user-nick] {
     cursor: pointer;
 }
 
+div.message-meta-info > span[data-user-nick]:hover {
+    text-shadow: 0 0 4px darkorange, 0 0 4px white, 0 0 4px white;
+}
+
 div.all-messages {
     margin-top: 7px;
     background: white;

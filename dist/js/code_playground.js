@@ -52,10 +52,8 @@ async function prep(event)
         }
     });
     $("#user-message-text").on("click", clear_message_text).hide();
-    $("#sign-in-method-button").on("click", event => {
-        _auto_login = false;
-    });
-    $("#show-create-room-modal-button").on("click", create_room).hide();
+    $("#sign-in-method-button").on("click", () => { _auto_login = false; });
+    $("#show-create-room-modal-button").on("click", event => show_modal_room_create(event)).hide();
 
     await login_init();
 
@@ -80,26 +78,38 @@ async function prep(event)
 function add_user_profile(  user_id, user_name, nickname = null, profile_pic_link = null, bio_info = null, homepage_link = null )
 {
     console.log("add_user_profile", user_id, user_name);
+    
     if (user_profiles.hasOwnProperty(user_id))
+        user_profiles[user_id] = populate_profile_parameters(user_profiles[user_id], user_name, nickname, profile_pic_link, bio_info, homepage_link, null, null);
+    else
     {
-        populate_profile_parameters(user_profiles[user_id], user_name, nickname, profile_pic_link, bio_info, homepage_link, null, null);
-        if ( user_id == user_uid )
-        {
-            //update local parameters for the user
-            console.log("*******************");
-            console.log("add_user_profile user is current user alert");
-            console.log("*******************");
-        }
-        return;
+        user_profiles[user_id] = populate_profile_parameters({}, user_name, nickname, profile_pic_link, bio_info, homepage_link, 
+                                                             create_next_user_color(), "user_" + user_id.toString());
+        create_user_style(user_id);
     }
 
-    let next_color = create_next_user_color();
-    let obj = populate_profile_parameters({}, user_name, nickname, profile_pic_link, bio_info, homepage_link, 
-                                          next_color, "user_" + user_id.toString());
+    update_user_data_in_gui(user_id);
+}
 
-    user_profiles[user_id] = obj;
+/**
+ * @see {@link change_user_data_in_gui} function
+ * @param {*} user_id @see {@link change_user_data_in_gui} argument
+ */
+function update_user_data_in_gui(user_id) { change_user_data_in_gui(user_id); }
 
-    create_user_style(user_id);
+/**
+ * Wherever data-user-[bio|name|nick|home|logo] is used in an object (or in the case of images, in an img|Object)
+ * the visual data is updated to reflect what is stored in user_profiles.
+ * @param {*} user_id The id of the user
+ */
+function change_user_data_in_gui(user_id)
+{
+    $(`*[data-user-bio="${user_id}"]`).html(user_profiles[user_id][__USER_INFO_BIO__]);
+    $(`*[data-user-name="${user_id}"]`).html(user_profiles[user_id][__USER_INFO_NAME__]);
+    $(`*[data-user-nick="${user_id}"]`).html(user_profiles[user_id][__USER_INFO_NICK__]);
+    $(`*[data-user-home="${user_id}"]`).html(user_profiles[user_id][__USER_INFO_HOME__]);
+    $(`img[data-user-logo="${user_id}"]`).attr("src", user_profiles[user_id][__USER_INFO_PIC__]);
+    $(`Object[data-user-logo="${user_id}"]`).attr("data", user_profiles[user_id][__USER_INFO_PIC__]);
 }
 
 /**
@@ -228,6 +238,7 @@ async function attach_received_user_profile_listener(key)
 async function received_user_profile(snapshot)
 {
     console.log("received_user_profile");
+    console.log(snapshot);
     let user_info_root = snapshot.val();
     console.log(snapshot.ref.parent.key);
     add_user_profile(   snapshot.ref.parent.key,            user_info_root[__USER_INFO_NAME__], 
@@ -246,7 +257,7 @@ function load_user_profile(event)
         (event.target.id != "nav-view-profile") ? event.currentTarget.getAttribute("data-user") 
                                                 : user_uid;
     console.log(queued_view_profile_user_id);                                    
-    show_modal_user_profile(event, view_user_profile_modal_prep);
+    show_modal_user_profile(event);
 }
 
 function view_room_info_modal_prep()

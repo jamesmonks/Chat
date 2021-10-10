@@ -87,7 +87,7 @@ async function new_auth_login(user)
         {
             navigation_setup(true);
             queued_view_profile_user_id = user_uid;
-            show_modal_user_profile(null, view_user_profile_modal_prep); //default behaviour is to load user profile
+            show_modal_user_profile(); //default behaviour is to load user profile
             chatbot_init();
         }
         else
@@ -472,7 +472,7 @@ async function user_login_complete(obj) {
     console.log("account_setup_successful", obj);
     await populate_user_data();
     queued_view_profile_user_id = user_uid;
-    show_modal_user_profile(null, view_user_profile_modal_prep);
+    show_modal_user_profile();
 }
 
 function toggle_persistence(event) {
@@ -503,4 +503,12 @@ function auto_set_persistence()
         $(selector).removeClass("persistence-on");
     }
     console.log("toggle toggle toggel");
+}
+
+function logout(event) {
+    firebase.auth().signOut();
+}
+
+function signout(event) {
+    firebase.auth().signOut();
 }

@@ -224,7 +224,7 @@ function create_description_div(room_id, room_name, room_creator_id)
 function show_room_info(event)
 {
     room_selected(event);
-    show_modal_room_info(event, view_room_info_modal_prep);
+    show_modal_room_info(event);
 }
 
 /**
@@ -316,11 +316,11 @@ async function add_to_chatroom_users_list(chatroom_usr_id)
     //create a link
     let usr_div=$(`<div id="chatroom-member-${chatroom_usr_id}" class="chatroom-member">`)
                 .css("background-color", `#${user_profiles[chatroom_usr_id][__USER_PROFILE_COLOR__]}`)
-                .append(`<img src="${user_profiles[chatroom_usr_id][__USER_INFO_PIC__]}">`)
+                .append(`<img data-user-logo="${chatroom_usr_id}" src="${user_profiles[chatroom_usr_id][__USER_INFO_PIC__]}">`)
                 .append(`<div data-user-nick="${chatroom_usr_id}">${chatroom_usr_nick}</div>`)
                 .on("click", event => {
                         queued_view_profile_user_id = chatroom_usr_id;
-                        show_modal_user_profile(event, view_user_profile_modal_prep);
+                        show_modal_user_profile(event);
                     });
     $("#chatroom-users-div").append(usr_div);
 }
@@ -491,6 +491,8 @@ function create_other_user_message_div(dom_elem, other_user_id, msg_id, msg_stri
     console.log(`create_other_user_message_div()`);
     let user_css_name = user_profiles[other_user_id][__USER_PROFILE_CSS__];
     let user_nickname = user_profiles[other_user_id][__USER_INFO_NICK__]; 
+    console.log(other_user_id, msg_id, msg_string);
+    console.log(user_css_name, user_nickname);
 
     let msg_div = $(`<div id="${msg_id}" class="all-messages other-user-msg col-9 offset-2 ${user_css_name}">`).append(msg_string);
 
@@ -504,7 +506,7 @@ function create_other_user_message_div(dom_elem, other_user_id, msg_id, msg_stri
     let username_row_nick_span = $(`<span data-user-nick="${other_user_id}">${user_nickname}</span>`);
     username_row_nick_span.on("click", function() {
         queued_view_profile_user_id = other_user_id;
-        show_modal_user_profile(null, view_user_profile_modal_prep);
+        show_modal_user_profile();
     })
     let msg_uid = $(`<div class="message-meta-info px-0 col-10 offset-2">`)
                 .append(`by `)
@@ -608,7 +610,7 @@ async function update_room_from_modal(event)
     let room_logo_submitted = $(`#room-profile-set-logo-tf`).val().trim();
     await firebase_edit_chatroom(room_id, room_name_submitted, room_logo_submitted).then(
         function() {
-            show_modal_room_info(null, view_room_info_modal_prep);
+            show_modal_room_info();
         }
     );
 }

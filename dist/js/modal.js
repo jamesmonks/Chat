@@ -83,6 +83,8 @@ function show_modal_login_email(event = null, prep_function = null)
     console.log("show_modal_login_email");
     if (event)
         event.preventDefault();
+    if (prep_function == null)
+        {} //todo default prep_function for email
     show_modal("#email-login-modal", prep_function);
 }
 
@@ -91,6 +93,8 @@ function show_modal_signup_email(event = null, prep_function = null)
     console.log("show_modal_signup_email");
     if (event)
         event.preventDefault();
+    if (prep_function == null)
+        {} //todo default prep_function for email signup
     show_modal("#email-signup-modal", prep_function);
 }
 
@@ -99,10 +103,12 @@ function show_modal_room_create(event = null, prep_function = null)
     console.log("show_modal_room_create");
     if (event)
         event.preventDefault()
+    if (prep_function == null)
+        {}//todo default prep_function
     show_modal("#room-create-modal", prep_function);
 }
 
-function show_modal_room_info(event = null, prep_function = null)
+function show_modal_room_info(event = null, prep_function = view_room_info_modal_prep)
 {
     console.log("show_modal_room_info");
     if (event)
@@ -110,9 +116,11 @@ function show_modal_room_info(event = null, prep_function = null)
     show_modal("#view-room-profile-modal", prep_function);
 }
 
-function show_modal_user_profile(event = null, prep_function = null)
+function show_modal_user_profile(event = null, prep_function = view_user_profile_modal_prep)
 {
     console.log("show_modal_user_profile");
+    //todo wherever this function is called, see if it's possible to set a data element to have the user id
+    //on the event.currentTarget for use by the prep function
     if (event)
         event.preventDefault();
     show_modal("#view-user-profile-modal", prep_function)
@@ -166,30 +174,28 @@ function init_modal_button_functions()
 function populate_user_profile_modal(snapshot = null)
 {
     console.log("populate_user_profile_modal", snapshot);
-    let lcl_uid,    lcl_pic_url,    lcl_name,   lcl_nick,
-        lcl_home,   lcl_bio,        lcl_rooms,  lcl_contacts;
+    let profile_uid,    profile_pic_url,    profile_name,   profile_nick,
+        profile_home,   profile_bio,        profile_rooms,  profile_contacts;
     
     if (snapshot)
     {
-        console.log(snapshot);
-        console.log(snapshot.toJSON());
-        lcl_uid     = snapshot.ref.key;
-        let lcl_json= snapshot.child("info").toJSON();
-        lcl_rooms   = snapshot.child("rooms").toJSON();
-        lcl_contacts= snapshot.child("contacts").toJSON();
+        profile_uid     = snapshot.ref.key;
+        let profile_info= snapshot.child("info").toJSON();
+        profile_rooms   = snapshot.child("rooms").toJSON();
+        profile_contacts= snapshot.child("contacts").toJSON();
         
-        lcl_pic_url = lcl_json[__USER_INFO_PIC__];        lcl_name    = lcl_json[__USER_INFO_NAME__];
-        lcl_nick    = lcl_json[__USER_INFO_NICK__];       lcl_home    = lcl_json[__USER_INFO_HOME__];
-        lcl_bio     = lcl_json[__USER_INFO_BIO__];    
+        profile_pic_url = profile_info[__USER_INFO_PIC__];        profile_name    = profile_info[__USER_INFO_NAME__];
+        profile_nick    = profile_info[__USER_INFO_NICK__];       profile_home    = profile_info[__USER_INFO_HOME__];
+        profile_bio     = profile_info[__USER_INFO_BIO__];    
     }
     else
     {
-        lcl_rooms   = user_rooms;
-        lcl_contacts= user_contacts;
-        console.log(lcl_contacts, user_contacts);
-        lcl_uid     = user_uid;                           lcl_pic_url = user_info[__USER_INFO_PIC__];
-        lcl_name    = user_info[__USER_INFO_NAME__];      lcl_nick    = user_info[__USER_INFO_NICK__];
-        lcl_home    = user_info[__USER_INFO_HOME__];      lcl_bio     = user_info[__USER_INFO_BIO__];
+        profile_rooms   = user_rooms;
+        profile_contacts= user_contacts;
+
+        profile_uid     = user_uid;                           profile_pic_url = user_info[__USER_INFO_PIC__];
+        profile_name    = user_info[__USER_INFO_NAME__];      profile_nick    = user_info[__USER_INFO_NICK__];
+        profile_home    = user_info[__USER_INFO_HOME__];      profile_bio     = user_info[__USER_INFO_BIO__];
     }
 
     let u_pic_html, user_image, u_prof_div = $(`<div class="col-12 col-sm-6 p-0 mt-0">`);//, update_div;
@@ -197,49 +203,50 @@ function populate_user_profile_modal(snapshot = null)
     {
         console.log("modal_user_profile_info");
         let img_foot, nick_div, home_div, bio__div, image_load;
-        let nick_lbl, home_lbl, bio_lbl;
-        if (user_uid != lcl_uid)
+        let nick_lbl, home_lbl, bio__lbl;
+        if (user_uid != profile_uid)
         {
             //if not current user, show button to add / delete user
-            let is_contact = lcl_uid in user_contacts;
-            let profile_btn = $(`<button data-uid="${lcl_uid}" class="btn mt-3 w-75">`);
+            let is_contact = profile_uid in user_contacts;
+            let profile_btn = $(`<button data-uid="${profile_uid}" class="btn mt-3 w-75">`);
             (is_contact) ? profile_btn.addClass("user-rmv-btn btn-danger").text("Remove")
                          : profile_btn.addClass("user-add-btn btn-info").text("Add");
             profile_btn.on("click", toggle_contact);
 
             img_foot = $(`<div>`).append(profile_btn);
             nick_lbl = $(`<label for="user-profile-nick" class="mb-0 mt-0">Nick</label>`);
-            nick_div = $(`<div id="user-profile-nick" class="text-left text-sm-center"><h4 class="text-uppercase py-1">${lcl_nick}</h4></div`);
+            nick_div = $(`<div id="user-profile-nick" class="text-left text-sm-center"><h4 class="text-uppercase data-user-nick=${profile_uid} py-1">${profile_nick}</h4></div`);
             home_lbl = $(`<label for="user-profile-homepage" class="mb-0 mt-2">Homepage</label>`);
-            home_div = $(`<div id="user-profile-homepage" class="text-left text-sm-center"><h4><a href="${lcl_home}">Homepage</a></h4></div>`);
-            bio_lbl = $(`<label for="user-profile-bio" class="mt-2 mb-0">Bio</label>`);
+            home_div = $(`<div id="user-profile-homepage" class="text-left text-sm-center"><h4><a href="${profile_home}">Homepage</a></h4></div>`);
+            bio__lbl = $(`<label for="user-profile-bio" class="mt-2 mb-0">Bio</label>`);
             bio__div = $(`<div id="user-profile-bio" class="text-left text-sm-center">`).append( 
-                            $(`<blockquote class="text-justify blockquote">${lcl_bio}</blockquote>`) );
-            u_prof_div.append(nick_lbl, nick_div, home_lbl, home_div, bio_lbl, bio__div);
+                            $(`<blockquote class="text-justify blockquote">${profile_bio}</blockquote>`) );
+            u_prof_div.append(nick_lbl, nick_div, home_lbl, home_div, bio__lbl, bio__div);
         }
         else
         {
             let img_link_div = $(`<div class="input-group mt-2">`)
-            let img_link_tf  = $(`<input id="user-profile-pic-link" type="text" class="form-control border-primary mt-2" placeholder="Enter URL" value="${lcl_pic_url}">`);
+            let img_link_tf  = $(`<input id="user-profile-pic-link" type="text" class="form-control border-primary mt-2" placeholder="Enter URL" value="${profile_pic_url}">`);
             let img_link_btn_container = $(`<div class="input-group-append">`);
-            let img_link_btn = $(`<button id="" class="btn form-control mt-2 btn-primary" data-source="#user-profile-pic-link" data-target="#user-profile-pic">Test</button>`);
-            img_link_btn.on("click", preview_image);
+            let img_link_btn = $(`<button id="" class="btn form-control mt-2 btn-primary" data-source="#user-profile-pic-link" data-target="#user-profile-pic">Test</button>`)
+                               .on("click", preview_image);
             img_link_btn_container.append(img_link_btn);
             img_foot = img_link_div.append(img_link_tf, img_link_btn_container );
 
-            nick_div = $(`<input id="user-profile-nick-tf" type="text" class="form-control" value="${lcl_nick}">`);
             nick_lbl = $(`<label for="user-profile-nick-tf" class="mb-0 pt-3 mt-0">Nick</label>`);
-            home_div = $(`<input id="user-profile-homepage-tf" type="text" class="form-control" value="${lcl_home}">`);
+            nick_div = $(`<input id="user-profile-nick-tf" type="text" class="form-control" value="${profile_nick}">`);
             home_lbl = $(`<label for="user-profile-homepage-tf" class="mb-0 mt-2">Homepage</label>`);
-            bio__div = $(`<textarea id="user-profile-bio-tf" rows="3" class="text-justify form-control">`).append(lcl_bio);
-            bio_lbl = $(`<label for="user-profile-bio-tf" class="mt-2 mb-0">Bio</label>`);
-            btn = $(`<button id="" class="btn-primary float-right mt-3 align-content-center btn">Update</button>`).on("click", update_request_from_user_profile_modal); 
-            u_prof_div.append(nick_lbl, nick_div, home_lbl, home_div, bio_lbl, bio__div, btn);
+            home_div = $(`<input id="user-profile-homepage-tf" type="text" class="form-control" value="${profile_home}">`);
+            bio__lbl = $(`<label for="user-profile-bio-tf" class="mt-2 mb-0">Bio</label>`);
+            bio__div = $(`<textarea id="user-profile-bio-tf" rows="3" class="text-justify form-control">`).append(profile_bio);
+            btn      = $(`<button id="" class="btn-primary float-right mt-3 align-content-center btn">Update</button>`)
+                       .on("click", update_request_from_user_profile_modal); 
+            u_prof_div.append(nick_lbl, nick_div, home_lbl, home_div, bio__lbl, bio__div, btn);
         }
 
         u_pic_html = $(`<div id="user-profile-pic-section" class="col-12 d-flex flex-column pb-3 pb-sm-0 col-sm-6 text-center">`);
         user_image = $(`<div id="user-profile-pic-container" class="my-auto">`);
-        image_load = $(`<img id="user-profile-pic" src="${lcl_pic_url}" class="user-profile-pic-img rounded-circle w-75">`);
+        image_load = $(`<img id="user-profile-pic" src="${profile_pic_url}" class="user-profile-pic-img rounded-circle w-75">`);
         
         user_image.append( image_load );
 
@@ -249,25 +256,17 @@ function populate_user_profile_modal(snapshot = null)
     function modal_user_chatrooms()
     {
         let has_chatrooms = false;
-        console.log("modal_user_chatrooms");
         let chatrooms_div = $("#user-profile-chatrooms");
         let chatrooms_ul = $(`<div id="user-profile-chatrooms-ul">`);
         chatrooms_div.append($("<h4>CHATROOMS</h4>"));
-        if (lcl_rooms)
+        if (profile_rooms)
         {
-            Object.keys(lcl_rooms).forEach(key => {
+            Object.keys(profile_rooms).forEach(key => {
                 has_chatrooms = true;
-                let chatroom_li = $(`<div id="room-key-${key}" class="user-profile-chatroom text-truncate" data-roomid="${key}" data-room-name="${key}">`).append(lcl_rooms[key]);
+                let chatroom_li = $(`<div id="room-key-${key}" class="user-profile-chatroom text-truncate" data-roomid="${key}" data-room-name="${key}">`).append(profile_rooms[key]);
                 chatroom_li.on("click", function(event) {
                     room_selected(event);
-                    show_modal_room_info(event, view_room_info_modal_prep);
-                    // this is where i left off;
-                    // 1) set the selected room to see the room info of
-                    // 2) create a prep function for the room object
-                    // 3) genericize the function call so that it can be used elsewhere providing data-value is set on the object that is the currentTarget
-                    // 4) call show_modal_room_info in some way
-                    // 5) use load_user_profile(event) from code_playground as a reference
-
+                    show_modal_room_info(event);
                 });
                 chatrooms_ul.append( chatroom_li );
                 set_text_from_ref(`/rooms/chatrooms/${key}/info/name`, `#room-key-${key}`);
@@ -278,13 +277,13 @@ function populate_user_profile_modal(snapshot = null)
             chatrooms_div.append(chatrooms_ul)
         else
         {
-            chatrooms_div.append(`<h5>You are not a member of any chatrooms</h5>`);
-            let clickable_span = $(`<span>Click here or on the 'Help' Chatroom for help.</span>`)
+            let clickable_span= $(`<span>Click here or on the 'Help' Chatroom for help.</span>`)
                                 .on("click", function() {
                                     $(`#${_ROBOT_ROOM_ID_}`).trigger("click");
                                     hide_visible_modal();
                                 } );
-            chatrooms_div.append(clickable_span);
+            chatrooms_div.append( `<h5>You are not a member of any chatrooms</h5>`)
+                         .append(clickable_span);
         }
     
     }
@@ -292,11 +291,11 @@ function populate_user_profile_modal(snapshot = null)
     remove_modal_body_content("view-user-profile-modal");
     
     modal_user_profile_info();
-    database.ref("/users/" + lcl_uid + "/contacts").once("value", modal_user_chatrooms);//todo .error() case
+    database.ref("/users/" + profile_uid + "/contacts").once("value", modal_user_chatrooms);//todo .error() case
 
     //OKAY Let's build
     //place the name
-    $("#view-profile-title").empty().append(lcl_nick);//Header
+    $("#view-profile-title").empty().append(profile_nick);//Modal Header
 
     console.log(u_pic_html);
     console.log(u_prof_div);
@@ -304,33 +303,26 @@ function populate_user_profile_modal(snapshot = null)
     $("#user-profile-info").append(u_pic_html, u_prof_div);//.append(update_div);
 
     //populate contacts
-    let modal_contacts = $(`#user-profile-contacts`);
+    let modal_contacts_div = $(`#user-profile-contacts`);
     let has_no_contacts = true;
-    console.log(lcl_contacts);
-    console.log(user_contacts);
-    if (lcl_contacts)
-    {
-        console.log(lcl_contacts);
-        Object.keys(lcl_contacts).forEach( key => {
-            console.log(key, user_contacts);
+    if (profile_contacts)
+        Object.keys(profile_contacts).forEach( key => {
             has_no_contacts = false;
-            let skel = create_small_user_profile( key );
-            modal_contacts.append(skel);
-
+            modal_contacts_div.append( create_small_user_profile(key) );
         });
-    }
+
 
     if (has_no_contacts)
     {
-        let modal_contacts_div = $(`<div class="col-12">`);
-        modal_contacts_div.append(`<h5>You do not have any contacts</h5>`);
-        let clickable_span = $(`<span>Click here or on the 'Help' Chatroom for help.</span>`)
-                             .on("click", function() {
-                                $(`#${_ROBOT_ROOM_ID_}`).trigger("click");
-                                hide_visible_modal();
-                            });
-        modal_contacts_div.append(clickable_span);
-        modal_contacts.append(modal_contacts_div);
+        let clickable_span    = $(`<span>Click here or on the 'Help' Chatroom for help.</span>`)
+                                 .on("click", function() {
+                                    $(`#${_ROBOT_ROOM_ID_}`).trigger("click");
+                                    hide_visible_modal();
+                                });
+        let modal_contacts_div= $(`<div class="col-12">`)
+                                .append(`<h5>You do not have any contacts</h5>`)
+                                .append(clickable_span);
+        modal_contacts_div.append(modal_contacts_div);
     }
 }
 
@@ -343,18 +335,16 @@ function populate_user_profile_modal(snapshot = null)
 function preview_image(event)
 {
     console.log("preview_image", event);
-    let e_btn = $(event.currentTarget)[0];
-    let img_target_id = $(e_btn).data("target");
-    let img_tf_id = $(e_btn).data("source");
-    console.log(img_target_id, img_tf_id, $(e_btn).data());
-    let img_tf = $(img_tf_id)[0];
-    let img_target = $(img_target_id)[0];
-    let img_tf_text = $(img_tf).val();
-    console.log(img_target, img_tf, img_tf_text);
+    let event_btn = $(event.currentTarget); 
+    console.log($(event_btn).data());
+    let img_txtfld = $(event_btn.data("source"))[0];//should only be one result, but just in case
+    let img_target = $(event_btn.data("target"))[0];//should only be one result, but just in case
+    let img_tf_txt = $(img_txtfld).val();
+    console.log(img_target, img_txtfld, img_tf_txt);
     
-    console.log(`new_src ${img_tf_text}`);
-    console.log($(img_target).attr("src"));
-    $(img_target).attr("src", img_tf_text);
+    console.log(`PREVIEW IMAGE: old_src=${$(img_target).attr("src")} -> new_src=${img_tf_txt}`);
+    console.log();
+    $(img_target).attr("src", img_tf_txt);
 }
 
 async function populate_room_profile_modal(snapshot)
