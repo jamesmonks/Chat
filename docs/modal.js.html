@@ -1,4 +1,32 @@
-//these variables are used to store modal info while waiting on another modal to close
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: modal.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: modal.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>//these variables are used to store modal info while waiting on another modal to close
 //the modal id to open after current modal is closed
 let queued_modal_id;
 //the prep function to execute before the queued modal is shown
@@ -13,7 +41,7 @@ function show_modal(modal_id, prep_function = null)
     //TODO replace show_modal(modal_id, prep_function) with show_modal(event)
     //using jQuery on("click", { modal_id : modal_id_value, prep_fx : prep_fx_value}, show_modal)
     //accessing these variables via event.data.modal_id and event.data.prep_fx
-    console.log("show_modal() <= ", modal_id, prep_function);
+    console.log("show_modal() &lt;= ", modal_id, prep_function);
     let old_function = queued_modal_fx;
     modal_id = (modal_id.indexOf("#") == -1) ? "#" + modal_id : modal_id;
     queued_modal_fx = queued_modal_id = null;
@@ -198,7 +226,7 @@ function populate_user_profile_modal(snapshot = null)
         profile_home    = user_info[__USER_INFO_HOME__];      profile_bio     = user_info[__USER_INFO_BIO__];
     }
 
-    let u_pic_html, user_image, u_prof_div = $(`<div class="col-12 col-sm-6 p-0 mt-0">`);//, update_div;
+    let u_pic_html, user_image, u_prof_div = $(`&lt;div class="col-12 col-sm-6 p-0 mt-0">`);//, update_div;
     function modal_user_profile_info() 
     {
         console.log("modal_user_profile_info");
@@ -208,45 +236,45 @@ function populate_user_profile_modal(snapshot = null)
         {
             //if not current user, show button to add / delete user
             let is_contact = profile_uid in user_contacts;
-            let profile_btn = $(`<button data-uid="${profile_uid}" class="btn mt-3 w-75">`);
+            let profile_btn = $(`&lt;button data-uid="${profile_uid}" class="btn mt-3 w-75">`);
             (is_contact) ? profile_btn.addClass("user-rmv-btn btn-danger").text("Remove")
                          : profile_btn.addClass("user-add-btn btn-info").text("Add");
             profile_btn.on("click", toggle_contact);
 
-            img_foot = $(`<div>`).append(profile_btn);
-            nick_lbl = $(`<label for="user-profile-nick" class="mb-0 mt-0">Nick</label>`);
-            nick_div = $(`<div id="user-profile-nick" class="text-left text-sm-center"><h4 class="text-uppercase data-user-nick=${profile_uid} py-1">${profile_nick}</h4></div`);
-            home_lbl = $(`<label for="user-profile-homepage" class="mb-0 mt-2">Homepage</label>`);
-            home_div = $(`<div id="user-profile-homepage" class="text-left text-sm-center"><h4><a href="${profile_home}">Homepage</a></h4></div>`);
-            bio__lbl = $(`<label for="user-profile-bio" class="mt-2 mb-0">Bio</label>`);
-            bio__div = $(`<div id="user-profile-bio" class="text-left text-sm-center">`).append( 
-                            $(`<blockquote class="text-justify blockquote">${profile_bio}</blockquote>`) );
+            img_foot = $(`&lt;div>`).append(profile_btn);
+            nick_lbl = $(`&lt;label for="user-profile-nick" class="mb-0 mt-0">Nick&lt;/label>`);
+            nick_div = $(`&lt;div id="user-profile-nick" class="text-left text-sm-center">&lt;h4 class="text-uppercase data-user-nick=${profile_uid} py-1">${profile_nick}&lt;/h4>&lt;/div`);
+            home_lbl = $(`&lt;label for="user-profile-homepage" class="mb-0 mt-2">Homepage&lt;/label>`);
+            home_div = $(`&lt;div id="user-profile-homepage" class="text-left text-sm-center">&lt;h4>&lt;a href="${profile_home}">Homepage&lt;/a>&lt;/h4>&lt;/div>`);
+            bio__lbl = $(`&lt;label for="user-profile-bio" class="mt-2 mb-0">Bio&lt;/label>`);
+            bio__div = $(`&lt;div id="user-profile-bio" class="text-left text-sm-center">`).append( 
+                            $(`&lt;blockquote class="text-justify blockquote">${profile_bio}&lt;/blockquote>`) );
             u_prof_div.append(nick_lbl, nick_div, home_lbl, home_div, bio__lbl, bio__div);
         }
         else
         {
-            let img_link_div = $(`<div class="input-group mt-2">`)
-            let img_link_tf  = $(`<input id="user-profile-pic-link" type="text" class="form-control border-primary mt-2" placeholder="Enter URL" value="${profile_pic_url}">`);
-            let img_link_btn_container = $(`<div class="input-group-append">`);
-            let img_link_btn = $(`<button id="" class="btn form-control mt-2 btn-primary" data-source="#user-profile-pic-link" data-target="#user-profile-pic">Test</button>`)
+            let img_link_div = $(`&lt;div class="input-group mt-2">`)
+            let img_link_tf  = $(`&lt;input id="user-profile-pic-link" type="text" class="form-control border-primary mt-2" placeholder="Enter URL" value="${profile_pic_url}">`);
+            let img_link_btn_container = $(`&lt;div class="input-group-append">`);
+            let img_link_btn = $(`&lt;button id="" class="btn form-control mt-2 btn-primary" data-source="#user-profile-pic-link" data-target="#user-profile-pic">Test&lt;/button>`)
                                .on("click", preview_image);
             img_link_btn_container.append(img_link_btn);
             img_foot = img_link_div.append(img_link_tf, img_link_btn_container );
 
-            nick_lbl = $(`<label for="user-profile-nick-tf" class="mb-0 pt-3 mt-0">Nick</label>`);
-            nick_div = $(`<input id="user-profile-nick-tf" type="text" class="form-control" value="${profile_nick}">`);
-            home_lbl = $(`<label for="user-profile-homepage-tf" class="mb-0 mt-2">Homepage</label>`);
-            home_div = $(`<input id="user-profile-homepage-tf" type="text" class="form-control" value="${profile_home}">`);
-            bio__lbl = $(`<label for="user-profile-bio-tf" class="mt-2 mb-0">Bio</label>`);
-            bio__div = $(`<textarea id="user-profile-bio-tf" rows="3" class="text-justify form-control">`).append(profile_bio);
-            btn      = $(`<button id="" class="btn-primary float-right mt-3 align-content-center btn">Update</button>`)
+            nick_lbl = $(`&lt;label for="user-profile-nick-tf" class="mb-0 pt-3 mt-0">Nick&lt;/label>`);
+            nick_div = $(`&lt;input id="user-profile-nick-tf" type="text" class="form-control" value="${profile_nick}">`);
+            home_lbl = $(`&lt;label for="user-profile-homepage-tf" class="mb-0 mt-2">Homepage&lt;/label>`);
+            home_div = $(`&lt;input id="user-profile-homepage-tf" type="text" class="form-control" value="${profile_home}">`);
+            bio__lbl = $(`&lt;label for="user-profile-bio-tf" class="mt-2 mb-0">Bio&lt;/label>`);
+            bio__div = $(`&lt;textarea id="user-profile-bio-tf" rows="3" class="text-justify form-control">`).append(profile_bio);
+            btn      = $(`&lt;button id="" class="btn-primary float-right mt-3 align-content-center btn">Update&lt;/button>`)
                        .on("click", update_request_from_user_profile_modal); 
             u_prof_div.append(nick_lbl, nick_div, home_lbl, home_div, bio__lbl, bio__div, btn);
         }
 
-        u_pic_html = $(`<div id="user-profile-pic-section" class="col-12 d-flex flex-column pb-3 pb-sm-0 col-sm-6 text-center">`);
-        user_image = $(`<div id="user-profile-pic-container" class="my-auto">`);
-        image_load = $(`<img id="user-profile-pic" src="${profile_pic_url}" class="user-profile-pic-img rounded-circle w-75">`);
+        u_pic_html = $(`&lt;div id="user-profile-pic-section" class="col-12 d-flex flex-column pb-3 pb-sm-0 col-sm-6 text-center">`);
+        user_image = $(`&lt;div id="user-profile-pic-container" class="my-auto">`);
+        image_load = $(`&lt;img id="user-profile-pic" src="${profile_pic_url}" class="user-profile-pic-img rounded-circle w-75">`);
         
         user_image.append( image_load );
 
@@ -257,13 +285,13 @@ function populate_user_profile_modal(snapshot = null)
     {
         let has_chatrooms = false;
         let chatrooms_div = $("#user-profile-chatrooms");
-        let chatrooms_ul = $(`<div id="user-profile-chatrooms-ul">`);
-        chatrooms_div.append($("<h4>CHATROOMS</h4>"));
+        let chatrooms_ul = $(`&lt;div id="user-profile-chatrooms-ul">`);
+        chatrooms_div.append($("&lt;h4>CHATROOMS&lt;/h4>"));
         if (profile_rooms)
         {
             Object.keys(profile_rooms).forEach(key => {
                 has_chatrooms = true;
-                let chatroom_li = $(`<div id="room-key-${key}" class="user-profile-chatroom text-truncate" data-roomid="${key}" data-room-name="${key}">`).append(profile_rooms[key]);
+                let chatroom_li = $(`&lt;div id="room-key-${key}" class="user-profile-chatroom text-truncate" data-roomid="${key}" data-room-name="${key}">`).append(profile_rooms[key]);
                 chatroom_li.on("click", function(event) {
                     room_selected(event);
                     show_modal_room_info(event);
@@ -277,19 +305,12 @@ function populate_user_profile_modal(snapshot = null)
             chatrooms_div.append(chatrooms_ul)
         else
         {
-            let clickable_span= $(`<span>Click here or on the 'Help' Chatroom for help.</span>`)
+            let clickable_span= $(`&lt;span>Click here or on the 'Help' Chatroom for help.&lt;/span>`)
                                 .on("click", function() {
                                     $(`#${_ROBOT_ROOM_ID_}`).trigger("click");
                                     hide_visible_modal();
-                                } ).css(
-                                    {
-                                        "cursor" : "pointer",
-                                        "background-color" : "#fff",
-                                        "border-radius" : "5px",
-                                        "padding" : "3px 5px"
-                                    }    
-                                );
-            chatrooms_div.append( `<h5>You are not a member of any chatrooms</h5>`)
+                                } );
+            chatrooms_div.append( `&lt;h5>You are not a member of any chatrooms&lt;/h5>`)
                          .append(clickable_span);
         }
     
@@ -321,13 +342,13 @@ function populate_user_profile_modal(snapshot = null)
 
     if (has_no_contacts)
     {
-        let clickable_span    = $(`<span>Click here or on the 'Help' Chatroom for help.</span>`)
+        let clickable_span    = $(`&lt;span>Click here or on the 'Help' Chatroom for help.&lt;/span>`)
                                  .on("click", function() {
                                     $(`#${_ROBOT_ROOM_ID_}`).trigger("click");
                                     hide_visible_modal();
                                 });
-        let modal_contacts_div= $(`<div class="col-12">`)
-                                .append(`<h5>You do not have any contacts</h5>`)
+        let modal_contacts_div= $(`&lt;div class="col-12">`)
+                                .append(`&lt;h5>You do not have any contacts&lt;/h5>`)
                                 .append(clickable_span);
         modal_contacts_div.append(modal_contacts_div);
     }
@@ -383,33 +404,33 @@ async function populate_room_profile_modal(snapshot)
         if (is_admin)
         {
             let content = $(
-                `<div class="col-12 col-sm-6 text-center my-auto">
-                    <div id="room-profile-logo">
-                        <object id="room-profile-logo-img" data="${room_logo}" data-room-logo="${snapshot_room_key}" type="image/jpg" class="room-profile-logo-img w-100 mx-auto rounded">
-                            <img src="${__DEFAULT_ROOM_IMAGE_LINK__}" />
-                        </object>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 px-0 py-3 my-auto">
-                    <div id="room-profile-set-name" class="text-left mx-2">
-                        <label class="mb-1" for="room-profile-set-name-tf">Room Name:</label>
-                        <input id="room-profile-set-name-tf" type="text" class="form-control" placeholder="Enter Room Name" value="${room_name}"/>
-                    </div>
-                    <div id="room-profile-set-logo" class="text-left mt-2 mx-2">
-                        <label class="mb-1" for="room-profile-set-logo-tf">Image source:</label>
-                        <div class="input-group">
-                            <input id="room-profile-set-logo-tf" type="text" class="form-control text-primary list-group-item-primary" value="${room_logo}" placeholder="Enter URL"/>
-                            <div class="input-group-append">
-                                <button id="room-logo-preview-btn" class="btn btn-primary" 
+                `&lt;div class="col-12 col-sm-6 text-center my-auto">
+                    &lt;div id="room-profile-logo">
+                        &lt;object id="room-profile-logo-img" data="${room_logo}" data-room-logo="${snapshot_room_key}" type="image/jpg" class="room-profile-logo-img w-100 mx-auto rounded">
+                            &lt;img src="${__DEFAULT_ROOM_IMAGE_LINK__}" />
+                        &lt;/object>
+                    &lt;/div>
+                &lt;/div>
+                &lt;div class="col-12 col-sm-6 px-0 py-3 my-auto">
+                    &lt;div id="room-profile-set-name" class="text-left mx-2">
+                        &lt;label class="mb-1" for="room-profile-set-name-tf">Room Name:&lt;/label>
+                        &lt;input id="room-profile-set-name-tf" type="text" class="form-control" placeholder="Enter Room Name" value="${room_name}"/>
+                    &lt;/div>
+                    &lt;div id="room-profile-set-logo" class="text-left mt-2 mx-2">
+                        &lt;label class="mb-1" for="room-profile-set-logo-tf">Image source:&lt;/label>
+                        &lt;div class="input-group">
+                            &lt;input id="room-profile-set-logo-tf" type="text" class="form-control text-primary list-group-item-primary" value="${room_logo}" placeholder="Enter URL"/>
+                            &lt;div class="input-group-append">
+                                &lt;button id="room-logo-preview-btn" class="btn btn-primary" 
                                     data-source="#room-profile-set-logo-tf" 
-                                    data-target="#room-profile-logo-img">Preview</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="room-profile-update" class="text-center mt-3 mt-lg-4">
-                        <button id="room-profile-update-btn" class="btn-primary btn form-group text">Submit</button>
-                    </div>
-                </div>`);
+                                    data-target="#room-profile-logo-img">Preview&lt;/button>
+                            &lt;/div>
+                        &lt;/div>
+                    &lt;/div>
+                    &lt;div id="room-profile-update" class="text-center mt-3 mt-lg-4">
+                        &lt;button id="room-profile-update-btn" class="btn-primary btn form-group text">Submit&lt;/button>
+                    &lt;/div>
+                &lt;/div>`);
                 $(`#room-profile-info`).append(content);
 
                 $(`#room-logo-preview-btn`).on("click", preview_image);
@@ -418,28 +439,28 @@ async function populate_room_profile_modal(snapshot)
         }
         else
         {
-            let h4_str = `<h4 id="view-room-profile-creator-nick"></h4>`;
+            let h4_str = `&lt;h4 id="view-room-profile-creator-nick">&lt;/h4>`;
             let need_h4_update = false;
             if (user_profiles.hasOwnProperty(room_creator_nick_key))
-                h4_str = `<h4 id="view-room-profile-creator-nick">${user_profiles[room_creator_nick_key][__USER_INFO_NICK__]}</h4>`;
+                h4_str = `&lt;h4 id="view-room-profile-creator-nick">${user_profiles[room_creator_nick_key][__USER_INFO_NICK__]}&lt;/h4>`;
             else
                 need_h4_update = true;
             
-            let view_profile = $(`<div class="col-12 col-sm-6 text-center">
-                    <div id="room-profile-logo" class="h-100 d-flex align-items-center justify-content-center">
-                        <object id="room-profile-logo-img" data="${room_logo}" data-room-logo="${snapshot_room_key}" type="image/jpg" class="room-profile-logo-img w-100 mx-auto rounded">
-                            <img src="${__DEFAULT_ROOM_IMAGE_LINK__}" />
-                        </object>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 p-3 my-auto">
-                    <div id="room-profile-view-name" class="text-center">
-                        <h4 class="text-uppercase" data-room-name="${snapshot_room_key}">${room_name}</h4>
-                    </div>
-                    <div class="room-profile-creator-nick text-center">
+            let view_profile = $(`&lt;div class="col-12 col-sm-6 text-center">
+                    &lt;div id="room-profile-logo" class="h-100 d-flex align-items-center justify-content-center">
+                        &lt;object id="room-profile-logo-img" data="${room_logo}" data-room-logo="${snapshot_room_key}" type="image/jpg" class="room-profile-logo-img w-100 mx-auto rounded">
+                            &lt;img src="${__DEFAULT_ROOM_IMAGE_LINK__}" />
+                        &lt;/object>
+                    &lt;/div>
+                &lt;/div>
+                &lt;div class="col-12 col-sm-6 p-3 my-auto">
+                    &lt;div id="room-profile-view-name" class="text-center">
+                        &lt;h4 class="text-uppercase" data-room-name="${snapshot_room_key}">${room_name}&lt;/h4>
+                    &lt;/div>
+                    &lt;div class="room-profile-creator-nick text-center">
                         ${h4_str}
-                    </div>
-                </div>`);
+                    &lt;/div>
+                &lt;/div>`);
             $("#room-profile-info").append(view_profile);
 
             if (need_h4_update)
@@ -449,7 +470,7 @@ async function populate_room_profile_modal(snapshot)
 
     function generate_room_profile_contacts()
     {
-        $("#room-profile-contacts").append($(`<h4 class="col-12 text-center">MEMBERS</h4>`));
+        $("#room-profile-contacts").append($(`&lt;h4 class="col-12 text-center">MEMBERS&lt;/h4>`));
         database.ref(`/rooms/chatrooms/${snapshot.ref.parent.key}/users`).once("value", snapshot => {
             let users = snapshot.toJSON();
             Object.keys(users).forEach(key => {
@@ -468,33 +489,33 @@ function create_small_user_profile(skel_uid)
     let skel_nick = (has_lcl_profile)   ? user_profiles[skel_uid][__USER_INFO_NICK__]
                                         : false;
     
-    let mini_profile_div = $(`<div id="user-profile-${skel_uid}" class="d-flex flex-column col-6 col-sm-4 col-lg-3 py-2 text-center user-small-profile">`);
+    let mini_profile_div = $(`&lt;div id="user-profile-${skel_uid}" class="d-flex flex-column col-6 col-sm-4 col-lg-3 py-2 text-center user-small-profile">`);
 
-    let nested_skel_div = $(`<div data-user="${skel_uid}" class="my-auto">`);
-    let skel_img = $(`<img id="user-pic-${skel_uid}" src="${__DEFAULT_PROFILE_IMAGE_LINK__}" class="small-profile-glow browse-profile-pic rounded-circle w-75 img-rounded">`);
+    let nested_skel_div = $(`&lt;div data-user="${skel_uid}" class="my-auto">`);
+    let skel_img = $(`&lt;img id="user-pic-${skel_uid}" src="${__DEFAULT_PROFILE_IMAGE_LINK__}" class="small-profile-glow browse-profile-pic rounded-circle w-75 img-rounded">`);
     nested_skel_div.append(skel_img);
 
-    let nick_and_btn_div = $(`<div class="mx-2">`);
-    nick_and_btn_div.append(`<div id="user-nick-${skel_uid}" class="browse-profile-nick text-truncate">${skel_nick}</div>`);
-    let contact_btn = $(`<button data-uid="${skel_uid}" class="btn mt-2 w-100">`).on("click", toggle_contact);
+    let nick_and_btn_div = $(`&lt;div class="mx-2">`);
+    nick_and_btn_div.append(`&lt;div id="user-nick-${skel_uid}" class="browse-profile-nick text-truncate">${skel_nick}&lt;/div>`);
+    let contact_btn = $(`&lt;button data-uid="${skel_uid}" class="btn mt-2 w-100">`).on("click", toggle_contact);
     (is_contact) ? contact_btn.addClass("user-rmv-btn btn-danger").text("Remove")
                  : contact_btn.addClass("user-add-btn btn-info").text("Add");
 
     //This will be made invisible later on if it's the current user's id
     nick_and_btn_div.append(contact_btn);
 
-    let room_invite_div = $(`<div class="btn-group dropup mt-2 mx-2">`);
-    let dropdown_menu = $(`<div class="dropdown-menu">`);
+    let room_invite_div = $(`&lt;div class="btn-group dropup mt-2 mx-2">`);
+    let dropdown_menu = $(`&lt;div class="dropdown-menu">`);
     
     Object.keys(room_info).forEach(room_key => {
-        let invite_link = $(`<a class="btn dropdown-item" data-user="${skel_uid}" data-room="${room_key}">${room_info[room_key][__ROOMINFO_NAME_KEY__]}</a>`);
+        let invite_link = $(`&lt;a class="btn dropdown-item" data-user="${skel_uid}" data-room="${room_key}">${room_info[room_key][__ROOMINFO_NAME_KEY__]}&lt;/a>`);
         invite_link.on("click", firebase_add_user_to_chatroom_event);
         dropdown_menu.append(invite_link);
     });
 
     nested_skel_div.on("click", load_user_profile);
 
-    room_invite_div.append($(`<a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Invite</a>`));
+    room_invite_div.append($(`&lt;a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Invite&lt;/a>`));
     room_invite_div.append(dropdown_menu);
 
     mini_profile_div.append(nested_skel_div);
@@ -535,7 +556,7 @@ function update_small_user_profile_img(snapshot)
 
 function loading_small_profile_image(target, src)
 {
-    let img = $(`<img>`).one("load", function() {
+    let img = $(`&lt;img>`).one("load", function() {
         console.log("image loaded");
         console.log(target);
         $(target).attr("src", img.attr("src"));
@@ -583,7 +604,7 @@ function search_for_users_event(event)
     //clear results area first
     remove_modal_body_content("#search-users-modal");
     $(`#search-users-results`).empty();
-    $(`#search-users-results`).append($(`<h3 class="col-12 text-center mb-3"><b>Search Results</b></h3>`));
+    $(`#search-users-results`).append($(`&lt;h3 class="col-12 text-center mb-3">&lt;b>Search Results&lt;/b>&lt;/h3>`));
     //populate results area
     return query.once('value', snapshot => {
         console.log(snapshot.toJSON());
@@ -652,3 +673,26 @@ function remove_modal_body_content(id_string)
         });
     });
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#__DEFAULT_PROFILE_IMAGE_LINK__">__DEFAULT_PROFILE_IMAGE_LINK__</a></li><li><a href="global.html#__DEFAULT_ROOM_IMAGE_LINK__">__DEFAULT_ROOM_IMAGE_LINK__</a></li><li><a href="global.html#__USE_24_HOUR_CLOCK__">__USE_24_HOUR_CLOCK__</a></li><li><a href="global.html#__USER_INFO_BIO__">__USER_INFO_BIO__</a></li><li><a href="global.html#__USER_INFO_HOME__">__USER_INFO_HOME__</a></li><li><a href="global.html#__USER_INFO_NAME__">__USER_INFO_NAME__</a></li><li><a href="global.html#__USER_INFO_NICK__">__USER_INFO_NICK__</a></li><li><a href="global.html#__USER_INFO_PIC__">__USER_INFO_PIC__</a></li><li><a href="global.html#__USER_PROFILE_COLOR__">__USER_PROFILE_COLOR__</a></li><li><a href="global.html#__USER_PROFILE_CSS__">__USER_PROFILE_CSS__</a></li><li><a href="global.html#add_chatroom_message">add_chatroom_message</a></li><li><a href="global.html#add_non_firebase_room">add_non_firebase_room</a></li><li><a href="global.html#add_room">add_room</a></li><li><a href="global.html#add_room_to_menu">add_room_to_menu</a></li><li><a href="global.html#add_user_profile">add_user_profile</a></li><li><a href="global.html#attach_received_user_profile_listener">attach_received_user_profile_listener</a></li><li><a href="global.html#auth">auth</a></li><li><a href="global.html#change_user_data_in_gui">change_user_data_in_gui</a></li><li><a href="global.html#choose_user_font_color">choose_user_font_color</a></li><li><a href="global.html#clear_message_text">clear_message_text</a></li><li><a href="global.html#connect_to_firebase">connect_to_firebase</a></li><li><a href="global.html#continue_to_add_chatroom_message">continue_to_add_chatroom_message</a></li><li><a href="global.html#create_next_user_color">create_next_user_color</a></li><li><a href="global.html#create_response_statement_object">create_response_statement_object</a></li><li><a href="global.html#create_user_style">create_user_style</a></li><li><a href="global.html#database">database</a></li><li><a href="global.html#discerning_allow_empty">discerning_allow_empty</a></li><li><a href="global.html#empty_user_variables">empty_user_variables</a></li><li><a href="global.html#fetch_user_contacts">fetch_user_contacts</a></li><li><a href="global.html#firebase_add_contact">firebase_add_contact</a></li><li><a href="global.html#firebase_add_user_to_chatroom_event">firebase_add_user_to_chatroom_event</a></li><li><a href="global.html#firebase_create_chatroom">firebase_create_chatroom</a></li><li><a href="global.html#firebase_edit_chatroom">firebase_edit_chatroom</a></li><li><a href="global.html#firebase_remove_contact">firebase_remove_contact</a></li><li><a href="global.html#flash_room_on_menu">flash_room_on_menu</a></li><li><a href="global.html#human_readable_timestamp">human_readable_timestamp</a></li><li><a href="global.html#init_chat_section">init_chat_section</a></li><li><a href="global.html#init_modal_button_functions">init_modal_button_functions</a></li><li><a href="global.html#init_user">init_user</a></li><li><a href="global.html#initialize_app">initialize_app</a></li><li><a href="global.html#load_user_profile">load_user_profile</a></li><li><a href="global.html#message_received">message_received</a></li><li><a href="global.html#navigation_setup">navigation_setup</a></li><li><a href="global.html#populate_object_field">populate_object_field</a></li><li><a href="global.html#populate_profile_parameters">populate_profile_parameters</a></li><li><a href="global.html#populate_user_data">populate_user_data</a></li><li><a href="global.html#preview_image">preview_image</a></li><li><a href="global.html#print_user_contacts">print_user_contacts</a></li><li><a href="global.html#queued_view_profile_user_id">queued_view_profile_user_id</a></li><li><a href="global.html#received_user_contacts_list">received_user_contacts_list</a></li><li><a href="global.html#received_user_profile">received_user_profile</a></li><li><a href="global.html#remove_allow_empty_children">remove_allow_empty_children</a></li><li><a href="global.html#remove_modal_body_content">remove_modal_body_content</a></li><li><a href="global.html#reset_gui">reset_gui</a></li><li><a href="global.html#resize_menu_button">resize_menu_button</a></li><li><a href="global.html#retrieve_user_info">retrieve_user_info</a></li><li><a href="global.html#room_selected">room_selected</a></li><li><a href="global.html#scroll_to_last_row">scroll_to_last_row</a></li><li><a href="global.html#send_message_event">send_message_event</a></li><li><a href="global.html#setup_navigation_listeners">setup_navigation_listeners</a></li><li><a href="global.html#show_queued_modal">show_queued_modal</a></li><li><a href="global.html#update_current_user_info">update_current_user_info</a></li><li><a href="global.html#update_user_data_in_gui">update_user_data_in_gui</a></li><li><a href="global.html#user_contacts">user_contacts</a></li><li><a href="global.html#user_info">user_info</a></li><li><a href="global.html#user_profiles">user_profiles</a></li><li><a href="global.html#user_rooms">user_rooms</a></li><li><a href="global.html#user_tokens">user_tokens</a></li><li><a href="global.html#user_uid">user_uid</a></li><li><a href="global.html#vars_remove_contact">vars_remove_contact</a></li><li><a href="global.html#view_room_info_modal_prep">view_room_info_modal_prep</a></li><li><a href="global.html#view_user_profile_modal_prep">view_user_profile_modal_prep</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Oct 20 2021 18:29:45 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

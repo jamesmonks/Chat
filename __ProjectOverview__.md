@@ -1,0 +1,58 @@
+- ##### CURRENT PROCESS: USER DELETION
+
+- `Bug`: user is not added to a room when clicked
+- `Bug`: ellipses on other user bio is displayed inappropriately
+- `GUI`: Homepage link looks terrible
+
+- View Room (Members)
+    - //Populate Room Messages
+
+- //View Room Profile (Members)
+    - //Invite Contact to Room (User -> Contacts only)
+
+- //Add listeners to membership rooms
+
+- //Send Room message
+- //Find Contacts Via Nick (All)
+    1) use the user_ids object in /users/
+    2) adapt following code:    var ref = firebase.database.ref(path_to_search_keys)
+    ````
+    var query = ref.orderByKey().startAt(text).endAt(text + '\uf8ff').limitToFirst(some_amount);
+    return query.once('value'); 
+    ````
+    ... to retrieve users with nicknames that start a certain way
+
+    3) don't forget that the /users/user_ids/$nick/ is an object, potentially containing more than one user id in the case that a nick is shared
+
+- Find Contacts Via Nick (privacy)
+
+- Create side Menu 'ChatRooms' (2)
+    - Allow two panel menu to view Members
+    - //Size responsive. (Icons <--> Text)
+    - //Edit Button (Admin of room only)
+
+- Add to Friends via Roomchat (Members only)
+
+
+- Add to Contacts via Roomchat (2) (Members only not private)
+
+- Amend Room Profile (Creator)
+
+- Friends List (2)
+    - View (All not private)
+
+- Find Friends Via Nick (2) (All not private)
+- Add to Friends via Profile exploring (2) (All - not private)
+
+- Firebase rule for rooms/chatrooms/users, only allow add for members and only allow edit for own member user
+- Firebase rule for rooms/chatrooms/messages [timestamp is reasonable ]
+    ``` 
+    "timestamp" : 
+    {
+        ".validate" : "newData.val() + 2000 > now && newData.val() < now"
+    }
+    ```
+
+- Function on firebase for automated hash (upgraded plans only)
+
+- View User Profile - when displaying a user's chatrooms, list only the common chatrooms with user_uid, this will be all chatrooms if the profile is that of user_uid

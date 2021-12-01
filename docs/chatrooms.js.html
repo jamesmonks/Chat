@@ -1,4 +1,32 @@
-let CHATROOM_VERBOSE_DEBUG = false;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: chatrooms.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: chatrooms.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let CHATROOM_VERBOSE_DEBUG = false;
 
 //holds room data
 let room_info = {};
@@ -29,7 +57,7 @@ async function init_user_rooms()
     {
         //if not set, user_rooms will have { room_key: true } objects, true needs to be replaced with the room_name
         let room_keys = Object.keys(user_rooms);
-        for (let i=0; i < room_keys.length; i++)
+        for (let i=0; i &lt; room_keys.length; i++)
         {
             await init_room(room_keys[i]);
         }
@@ -157,15 +185,15 @@ async function add_room_to_menu(room_id)
     if ($(`#${room_id}`).length > 0) return null; //already exists
     
     let initials_arr = room_name.split(` `);
-    let room_div = $(`<div id="${room_id}" class="room-button" data-toggle="collapse" data-target="#sidemenu-room-summary-${room_id}" data-roomid="${room_id}" >`);
-    let full_room_name = $(`<div class="full-chatroom-name" data-room-name="${room_id}">`).append(room_name);
+    let room_div = $(`&lt;div id="${room_id}" class="room-button" data-toggle="collapse" data-target="#sidemenu-room-summary-${room_id}" data-roomid="${room_id}" >`);
+    let full_room_name = $(`&lt;div class="full-chatroom-name" data-room-name="${room_id}">`).append(room_name);
     
     if (room_name.length > 12)
         room_div.addClass(`full-room-minim`);
     
     room_div.append( full_room_name );
         
-    (room_logo_url != null && room_logo_url != "") ? attempt_room_logo(room_div, room_logo_url, initials_arr, room_id)
+    (room_logo_url != null &amp;&amp; room_logo_url != "") ? attempt_room_logo(room_div, room_logo_url, initials_arr, room_id)
                                                    : add_room_initials(room_div, initials_arr);
 
     room_div.on("click", room_selected);
@@ -177,7 +205,7 @@ async function add_room_to_menu(room_id)
 
 function attempt_room_logo(div, img_src, initials_arr, room_id)
 {
-    let image = $(`<img class="room-icon" data-room-logo="${room_id}">`);
+    let image = $(`&lt;img class="room-icon" data-room-logo="${room_id}">`);
     image.on(`load`, function() { 
             console.log("image loaded");
             div.append(image); }
@@ -190,7 +218,7 @@ function attempt_room_logo(div, img_src, initials_arr, room_id)
 function add_room_initials(div, initials_arr)
 {
     console.log(`add_room_initials`, div, initials_arr)
-    let first_initial = $(`<div class="room-initial">${initials_arr[0].substr(0, 1)}</div>`);
+    let first_initial = $(`&lt;div class="room-initial">${initials_arr[0].substr(0, 1)}&lt;/div>`);
     div.append(first_initial);
     
     if (initials_arr.length == 1)
@@ -198,21 +226,21 @@ function add_room_initials(div, initials_arr)
 
     console.log($(first_initial).attr("class"));
     if (initials_arr.length > 1)
-        div.append( $(`<div class="room-initial second-letter">${initials_arr[1].substr(0, 1)}</div>`) );
+        div.append( $(`&lt;div class="room-initial second-letter">${initials_arr[1].substr(0, 1)}&lt;/div>`) );
 }
 
 function create_description_div(room_id, room_name, room_creator_id)
 {
     let room_creator_name = (room_creator_id in user_profiles) ? user_profiles[room_creator_id][__USER_INFO_NICK__] : "Not in friends list";
     let desc_div = $(
-        `<div id="sidemenu-room-summary-${room_id}" class="border-top border-bottom border-primary collapse my-2">\n` +
-        `    <label for="${room_id}-sidemenu-summary-name" class="small sidemenu-room-summary-label">Roomname:</label>\n` +
-        `    <div id="${room_id}-sidemenu-summary-name" data-room-name="${room_id}" class="sidemenu-room-summary-text text-center">${room_name}</div>\n` +
-        `    <label for="${room_id}-sidemenu-summary-creator" class="small sidemenu-room-summary-label">Creator:</label>\n` +
-        `    <div id="${room_id}-sidemenu-summary-creator" data-user-nick="${room_creator_id}" class="sidemenu-room-summary-text text-center">${room_creator_name}</div>\n` +
-        `</div>\n`);
-    let room_info_btn_div = $(`<div class="text-center">`);
-    let room_info_btn = $(`<a class="btn py-0 my-2 btn-outline-primary" data-roomid="${room_id}">`).append("Info").on("click", show_room_info);
+        `&lt;div id="sidemenu-room-summary-${room_id}" class="border-top border-bottom border-primary collapse my-2">\n` +
+        `    &lt;label for="${room_id}-sidemenu-summary-name" class="small sidemenu-room-summary-label">Roomname:&lt;/label>\n` +
+        `    &lt;div id="${room_id}-sidemenu-summary-name" data-room-name="${room_id}" class="sidemenu-room-summary-text text-center">${room_name}&lt;/div>\n` +
+        `    &lt;label for="${room_id}-sidemenu-summary-creator" class="small sidemenu-room-summary-label">Creator:&lt;/label>\n` +
+        `    &lt;div id="${room_id}-sidemenu-summary-creator" data-user-nick="${room_creator_id}" class="sidemenu-room-summary-text text-center">${room_creator_name}&lt;/div>\n` +
+        `&lt;/div>\n`);
+    let room_info_btn_div = $(`&lt;div class="text-center">`);
+    let room_info_btn = $(`&lt;a class="btn py-0 my-2 btn-outline-primary" data-roomid="${room_id}">`).append("Info").on("click", show_room_info);
     desc_div.append( room_info_btn_div.append(room_info_btn) );
     desc_div.on("shown.bs.collapse", event => {
         event.currentTarget.scrollIntoView(false, { behavior: "smooth", block: "end" } );
@@ -235,7 +263,7 @@ function show_room_info(event)
 function flash_room_on_menu(room_key)
 {
     // console.log("flash_room_on_menu:", room_key);
-    if ( room_key != current_roomid && ! $("#" + room_key).hasClass("has-unread-messages") )
+    if ( room_key != current_roomid &amp;&amp; ! $("#" + room_key).hasClass("has-unread-messages") )
     {
         $("#" + room_key).addClass("has-unread-messages");
     }
@@ -314,10 +342,10 @@ async function add_to_chatroom_users_list(chatroom_usr_id)
     let chatroom_usr_nick = user_profiles[chatroom_usr_id][__USER_INFO_NICK__];
 
     //create a link
-    let usr_div=$(`<div id="chatroom-member-${chatroom_usr_id}" class="chatroom-member">`)
+    let usr_div=$(`&lt;div id="chatroom-member-${chatroom_usr_id}" class="chatroom-member">`)
                 .css("background-color", `#${user_profiles[chatroom_usr_id][__USER_PROFILE_COLOR__]}`)
-                .append(`<img data-user-logo="${chatroom_usr_id}" src="${user_profiles[chatroom_usr_id][__USER_INFO_PIC__]}">`)
-                .append(`<div data-user-nick="${chatroom_usr_id}">${chatroom_usr_nick}</div>`)
+                .append(`&lt;img data-user-logo="${chatroom_usr_id}" src="${user_profiles[chatroom_usr_id][__USER_INFO_PIC__]}">`)
+                .append(`&lt;div data-user-nick="${chatroom_usr_id}">${chatroom_usr_nick}&lt;/div>`)
                 .on("click", event => {
                         queued_view_profile_user_id = chatroom_usr_id;
                         show_modal_user_profile(event);
@@ -421,7 +449,7 @@ function debug_print_timestamps(message_doms = null)
     console.log("length:" + message_doms.length + "\n");
     if (message_doms.length != 0)
     {
-        for (let j=0; j < message_doms.length; j++)
+        for (let j=0; j &lt; message_doms.length; j++)
         {
             let parse_id = /**(parse_messages.length == 1) ? parse_messages.id :*/ message_doms[j].id;
             let parse_ts = parse_id.substring(0, parse_id.indexOf("-"));
@@ -444,7 +472,7 @@ function find_insert_before_point(time_stamp)
             console.log("----");
         //debug_print_timestamps(all_messages);
 
-        for (let i=all_messages.length -1; i >=0 && !found; i--)
+        for (let i=all_messages.length -1; i >=0 &amp;&amp; !found; i--)
         {
             let msg_id = all_messages[i].id;
             //prev_msg_id is semantically correct BUT not time correct
@@ -477,11 +505,11 @@ function find_insert_before_point(time_stamp)
 function create_user_message_div(dom_elem, msg_id, msg_string, usr_css_name, time_stamp) //JZMTODO time_stamp
 {
     console.log(`create_user_message_div(${dom_elem}, ${msg_id}, ${msg_string}, ${usr_css_name})`);
-    let div = $(`<div id=${msg_id} class="all-messages this-user-message col-9 ${usr_css_name}">`);
+    let div = $(`&lt;div id=${msg_id} class="all-messages this-user-message col-9 ${usr_css_name}">`);
     div.append(msg_string);
     $(dom_elem).append(div);
 
-    let time_row = $(`<div class="row"><div class="col-9 px-0 text-right message-meta-info message-meta-content">by You, <br class="d-sm-none">${human_readable_timestamp(time_stamp)}</div></div>`);
+    let time_row = $(`&lt;div class="row">&lt;div class="col-9 px-0 text-right message-meta-info message-meta-content">by You, &lt;br class="d-sm-none">${human_readable_timestamp(time_stamp)}&lt;/div>&lt;/div>`);
     time_row.insertAfter(dom_elem);
     return dom_elem;
 }
@@ -494,24 +522,24 @@ function create_other_user_message_div(dom_elem, other_user_id, msg_id, msg_stri
     console.log(other_user_id, msg_id, msg_string);
     console.log(user_css_name, user_nickname);
 
-    let msg_div = $(`<div id="${msg_id}" class="all-messages other-user-msg col-9 offset-2 ${user_css_name}">`).append(msg_string);
+    let msg_div = $(`&lt;div id="${msg_id}" class="all-messages other-user-msg col-9 offset-2 ${user_css_name}">`).append(msg_string);
 
-    let bbl = $(`<div class="col-1 speech-bg ${user_css_name}">`);
-    let spk = $(`<div class="other-user-speech h-100 w-100">`);
+    let bbl = $(`&lt;div class="col-1 speech-bg ${user_css_name}">`);
+    let spk = $(`&lt;div class="other-user-speech h-100 w-100">`);
     bbl.append(spk);
 
     dom_elem.append(msg_div);//.append(bbl);
 
-    let username_row = $(`<div class="row">`);
-    let username_row_nick_span = $(`<span data-user-nick="${other_user_id}">${user_nickname}</span>`);
+    let username_row = $(`&lt;div class="row">`);
+    let username_row_nick_span = $(`&lt;span data-user-nick="${other_user_id}">${user_nickname}&lt;/span>`);
     username_row_nick_span.on("click", function() {
         queued_view_profile_user_id = other_user_id;
         show_modal_user_profile();
     })
-    let msg_uid = $(`<div class="message-meta-info px-0 col-10 offset-2">`)
+    let msg_uid = $(`&lt;div class="message-meta-info px-0 col-10 offset-2">`)
                 .append(`by `)
                 .append(username_row_nick_span)
-                .append(`, <br class="d-sm-none">${human_readable_timestamp(time_stamp)}`);
+                .append(`, &lt;br class="d-sm-none">${human_readable_timestamp(time_stamp)}`);
 
     username_row.append(msg_uid);
     //dom_elem.append(username_row);
@@ -545,14 +573,14 @@ function human_readable_timestamp(time_stamp)
         local_time = (ts_hours > 12)  ? `${ts_hours-12}${time_stamp_date.toLocaleTimeString().substr(2, 3)}pm`
                                       : `${ ts_hours  }${time_stamp_date.toLocaleTimeString().substr(2, 3)}am`;
 
-    if (diff < one_day)
+    if (diff &lt; one_day)
         str = `Today @ ${local_time}`;
-    else if (diff < one_day * 7)
+    else if (diff &lt; one_day * 7)
         str = `${new Intl.DateTimeFormat('en-UK', { weekday : 'short'}).format(time_stamp_date)} @ ${local_time}`;
     else
         str = `${Math.floor(diff/one_day)} days ago @ ${local_time}`;
     
-    return `<span class="meta-timestamp">${str}</span>`;
+    return `&lt;span class="meta-timestamp">${str}&lt;/span>`;
 }
 
 
@@ -598,7 +626,7 @@ async function create_room_event(event)
     let room_key = await firebase_create_chatroom(room_name_submitted, room_logo_submitted);
     user_rooms[room_key] = true;
     await init_user_rooms();
-    let div = $(`<div data-roomid="${room_key}">`);
+    let div = $(`&lt;div data-roomid="${room_key}">`);
     div.on("click", room_selected).trigger("click");
     hide_visible_modal();
 }
@@ -630,4 +658,26 @@ function scroll_to_last_row(event)
     let last_row_index = $(`#chatlog .row`).length - 1;
     if (last_row_index > 0)
         $(`#chatlog .row`)[last_row_index].scrollIntoView({behavior: "smooth", block: "end"});
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#__DEFAULT_PROFILE_IMAGE_LINK__">__DEFAULT_PROFILE_IMAGE_LINK__</a></li><li><a href="global.html#__DEFAULT_ROOM_IMAGE_LINK__">__DEFAULT_ROOM_IMAGE_LINK__</a></li><li><a href="global.html#__USE_24_HOUR_CLOCK__">__USE_24_HOUR_CLOCK__</a></li><li><a href="global.html#__USER_INFO_BIO__">__USER_INFO_BIO__</a></li><li><a href="global.html#__USER_INFO_HOME__">__USER_INFO_HOME__</a></li><li><a href="global.html#__USER_INFO_NAME__">__USER_INFO_NAME__</a></li><li><a href="global.html#__USER_INFO_NICK__">__USER_INFO_NICK__</a></li><li><a href="global.html#__USER_INFO_PIC__">__USER_INFO_PIC__</a></li><li><a href="global.html#__USER_PROFILE_COLOR__">__USER_PROFILE_COLOR__</a></li><li><a href="global.html#__USER_PROFILE_CSS__">__USER_PROFILE_CSS__</a></li><li><a href="global.html#add_chatroom_message">add_chatroom_message</a></li><li><a href="global.html#add_non_firebase_room">add_non_firebase_room</a></li><li><a href="global.html#add_room">add_room</a></li><li><a href="global.html#add_room_to_menu">add_room_to_menu</a></li><li><a href="global.html#add_user_profile">add_user_profile</a></li><li><a href="global.html#attach_received_user_profile_listener">attach_received_user_profile_listener</a></li><li><a href="global.html#auth">auth</a></li><li><a href="global.html#change_user_data_in_gui">change_user_data_in_gui</a></li><li><a href="global.html#choose_user_font_color">choose_user_font_color</a></li><li><a href="global.html#clear_message_text">clear_message_text</a></li><li><a href="global.html#connect_to_firebase">connect_to_firebase</a></li><li><a href="global.html#continue_to_add_chatroom_message">continue_to_add_chatroom_message</a></li><li><a href="global.html#create_next_user_color">create_next_user_color</a></li><li><a href="global.html#create_response_statement_object">create_response_statement_object</a></li><li><a href="global.html#create_user_style">create_user_style</a></li><li><a href="global.html#database">database</a></li><li><a href="global.html#discerning_allow_empty">discerning_allow_empty</a></li><li><a href="global.html#empty_user_variables">empty_user_variables</a></li><li><a href="global.html#fetch_user_contacts">fetch_user_contacts</a></li><li><a href="global.html#firebase_add_contact">firebase_add_contact</a></li><li><a href="global.html#firebase_add_user_to_chatroom_event">firebase_add_user_to_chatroom_event</a></li><li><a href="global.html#firebase_create_chatroom">firebase_create_chatroom</a></li><li><a href="global.html#firebase_edit_chatroom">firebase_edit_chatroom</a></li><li><a href="global.html#firebase_remove_contact">firebase_remove_contact</a></li><li><a href="global.html#flash_room_on_menu">flash_room_on_menu</a></li><li><a href="global.html#human_readable_timestamp">human_readable_timestamp</a></li><li><a href="global.html#init_chat_section">init_chat_section</a></li><li><a href="global.html#init_modal_button_functions">init_modal_button_functions</a></li><li><a href="global.html#init_user">init_user</a></li><li><a href="global.html#initialize_app">initialize_app</a></li><li><a href="global.html#load_user_profile">load_user_profile</a></li><li><a href="global.html#message_received">message_received</a></li><li><a href="global.html#navigation_setup">navigation_setup</a></li><li><a href="global.html#populate_object_field">populate_object_field</a></li><li><a href="global.html#populate_profile_parameters">populate_profile_parameters</a></li><li><a href="global.html#populate_user_data">populate_user_data</a></li><li><a href="global.html#preview_image">preview_image</a></li><li><a href="global.html#print_user_contacts">print_user_contacts</a></li><li><a href="global.html#queued_view_profile_user_id">queued_view_profile_user_id</a></li><li><a href="global.html#received_user_contacts_list">received_user_contacts_list</a></li><li><a href="global.html#received_user_profile">received_user_profile</a></li><li><a href="global.html#remove_allow_empty_children">remove_allow_empty_children</a></li><li><a href="global.html#remove_modal_body_content">remove_modal_body_content</a></li><li><a href="global.html#reset_gui">reset_gui</a></li><li><a href="global.html#resize_menu_button">resize_menu_button</a></li><li><a href="global.html#retrieve_user_info">retrieve_user_info</a></li><li><a href="global.html#room_selected">room_selected</a></li><li><a href="global.html#scroll_to_last_row">scroll_to_last_row</a></li><li><a href="global.html#send_message_event">send_message_event</a></li><li><a href="global.html#setup_navigation_listeners">setup_navigation_listeners</a></li><li><a href="global.html#show_queued_modal">show_queued_modal</a></li><li><a href="global.html#update_current_user_info">update_current_user_info</a></li><li><a href="global.html#update_user_data_in_gui">update_user_data_in_gui</a></li><li><a href="global.html#user_contacts">user_contacts</a></li><li><a href="global.html#user_info">user_info</a></li><li><a href="global.html#user_profiles">user_profiles</a></li><li><a href="global.html#user_rooms">user_rooms</a></li><li><a href="global.html#user_tokens">user_tokens</a></li><li><a href="global.html#user_uid">user_uid</a></li><li><a href="global.html#vars_remove_contact">vars_remove_contact</a></li><li><a href="global.html#view_room_info_modal_prep">view_room_info_modal_prep</a></li><li><a href="global.html#view_user_profile_modal_prep">view_user_profile_modal_prep</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Oct 20 2021 18:29:45 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,4 +1,32 @@
-let _ROBOT_RESPONSE_ = "response";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: robot.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: robot.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let _ROBOT_RESPONSE_ = "response";
 
 let _ROBOT_RESPONSE_ID_ = "id";
 let _ROBOT_RESPONSE_DESCRIPTION_ = "description";
@@ -85,7 +113,7 @@ async function send_robot_response(response_id)
     let i, css_style, text, elem, option_response_id;
 
     if (statements)
-        for (i=0; i < statements.length; i++)
+        for (i=0; i &lt; statements.length; i++)
         {
             let type = statements[i][_ROBOT_STATEMENT_TYPE_];
             css_style = get_statement_css_classname(type);
@@ -95,7 +123,7 @@ async function send_robot_response(response_id)
         }
     
     if (options)
-        for (i=0; i < options.length; i++)
+        for (i=0; i &lt; options.length; i++)
         {
             option_response_id = options[i];
             css_style = get_statement_css_classname(_ROBOT_STATEMENT_TYPE__OPTION_);
@@ -118,7 +146,7 @@ async function send_robot_response(response_id)
 function hide_robochat_messages()
 {
     let prev_messages = $(`#chatlog`).children();
-    for (let i=0; i < prev_messages.length; i++)
+    for (let i=0; i &lt; prev_messages.length; i++)
     {
         let child_elem = $(prev_messages[i]);
         let child_height = child_elem.height();
@@ -159,9 +187,9 @@ function add_response_to_chatbot(response_id, debug_id, description, statements,
 {
     console.log(response_id, debug_id, description, statements.length, options.length);
     let proceed = false;
-    if (response_id && description && statements && options)
-        if ( (response_id instanceof String || typeof response_id === "string") && (description instanceof String || typeof description === "string") )
-            if ( Array.isArray(statements) && Array.isArray(options) )
+    if (response_id &amp;&amp; description &amp;&amp; statements &amp;&amp; options)
+        if ( (response_id instanceof String || typeof response_id === "string") &amp;&amp; (description instanceof String || typeof description === "string") )
+            if ( Array.isArray(statements) &amp;&amp; Array.isArray(options) )
                 proceed = true;
     if (!proceed)
     {
@@ -193,7 +221,7 @@ function create_response_statement_object(type, data)
 {
     if (_STATEMENT_TYPES_.includes(type))
     {
-        if ((typeof data === 'string' || data instanceof String) && data != "")
+        if ((typeof data === 'string' || data instanceof String) &amp;&amp; data != "")
         {
             let obj = {};
             obj[_ROBOT_STATEMENT_TYPE_] = type;
@@ -231,11 +259,33 @@ function create_response_statement_object(type, data)
 
 // JSON [id]
 //     id 1                    int
-//     description 1           string <-- used for short descriptions
+//     description 1           string &lt;-- used for short descriptions
 //     statement {
-//         type                text|question|answer    <-- used for styling or adding links
+//         type                text|question|answer    &lt;-- used for styling or adding links
 //         data                string
 //     }
 //     options {
 //         i : id 0..n
-//     } 
+//     } </code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#__DEFAULT_PROFILE_IMAGE_LINK__">__DEFAULT_PROFILE_IMAGE_LINK__</a></li><li><a href="global.html#__DEFAULT_ROOM_IMAGE_LINK__">__DEFAULT_ROOM_IMAGE_LINK__</a></li><li><a href="global.html#__USE_24_HOUR_CLOCK__">__USE_24_HOUR_CLOCK__</a></li><li><a href="global.html#__USER_INFO_BIO__">__USER_INFO_BIO__</a></li><li><a href="global.html#__USER_INFO_HOME__">__USER_INFO_HOME__</a></li><li><a href="global.html#__USER_INFO_NAME__">__USER_INFO_NAME__</a></li><li><a href="global.html#__USER_INFO_NICK__">__USER_INFO_NICK__</a></li><li><a href="global.html#__USER_INFO_PIC__">__USER_INFO_PIC__</a></li><li><a href="global.html#__USER_PROFILE_COLOR__">__USER_PROFILE_COLOR__</a></li><li><a href="global.html#__USER_PROFILE_CSS__">__USER_PROFILE_CSS__</a></li><li><a href="global.html#add_chatroom_message">add_chatroom_message</a></li><li><a href="global.html#add_non_firebase_room">add_non_firebase_room</a></li><li><a href="global.html#add_room">add_room</a></li><li><a href="global.html#add_room_to_menu">add_room_to_menu</a></li><li><a href="global.html#add_user_profile">add_user_profile</a></li><li><a href="global.html#attach_received_user_profile_listener">attach_received_user_profile_listener</a></li><li><a href="global.html#auth">auth</a></li><li><a href="global.html#change_user_data_in_gui">change_user_data_in_gui</a></li><li><a href="global.html#choose_user_font_color">choose_user_font_color</a></li><li><a href="global.html#clear_message_text">clear_message_text</a></li><li><a href="global.html#connect_to_firebase">connect_to_firebase</a></li><li><a href="global.html#continue_to_add_chatroom_message">continue_to_add_chatroom_message</a></li><li><a href="global.html#create_next_user_color">create_next_user_color</a></li><li><a href="global.html#create_response_statement_object">create_response_statement_object</a></li><li><a href="global.html#create_user_style">create_user_style</a></li><li><a href="global.html#database">database</a></li><li><a href="global.html#discerning_allow_empty">discerning_allow_empty</a></li><li><a href="global.html#empty_user_variables">empty_user_variables</a></li><li><a href="global.html#fetch_user_contacts">fetch_user_contacts</a></li><li><a href="global.html#firebase_add_contact">firebase_add_contact</a></li><li><a href="global.html#firebase_add_user_to_chatroom_event">firebase_add_user_to_chatroom_event</a></li><li><a href="global.html#firebase_create_chatroom">firebase_create_chatroom</a></li><li><a href="global.html#firebase_edit_chatroom">firebase_edit_chatroom</a></li><li><a href="global.html#firebase_remove_contact">firebase_remove_contact</a></li><li><a href="global.html#flash_room_on_menu">flash_room_on_menu</a></li><li><a href="global.html#human_readable_timestamp">human_readable_timestamp</a></li><li><a href="global.html#init_chat_section">init_chat_section</a></li><li><a href="global.html#init_modal_button_functions">init_modal_button_functions</a></li><li><a href="global.html#init_user">init_user</a></li><li><a href="global.html#initialize_app">initialize_app</a></li><li><a href="global.html#load_user_profile">load_user_profile</a></li><li><a href="global.html#message_received">message_received</a></li><li><a href="global.html#navigation_setup">navigation_setup</a></li><li><a href="global.html#populate_object_field">populate_object_field</a></li><li><a href="global.html#populate_profile_parameters">populate_profile_parameters</a></li><li><a href="global.html#populate_user_data">populate_user_data</a></li><li><a href="global.html#preview_image">preview_image</a></li><li><a href="global.html#print_user_contacts">print_user_contacts</a></li><li><a href="global.html#queued_view_profile_user_id">queued_view_profile_user_id</a></li><li><a href="global.html#received_user_contacts_list">received_user_contacts_list</a></li><li><a href="global.html#received_user_profile">received_user_profile</a></li><li><a href="global.html#remove_allow_empty_children">remove_allow_empty_children</a></li><li><a href="global.html#remove_modal_body_content">remove_modal_body_content</a></li><li><a href="global.html#reset_gui">reset_gui</a></li><li><a href="global.html#resize_menu_button">resize_menu_button</a></li><li><a href="global.html#retrieve_user_info">retrieve_user_info</a></li><li><a href="global.html#room_selected">room_selected</a></li><li><a href="global.html#scroll_to_last_row">scroll_to_last_row</a></li><li><a href="global.html#send_message_event">send_message_event</a></li><li><a href="global.html#setup_navigation_listeners">setup_navigation_listeners</a></li><li><a href="global.html#show_queued_modal">show_queued_modal</a></li><li><a href="global.html#update_current_user_info">update_current_user_info</a></li><li><a href="global.html#update_user_data_in_gui">update_user_data_in_gui</a></li><li><a href="global.html#user_contacts">user_contacts</a></li><li><a href="global.html#user_info">user_info</a></li><li><a href="global.html#user_profiles">user_profiles</a></li><li><a href="global.html#user_rooms">user_rooms</a></li><li><a href="global.html#user_tokens">user_tokens</a></li><li><a href="global.html#user_uid">user_uid</a></li><li><a href="global.html#vars_remove_contact">vars_remove_contact</a></li><li><a href="global.html#view_room_info_modal_prep">view_room_info_modal_prep</a></li><li><a href="global.html#view_user_profile_modal_prep">view_user_profile_modal_prep</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Oct 20 2021 18:29:45 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
